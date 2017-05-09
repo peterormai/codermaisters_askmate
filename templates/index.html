@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+  </head>
+  <body>
+  <table class="mainlist">
+    {% for items in data_list %}
+    <tr>
+      {% for item in items %}
+      <td></td>
+      {% endfor %}
+    </tr>  
+    {% endfor %}
+  </table>
+  </body>
+</html>
