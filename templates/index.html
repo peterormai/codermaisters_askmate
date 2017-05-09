@@ -6,14 +6,49 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
   </head>
   <body>
-  <table class="mainlist">
-    {% for items in data_list %}
-    <tr>
-      {% for item in items %}
-      <td></td>
+    <form class="sortby" action="/sortby" method="POST">
+      <select name="sortby" required>
+          <option value="ID">ID</option>
+          <option value="Title">Title</option>
+          <option value="User Story">User Story</option>
+          <option value="Acceptance Criteria">Acceptance Criteria</option>
+          <option value="Business Value">Business Value</option>
+          <option value="Estimation (h)">Estimation (h)</option>
+          <option value="Status">Status</option>
+      </select>
+      <label><input id="searchbutton" type="submit" value="Sort it!" /></label>
+    </form>
+    <table class="topmenu">
+      <tr>
+        <td>{{ top_menu[0] }}</td>
+        <td>{{ top_menu[1] }}</td>
+        <td>{{ top_menu[2] }}</td>
+        <td>{{ top_menu[3] }}</td>
+        <td>{{ top_menu[4] }}</td>
+        <td>{{ top_menu[5] }}</td>
+        <td>{{ top_menu[6] }}</td>
+      </tr>
+    </table>
+    <table class="mainlist">
+      {% for item in data_list %}
+      <tr>
+        <td class="cell-id">{{ item[0] }}</td>
+        <td class="cell-time">{{ item[1] }}</td>
+        <td class="cell-view">{{ item[2] }}</td>
+        <td class="cell-vote">{{ item[3] }}</td>
+        <td class="cell-title">{{ item[4] }}</td>
+        <td class="cell-edit">
+          <a href= /story/{{ item[0] }}>
+              <img src="http://www.argus-tv.com/wiki/images/e/eb/ICN_EDIT_GREEN.PNG" height="20px" width="20px"/>
+          </a>
+        </td class="cell-delete">
+        <td>
+          <form action="/delete/{{ item[0] }}" method="post">
+            <input type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png" height="20px" width="20px"/> 
+          </form>
+        </td>
+      </tr>  
       {% endfor %}
-    </tr>  
-    {% endfor %}
-  </table>
+    </table>
   </body>
 </html>
