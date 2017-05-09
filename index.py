@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 @app.route('/list', methods=['GET'])
 @app.route('/', methods=['GET'])
-def list_page():
+def list_questions():
     with open('database.csv') as data:
         data_list = data.read().splitlines()
         data_list = [item.split(",") for item in data_list]
@@ -56,19 +56,6 @@ def handle_like(id, like_value):
         writer = csv.writer(csvfile)
         writer.writerows(data_list)
     return redirect("/list")
-
-
-@app.route("/edit/<int:id>/", methods=['GET'])
-def handle_like(id):
-    with open('database.csv') as data:
-        data_list = data.read().splitlines()
-        data_list = [item.split("ß¤") for item in data_list]
-        selected_story = []
-        for item in data_list:
-            if int(item[0]) == int(id):
-                selected_story = item
-
-
 
 
 def main():
