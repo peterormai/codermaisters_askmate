@@ -27,7 +27,7 @@ table.mainlist {
 
 /*front page top menu*/
 table.topmenu {
-    font-size: 1vw;
+    font-size: 0.9vw;
     top: 0px;
     position:sticky;
     width: 100%;
@@ -37,7 +37,7 @@ table.topmenu {
     background-color: #393f4d;
     color: white;
     text-align: center;
-    table-layout:fixed;
+    /*table-layout:fixed;*/
     color: #feda6a;
     margin-right: 0px;
     margin-left: auto;
@@ -55,6 +55,9 @@ td a {
     display:block;
     width:100%;
     text-decoration: none;
+}
+.cellid  {
+    width: 50%;
 }
 /*List on the frontpage*/
 
@@ -76,18 +79,22 @@ div.create input:hover { opacity: 1; -webkit-filter: brightness(150%); }
 /*sort_by right bottom corner*/
 form.sortby {
     position: fixed;
-    bottom: 20px;
-    right: 80px;
+    bottom: 100px;
+    right: 30px;
 }   
 form.sortby input {
     border-radius: 5px;
     background-color: #535c70;;
     color: white;
-    border: 0px solid black;
+    border: 5px solid #535c70;;
 }
 form.sortby select {
     border-radius: 5px;
     background-color: #535c70;;
     color: white;
-    border: 0px solid black;
+    border: 5px solid #535c70;
+}
+
+#toalign img {
+    vertical-align: middle;
 }
