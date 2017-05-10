@@ -9,12 +9,6 @@ def question():
     return render_template("new_question.html")
 
 
-def count_lines():
-    with open("new_questions.csv") as file:
-        for i, line in enumerate(file):
-            pass
-
-
 @app.route("/new_question", methods=["POST"])
 def submit_new_question():
     new_question_title = request.form["new_question"]
@@ -40,6 +34,8 @@ def submit_new_question():
         file.write(str(new_question_message + "\n"))
 
     return render_template("new_question.html")
+
+    # redirect /w Peti's page at the end !!!!!! ****
 
 
 if __name__ == "__main__":
