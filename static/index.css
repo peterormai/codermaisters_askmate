@@ -8,7 +8,7 @@ body {
 /*List on the frontpage*/
 table.mainlist {
     border: 1px solid black;
-    border-radius: 5px;
+    border-radius: 0px;
     border-spacing: 2px;
     font-family: Tahoma, Geneva, sans-serif;
     font-style: italic;
@@ -19,7 +19,7 @@ table.mainlist {
     width: 100%;
     word-wrap:break-word;
     table-layout:fixed;
-    background-color: #393f4d;
+    background-color: #434b5b;
     margin-right: 0px;
     margin-left: auto;
 }
@@ -32,9 +32,9 @@ table.topmenu {
     position:sticky;
     width: 100%;
     padding: 5px 5px 0px 5px;
-    border-radius: 5px;
+    border-radius: 0px;
     border-spacing: 2px;
-    background-color: #393f4d;
+    background-color: #434b5b;
     color: white;
     text-align: center;
     /*table-layout:fixed;*/
@@ -43,14 +43,19 @@ table.topmenu {
     margin-left: auto;
     height: 30px;
     border: 1px solid black;
+    table-layout:fixed;
 }
 td {
     padding: 4px;
     cursor:pointer;
     border: 1px solid black;
 }
-tr:hover { background-color: #434b5b; }
-td:hover { background-color: #535c70; transition: background-color 1s ease-in; }
+tr:hover { background-color: #535c70; }
+td:hover { 
+    transition: background-color 1s ease-in; 
+    font-size: 0.9vw;
+    background-color: #8f9dbf;
+    }
 td a {
     display:block;
     width:100%;
