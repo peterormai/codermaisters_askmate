@@ -10,18 +10,31 @@ h1 {
 }
 
 form.update textarea {
-    width: 90%;
-    height: 20%;
+    width: 95%;
+    height: 100px;
+    background-color: #8f9dbf;
+    border: 0px;
+    color: white;
+    padding: 5px 0px 5px 0px;
 }
-
+label {
+    font-size: 16px;
+}
 div.updatediv {
     color: white;
+    top: 50px;
     width: 50%;
     height: 100%;
     background-color: #535c70;
     margin: 0 auto;
     padding: 20px 0px 50px 0px;
+    border: 0px solid #acbde5;
 }
 #submit {
-    width: 90%;
+    
+    width: 95%;
+    background-color: #8f9dbf;
+    border: 0px;
+    padding: 5px;
+    color: white;
 }

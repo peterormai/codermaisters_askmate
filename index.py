@@ -3,6 +3,7 @@ from flask import render_template
 from flask import request
 from flask import redirect
 import csv
+import time
 
 app = Flask(__name__)
 
@@ -13,6 +14,8 @@ def list_questions():
     with open('database.csv') as data:
         data_list = data.read().splitlines()
         data_list = [item.split(",") for item in data_list]
+    for item in data_list:
+        item[1] = time.strftime("%D %H:%M", time.localtime(int(item[1])))
     title = "Cödermeisters's ask-mate"
     top_menu = ['ID', 'Created at', 'Views', 'Votes', 'Title', 'Edit', 'Delete', "Like", "Dislike"]
     return render_template('index.html', title=title, data_list=data_list, top_menu=top_menu)
@@ -37,6 +40,8 @@ def sort_by():
             data_list = sorted(data_list, key=lambda x: int(x[3]))
         elif search_key == 'title':
             data_list = sorted(data_list, key=lambda x: str(x[4]))
+        for item in data_list:
+            item[1] = time.strftime("%D %H:%M", time.localtime(int(item[1])))
     return render_template('index.html', data_list=data_list, title=title, top_menu=top_menu)
 
 
@@ -77,7 +82,7 @@ def update_question(id):
         data_list = [item.split(",") for item in data_list]
         for item in data_list:
             if int(item[0]) == int(id):
-                item[4] = selected_question
+                item[4] = selected_question.replace("\r\n", " ")
                 item[2] = str(int(item[2]) + 1)
 
     with open('database.csv', 'w') as file:
