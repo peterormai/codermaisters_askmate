@@ -6,14 +6,60 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
   </head>
   <body>
-  <table class="mainlist">
-    {% for items in data_list %}
-    <tr>
-      {% for item in items %}
-      <td></td>
+    <form class="sortby" action="/sortby" method="POST">
+      <select id="sort" name="sortby" required>
+          <option value="ID">ID</option>
+          <option value="created">Create date</option>
+          <option value="views">Views</option>
+          <option value="votes">Votes</option>
+          <option value="title">Question</option>
+      </select>
+      <label for="sort" ><input id="sortit" type="submit" value="Sort it!" /></label>
+    </form>
+    <table class="topmenu">
+      <tr>
+        <td width="5%">{{ top_menu[0] }}</td>
+        <td width="10%">{{ top_menu[1] }}</td>
+        <td width="5%">{{ top_menu[2] }}</td>
+        <td width="5%">{{ top_menu[3] }}</td>
+        <td width="45%">{{ top_menu[4] }}</td>
+        <td width="5%">{{ top_menu[5] }}</td>
+        <td width="5%">{{ top_menu[6] }}</td>
+        <td width="5%">{{ top_menu[7] }}</td>
+        <td width="5%">{{ top_menu[8] }}</td>
+      </tr>
+    </table>
+    <table class="mainlist">
+      {% for item in data_list %}
+      <tr>
+        <td width="5%">{{ item[0] }}</td>
+        <td width="10%">{{ item[1] }}</td>
+        <td width="5%">{{ item[2] }}</td>
+        <td width="5%">{{ item[3] }}</td>
+        <td width="45%">{{ item[4] }}</td>
+        <td width="5%">
+          <a href= /questions/{{ item[0] }}>
+              <img src="http://www.argus-tv.com/wiki/images/e/eb/ICN_EDIT_GREEN.PNG" height="20px" width="20px"/>
+          </a>
+        </td class="cell-delete">
+        <td width="5%">
+          <form action="/delete/{{ item[0] }}" method="post">
+            <input type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png" height="20px" width="20px"/> 
+          </form>
+        </td>
+        <td width="5%">
+          <a href= /like/{{ item[0] }}/1> <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/Facebook_like_thumb.png" height="20px" width="20px"/></a>
+        </td>
+        <td width="5%">
+          <a href= /like/{{ item[0] }}/0> <img src="http://www.freeiconspng.com/uploads/dislike-button-png-1.png" height="20px" width="20px"/></a>
+        </td>
+      </tr>  
       {% endfor %}
-    </tr>  
-    {% endfor %}
-  </table>
+    </table>
+    <div class="create">
+      <form action="/story">
+          <input type="image" src="http://www.freeiconspng.com/uploads/add-create-new-plus-icon-26.png"/> 
+      </form>
+  </div>
   </body>
 </html>

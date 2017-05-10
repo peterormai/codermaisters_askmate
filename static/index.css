@@ -1,3 +1,93 @@
 body {
-    color: yellow;
+    background-color: #393f4d;
+    margin: 0;
+    font-size: 0.8vw;
+    text-align: center;
+}
+
+/*List on the frontpage*/
+table.mainlist {
+    border: 1px solid black;
+    border-radius: 5px;
+    border-spacing: 2px;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-style: italic;
+    color: white;
+    box-shadow: 10px -4px 25px 2px rgba(0,0,0,0.75);
+    padding: 5px;
+    margin-top: 3px;
+    width: 100%;
+    word-wrap:break-word;
+    table-layout:fixed;
+    background-color: #393f4d;
+    margin-right: 0px;
+    margin-left: auto;
+}
+
+
+/*front page top menu*/
+table.topmenu {
+    font-size: 0.9vw;
+    top: 0px;
+    position:sticky;
+    width: 100%;
+    padding: 5px 5px 0px 5px;
+    border-radius: 5px;
+    border-spacing: 2px;
+    background-color: #393f4d;
+    color: white;
+    text-align: center;
+    /*table-layout:fixed;*/
+    color: #feda6a;
+    margin-right: 0px;
+    margin-left: auto;
+    height: 30px;
+    border: 1px solid black;
+}
+td {
+    padding: 4px;
+    cursor:pointer;
+    border: 1px solid black;
+}
+tr:hover { background-color: #434b5b; }
+td:hover { background-color: #535c70; transition: background-color 1s ease-in; }
+td a {
+    display:block;
+    width:100%;
+    text-decoration: none;
+}
+/*List on the frontpage*/
+
+
+/*create button at the right bottom corner*/
+div.create {
+    position: fixed;
+    bottom: 30px;
+    right: 50px;
+}
+div.create input {
+    width: 60px;
+    height: 60px;
+    opacity: 0.7;
+}
+div.create input:hover { opacity: 1; -webkit-filter: brightness(150%); }
+/*create button at the right bottom corner*/
+
+/*sort_by right bottom corner*/
+form.sortby {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+}   
+form.sortby input {
+    border-radius: 5px;
+    background-color: #535c70;;
+    color: white;
+    border: 5px solid #535c70;;
+}
+form.sortby select {
+    border-radius: 5px;
+    background-color: #535c70;;
+    color: white;
+    border: 5px solid #535c70;
 }
