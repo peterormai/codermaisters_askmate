@@ -78,6 +78,7 @@ def update_question(id):
         for item in data_list:
             if int(item[0]) == int(id):
                 item[4] = selected_question
+                item[2] = str(int(item[2]) + 1)
 
     with open('database.csv', 'w') as file:
         for item in data_list:
