@@ -19,7 +19,7 @@ def question_display(question_id):
         question_list = [item.split(",") for item in question_list]
         selected_question = []
         for item in question_list:
-            if int(item[0]) == int(question_id):
+            if int(item[0]) == question_id:
                 selected_question = item
     with open('answer.csv') as answer:
         answer_list = answer.read().splitlines()
@@ -41,7 +41,7 @@ def delete_answer(answer_id):
         answer_list = answer.read().splitlines()
         answer_list = [item.split(",") for item in answer_list]
         for item in answer_list:
-            if int(item[0]) == int(answer_id):
+            if int(item[0]) == answer_id:
                 answer_list.remove(item)
                 question_id = item[3]
     with open('answer.csv', 'w') as file:
@@ -52,13 +52,13 @@ def delete_answer(answer_id):
     return redirect(question_url)
 
 
-@app.route('/question/<int:id>/delete', methods=['POST'])
-def delete_question(id):
+@app.route('/question/<int:question_id>/delete', methods=['POST'])
+def delete_question(question_id):
     with open('question.csv') as question:
         question_list = question.read().splitlines()
         question_list = [item.split(",") for item in question_list]
         for item in question_list:
-            if int(item[0]) == int(id):
+            if int(item[0]) == question_id:
                 question_list.remove(item)
     with open('question.csv', 'w') as file:
         for item in question_list:
@@ -69,7 +69,7 @@ def delete_question(id):
         answer_list = [item.split(",") for item in answer_list]
         new_answer_list = []
         for item in answer_list:
-            if int(item[3]) != int(id):
+            if int(item[3]) != question_id:
                 new_answer_list.append(item)
     with open('answer.csv', 'w') as file:
         for item in new_answer_list:
@@ -85,12 +85,7 @@ def main():
 if __name__ == '__main__':
     main()
 
-# GIT!!!!!!!!
-# unix base 64?
-# több functionbe?
+
 # kérdés url nem szűnik meg
 # követelményeket megnézni, feladatot újraolvasni, git!!!!!
-# HOLNAP: szebb html megjelenítés, clean code, követelményeknek megfelelő változtatások
 # hibakezelés, 404, vessző, enter
-# answe_id jav
-# id int??
