@@ -1,0 +1,27 @@
+body {
+    background-color: #393f4d;
+    margin: 0;
+    font-size: 0.8vw;
+    text-align: center;
+}
+
+h1 {
+    color: #feda6a;
+}
+
+form.update textarea {
+    width: 90%;
+    height: 20%;
+}
+
+div.updatediv {
+    color: white;
+    width: 50%;
+    height: 100%;
+    background-color: #535c70;
+    margin: 0 auto;
+    padding: 20px 0px 50px 0px;
+}
+#submit {
+    width: 90%;
+}

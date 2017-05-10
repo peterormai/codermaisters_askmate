@@ -41,7 +41,7 @@ table.topmenu {
     color: #feda6a;
     margin-right: 0px;
     margin-left: auto;
-    height: 50px;
+    height: 30px;
     border: 1px solid black;
 }
 td {
@@ -55,9 +55,6 @@ td a {
     display:block;
     width:100%;
     text-decoration: none;
-}
-.cellid  {
-    width: 50%;
 }
 /*List on the frontpage*/
 
@@ -93,8 +90,4 @@ form.sortby select {
     background-color: #535c70;;
     color: white;
     border: 5px solid #535c70;
-}
-
-#toalign img {
-    vertical-align: middle;
 }

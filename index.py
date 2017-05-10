@@ -58,6 +58,33 @@ def handle_like(id, like_value):
     return redirect("/list")
 
 
+@app.route("/questions/<int:id>", methods=["GET"])
+def show_question(id):
+    with open('database.csv') as data:
+        data_list = data.read().splitlines()
+        data_list = [item.split(",") for item in data_list]
+        for item in data_list:
+            if int(item[0]) == int(id):
+                selected_question = item
+        return render_template('update.html', selected_question=selected_question)
+
+
+@app.route("/questions/<int:id>", methods=["POST"])
+def update_question(id):
+    selected_question = request.form["question_update"]
+    with open('database.csv') as data:
+        data_list = data.read().splitlines()
+        data_list = [item.split(",") for item in data_list]
+        for item in data_list:
+            if int(item[0]) == int(id):
+                item[4] = selected_question
+
+    with open('database.csv', 'w') as file:
+        for item in data_list:
+            file.write(",".join(item) + "\n")
+    return redirect("/list")
+
+
 def main():
     app.run(debug=None)
 

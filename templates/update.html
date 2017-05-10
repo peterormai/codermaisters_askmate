@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='update.css') }}">
+  </head>
+  <body>
+      <div class="updatediv">
+          <h1>Update your question</h1>
+          <form class="update" action="/questions/{{ selected_question[0] }}", method="POST">
+          <label for id="question_area">Your question</label>
+          <textarea type="text" id="question_area" name="question_update">{{ selected_question[4] }}</textarea>
+          <input id="submit" type="submit" value="Submit" />
+          </form>
+      </div>
+  </body>
+</html>
