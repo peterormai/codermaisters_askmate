@@ -9,10 +9,10 @@
             <h3>New Question</h3>
 
             <form action="/new_question" method="POST">
-                Short title of question: 
-                <input type="text" name="new_question">
+                Question title: 
+                <input type="text" name="new_question" minlength=10 placeholder="Min. 10 characters">
                 <br><br>
-                Please explain if neccessary:
+                Question story:
                 <textarea type="text" name="new_question_long" ></textarea>
                 <br>
                 <input id=submit_new_question type="Submit" value="Add new question">
