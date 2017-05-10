@@ -83,12 +83,16 @@ def update_question(id):
         for item in data_list:
             if int(item[0]) == int(id):
                 item[4] = selected_question.replace("\r\n", " ")
-                item[2] = str(int(item[2]) + 1)
 
     with open('database.csv', 'w') as file:
         for item in data_list:
             file.write(",".join(item) + "\n")
     return redirect("/list")
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html')
 
 
 def main():
