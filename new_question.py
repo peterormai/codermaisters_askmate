@@ -13,6 +13,7 @@ def question():
 def submit_new_question():
     new_question_title = request.form["new_question"]
     new_question_message = request.form["new_question_long"]
+    picture_url = request.form["picture"]
     count_view = 0
     count_like = 0
     question_time = time.time()
@@ -31,11 +32,12 @@ def submit_new_question():
         file.write(str(count_view) + ",")
         file.write(str(count_like) + ",")
         file.write(str(new_question_title + ","))
-        file.write(str(new_question_message + "\n"))
+        file.write(str(new_question_message + ","))
+        file.write(str(picture_url + "\n"))
 
     return render_template("new_question.html")
 
-    # redirect /w Peti's page at the end !!!!!! ****
+    # redirect to Peti's page at the end with ...question/current_id !!!!!! ****
 
 
 if __name__ == "__main__":
