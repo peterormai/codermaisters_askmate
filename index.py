@@ -194,7 +194,7 @@ def add_answer(question_id):
     answer_id = file_handler.decode_file('database/answer.csv')
     vote_number = 0
     picture_url = request.form["picture"]
-    picture_encoded = file_handler.encode_string(picture_url)
+    picture_encoded = file_handler.encode_string(request.form["picture"])
     if len(request.form['answer']) < 10:
         return redirect('/question/' + str(question_id) + '/new_answer')
     else:
@@ -203,8 +203,8 @@ def add_answer(question_id):
             file.write(str(int(time.time())) + ',')
             file.write(str(vote_number) + ',')
             file.write(str(question_id) + ',')
-            file.write(str(file_handler.file_handler.encode_string(request.form['answer'])) + ',')
-            file.write(str(picture_encoded) + '\n')  # This will be the image
+            file.write(str(file_handler.encode_string(request.form['answer'])) + ',')
+            file.write(str(picture_encoded) + '\n')
         return redirect('/list')
 
 # New question
