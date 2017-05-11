@@ -133,13 +133,19 @@ div.leftoptions input {
 /*create button at the right bottom corner*/
 div.create {
     position: fixed;
-    bottom: 80px;
-    right: 20px;
+    bottom: 60px;
+    right: 120px;
 }
 div.create input {
     width: 60px;
     height: 60px;
     opacity: 0.7;
+}
+
+#home {
+    position: fixed;
+    bottom: 60px;
+    right: 50px;
 }
 div.create input:hover { opacity: 1; -webkit-filter: brightness(150%); }
 /*create button at the right bottom corner*/

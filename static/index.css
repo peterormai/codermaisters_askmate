@@ -68,12 +68,18 @@ td a {
 div.create {
     position: fixed;
     bottom: 60px;
-    right: 50px;
+    right: 120px;
 }
 div.create input {
     width: 60px;
     height: 60px;
     opacity: 0.7;
+}
+
+#home {
+    position: fixed;
+    bottom: 60px;
+    right: 50px;
 }
 div.create input:hover { opacity: 1; -webkit-filter: brightness(150%); }
 /*create button at the right bottom corner*/
@@ -96,3 +102,4 @@ form.sortby select {
     color: white;
     border: 5px solid #535c70;
 }
+

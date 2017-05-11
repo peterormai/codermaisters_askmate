@@ -92,10 +92,13 @@
     </table>
 
     <div class="create">
-      <form action="/new_question" method="POST">
+      <form action="/question/{{ question[0] }}/new_answer">
           <input type="image" src="http://www.freeiconspng.com/uploads/add-create-new-plus-icon-26.png"/>
+      </form>
+      <form id="home" action="/">
           <input type="image" src="http://icons.iconarchive.com/icons/robsonbillponte/iRob/512/Folder-Home-Folder-icon.png"/>
       </form>
+  </div>
     <!--<form class="sortby" action="/sortby" method="POST">
       <select id="sort" name="sortby" required>
           <option value="ID">ID</option>
