@@ -66,12 +66,11 @@
         </tr>
     </table>-->
 
-    <table class="answer">
         {% for items in answers %}
         <table class="answers">
-            <tr>
-                <td>ID: {{ items[0] }}</td>
-                <td>Question ID: {{ items[3] }}</td>
+            <tr class="atrib">
+                <td width="50px">ID: {{ items[0] }}</td>
+                <td width="100px">Question ID: {{ items[3] }}</td>
                 <td>Submission Time: {{ items[1] }}</td>
                 <td>Votes: {{ items[2] }}</td>
                 <td>
@@ -82,14 +81,13 @@
             </tr>
         </table>
         <table class="answers">
-            <tr>
+            <tr class="text">
                 <td width="70%">{{ items[4] }}</td>
                 <td width="30%"><img class="uploaded" src="{{ question[5] }}"></td>
             
             </tr>
         </table>
         {% endfor %}
-    </table>
 
     <div class="create">
       <form action="/question/{{ question[0] }}/new_answer">
