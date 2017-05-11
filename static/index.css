@@ -50,6 +50,10 @@ td {
     cursor:pointer;
     border: 1px solid black;
 }
+td a {
+    color: inherit;
+    text-decoration: none;
+}
 tr:hover { background-color: #535c70; }
 td:hover { 
     transition: background-color 1s ease-in; 

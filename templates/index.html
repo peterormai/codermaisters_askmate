@@ -32,11 +32,11 @@
     <table class="mainlist">
       {% for item in data_list %}
       <tr>
-        <td width="5%">{{ item[0] }}</td>
-        <td width="10%">{{ item[1] }}</td>
-        <td width="5%">{{ item[2] }}</td>
-        <td width="5%">{{ item[3] }}</td>
-        <td width="45%">{{ item[4] }}</td>
+        <td width="5%"><a href="/question/{{ item[0] }}">{{ item[0] }}</td>
+        <td width="10%"><a href="/question/{{ item[0] }}">{{ item[1] }}</td>
+        <td width="5%"><a href="/question/{{ item[0] }}">{{ item[2] }}</td>
+        <td width="5%"><a href="/question/{{ item[0] }}">{{ item[3] }}</td>
+        <td width="45%"><a href="/question/{{ item[0] }}">{{ item[4] }}</td>
         <td width="5%">
           <a href= /question/{{ item[0] }}/edit>
               <img src="http://www.argus-tv.com/wiki/images/e/eb/ICN_EDIT_GREEN.PNG" height="20px" width="20px"/>
