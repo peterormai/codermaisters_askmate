@@ -67,7 +67,7 @@ td a {
 /*create button at the right bottom corner*/
 div.create {
     position: fixed;
-    bottom: 30px;
+    bottom: 60px;
     right: 50px;
 }
 div.create input {
@@ -81,7 +81,7 @@ div.create input:hover { opacity: 1; -webkit-filter: brightness(150%); }
 /*sort_by right bottom corner*/
 form.sortby {
     position: fixed;
-    bottom: 100px;
+    bottom: 30px;
     right: 30px;
 }   
 form.sortby input {

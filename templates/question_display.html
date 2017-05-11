@@ -4,27 +4,79 @@
 
 <head>
     <title>AskMate - {{ webpage_title }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='question_display.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='answers.css') }}">
 </head>
 <body>
-    <table class="question">
+    <table>
         <tr>
-            <td><textarea type="text" value="" id="title" name="title">{{ question[4] }}</textarea /></td>
-            <td><textarea type="text" value="" id="message" name="message">{{ question[5] }}</textarea /></td>
-            <td><textarea type="text" value="" id="question" name="question">{{ question[6] }}</textarea /></td>
+            <td>
+                <textarea type="text" value="">{{ question[4] }}</textarea/>
+            </td>
         </tr>
-        <tr>
-            <td><textarea type="text" value="" id="question" name="question">{{ question[0] }}</textarea /></td>
-            <td><textarea type="text" value="" id="question" name="question">{{ question[1] }}</textarea /></td>
-            <td><textarea type="text" value="" id="question" name="question">{{ question[2] }}</textarea /></td>
-            <td><textarea type="text" value="" id="question" name="question">{{ question[3] }}</textarea /></td>
 
-            <td><form action="/question/{{ question[0] }}/delete" method="post">
-            <input type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png" height="20px" width="20px"/> 
-            </form>
+        <tr>
+            <td width="50%">
+                <textarea type="text" value="">{{ question[5] }}</textarea/>
+            </td>
+        </tr>
+
+        <tr>
+            <td width="20%">
+                <textarea type="text" value="">{{ question[6] }}</textarea>
+            </td>
+        </tr>
+
+        <tr>
+            <td width="20%">
+                <textarea type="text" value="">{{ question[0] }}</textarea>
+            </td>
+        </tr>
+
+        <tr>
+            <td width="20%">
+                <textarea type="text" value="">{{ question[1] }}</textarea>
+            </td>
+        </tr>
+
+        <tr>
+            <td width="20%">
+                <textarea type="text" value="">{{ question[2] }}</textarea>
+            </td>
+        </tr>
+
+        <tr>
+            <td width="20%">
+                <textarea type="text" value="">{{ question[3] }}</textarea>
             </td>
         </tr>
     </table>
+        <!--<tr class="questions_details">
+            <td width="5%" ><textarea type="text" value="">{{ question[0] }}</textarea /></td>
+            <td width="10%" ><textarea type="text" value="">{{ question[1] }}</textarea /></td>
+            <td width="5%" ><textarea type="text" value="">{{ question[2] }}</textarea /></td>
+            <td width="5%" ><textarea type="text" value="">{{ question[3] }}</textarea /></td>
+
+            <td width="5%"><form action="/question/{{ question[0] }}/delete" method="post">
+            <input type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png" height="20px" width="20px"/> 
+            </form>
+            </td>
+
+            <td width="5%"><form action="/question/{{ question[0] }}/delete" method="post">
+            <input type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png" height="20px" width="20px"/> 
+            </form>
+            </td>
+
+            <td width="5%"><form action="/question/{{ question[0] }}/delete" method="post">
+            <input type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png" height="20px" width="20px"/> 
+            </form>
+            </td>
+
+            <td width="5%"><form action="/question/{{ question[0] }}/delete" method="post">
+            <input type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png" height="20px" width="20px"/> 
+            </form>
+            </td>
+        </tr>-->
+    <!--</table>
     <table class="answer">
         {% for items in answers %}
         <tr>
@@ -39,10 +91,9 @@
 
             <td><form action="/answer/{{ items[0] }}/delete" method="post">
             <input type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png" height="20px" width="20px"/> 
-            </form>
-            </td>
+            </form></td>
         </tr>
         {% endfor %}
-    </table>
+    </table>-->
 </body>
 </html>

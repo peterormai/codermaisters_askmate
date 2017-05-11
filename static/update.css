@@ -10,14 +10,16 @@ h1 {
 }
 
 form.update textarea {
-    width: 65%;
+    width: 95%;
     height: 100px;
     background-color: #8f9dbf;
     border: 0px;
     color: white;
-    padding: 5px 0px 5px 0px;
+    padding: 10px 0px 10px 0px;
 }
-
+form.update textarea:hover {
+    background-color: #a8b8e0;
+}
 label {
     font-size: 16px;
 }
@@ -41,7 +43,9 @@ div.updatediv {
     padding: 5px;
     color: white;
 }
-
+#submit:hover { 
+    background-color: #a8b8e0;
+}
 #question_input {
     width: 65%;
     height: 25px;
@@ -50,3 +54,17 @@ div.updatediv {
     color: white;
     padding: 5px 0px 5px 0px;
 }
+
+/*create button at the right bottom corner*/
+div.create {
+    position: fixed;
+    bottom: 60px;
+    right: 50px;
+}
+div.create input {
+    width: 60px;
+    height: 60px;
+    opacity: 0.7;
+}
+div.create input:hover { opacity: 1; -webkit-filter: brightness(150%); }
+/*create button at the right bottom corner*/

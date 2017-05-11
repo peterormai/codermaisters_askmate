@@ -4,6 +4,8 @@ from flask import request
 from flask import redirect
 import csv
 import time
+import display_question
+
 
 app = Flask(__name__)
 
@@ -11,6 +13,8 @@ app = Flask(__name__)
 @app.route('/list', methods=['GET'])
 @app.route('/', methods=['GET'])
 def list_questions():
+    """ lists all the questions from the database
+    """
     with open('database.csv') as data:
         data_list = data.read().splitlines()
         data_list = [item.split(",") for item in data_list]
@@ -23,6 +27,8 @@ def list_questions():
 
 @app.route("/sortby", methods=['POST'])
 def sort_by():
+    """ sorts the list based on different criterias
+    """
     title = "Super Sprinter 3000"
     top_menu = ['ID', 'Created at', 'Views', 'Votes', 'Title', 'Edit', 'Delete', "Like", "Dislike"]
     search_key = str(request.form['sortby'])
@@ -31,7 +37,7 @@ def sort_by():
         data_list = [item.split(",") for item in data_list]
         sort_value = str(request.form['sortby'])
         if search_key == 'ID':
-            data_list = sorted(data_list, key=lambda x: int(x[0]))
+            data_list = sorted(data_list, key=lambda x: x[0])
         elif search_key == 'created':
             data_list = sorted(data_list, key=lambda x: str(x[1]))
         elif search_key == 'views':
@@ -47,6 +53,9 @@ def sort_by():
 
 @app.route("/like/<int:id>/<int:like_value>", methods=['GET'])
 def handle_like(id, like_value):
+    """ receives two inputs, id and likevalue, then
+    changes the quantity of likes based on the ID row, based on likevalue.
+    """
     with open('database.csv') as data:
         data_list = data.read().splitlines()
         data_list = [item.split(",") for item in data_list]
@@ -65,6 +74,9 @@ def handle_like(id, like_value):
 
 @app.route("/questions/<int:id>", methods=["GET"])
 def show_question(id):
+    """ receives an ID from the browser then redirects to a new page where the
+    question gets displayed
+    """
     with open('database.csv') as data:
         data_list = data.read().splitlines()
         data_list = [item.split(",") for item in data_list]
@@ -76,6 +88,8 @@ def show_question(id):
 
 @app.route("/questions/<int:id>", methods=["POST"])
 def update_question(id):
+    """ The user can change the question title and description on this page
+    """
     selected_question = request.form["question_update"]
     with open('database.csv') as data:
         data_list = data.read().splitlines()
@@ -96,7 +110,7 @@ def page_not_found(e):
 
 
 def main():
-    app.run(debug=None)
+    app.run(debug=True)
 
 
 if __name__ == '__main__':
