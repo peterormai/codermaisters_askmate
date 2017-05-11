@@ -55,24 +55,37 @@
         </table>
     </div>
 
-    <!--<table class="answer">
-        {% for items in answers %}
+    <!--<table class="topmenu">
         <tr>
-            <td><textarea type="text" value="" id="answer" name="answer">{{ items[4] }}</textarea /></td>
-            <td><textarea type="text" value="" id="answer" name="answer">{{ items[5] }}</textarea /></td>
+            <td width="8%">ID</td>
+            <td width="8%">Question ID</td>
+            <td width="8%">Submission Time</td>
+            <td width="8%">Votes</td>
+            <td width="55%">Message</td>
+            <td width="20%">Image</td>
         </tr>
-        <tr>
-            <td><textarea type="text" value="" id="answer" name="answer">{{ items[0] }}</textarea /></td>
-            <td><textarea type="text" value="" id="answer" name="answer">{{ items[1] }}</textarea /></td>
-            <td><textarea type="text" value="" id="answer" name="answer">{{ items[2] }}</textarea /></td>
-            <td><textarea type="text" value="" id="answer" name="answer">{{ items[3] }}</textarea /></td>
-
-            <td><form action="/answer/{{ items[0] }}/delete" method="post">
-            <input type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png" height="20px" width="20px"/> 
-            </form></td>
-        </tr>
-        {% endfor %}
     </table>-->
+
+    <table class="answer">
+        {% for items in answers %}
+        <table class="answers">
+            <tr>
+                <td>ID: {{ items[0] }}</td>
+                <td>Question ID: {{ items[3] }}</td>
+                <td>Submission Time: {{ items[1] }}</td>
+                <td>Votes: {{ items[2] }}</td>
+            </tr>
+        </table>
+        <table class="answers">
+            <tr>
+                <td width="70%">{{ items[4] }}</td>
+                <td width="30%"><img class="uploaded" src="{{ question[5] }}"></td>
+            
+            </tr>
+        </table>
+        {% endfor %}
+    </table>
+
     <div class="create">
       <form action="/story">
           <input type="image" src="http://www.freeiconspng.com/uploads/add-create-new-plus-icon-26.png"/>
