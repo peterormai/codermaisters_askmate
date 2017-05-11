@@ -33,23 +33,23 @@
         <table>
             <tr>
                 <td>
-                    <a href= /questions/{{ question[0] }}>
+                    <a href= /question/{{ question[0] }}/edit>
                         <img src="http://www.argus-tv.com/wiki/images/e/eb/ICN_EDIT_GREEN.PNG"/>
                     </a>
                 </td>
 
                 <td>
-                    <form action="/question/{{ question[0] }}/delete" method="post">
+                    <form action="/question/{{ question[3] }}/delete" method="post">
                         <input type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png"/> 
                     </form>
                 </td>
 
                 <td>
-                    <a href= /like/{{ question[0] }}/1> <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/Facebook_like_thumb.png"/></a>
+                    <a href="/like/{{ question[0] }}/1"> <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/Facebook_like_thumb.png"/></a>
                 </td>
 
                 <td>
-                    <a href= /like/{{ question[0] }}/0> <img src="http://www.freeiconspng.com/uploads/dislike-button-png-1.png"/></a>
+                    <a href="/like/{{ question[0] }}/0"> <img src="http://www.freeiconspng.com/uploads/dislike-button-png-1.png"/></a>
                 </td>
             </tr>  
         </table>
@@ -87,10 +87,20 @@
     </table>
 
     <div class="create">
-      <form action="/story">
+      <form action="/new_question">
           <input type="image" src="http://www.freeiconspng.com/uploads/add-create-new-plus-icon-26.png"/>
           <input type="image" src="http://icons.iconarchive.com/icons/robsonbillponte/iRob/512/Folder-Home-Folder-icon.png"/>
       </form>
+    <!--<form class="sortby" action="/sortby" method="POST">
+      <select id="sort" name="sortby" required>
+          <option value="ID">ID</option>
+          <option value="created">Create date</option>
+          <option value="views">Views</option>
+          <option value="votes">Votes</option>
+          <option value="title">Question</option>
+      </select>
+      <label for="sort" ><input id="sortit" type="submit" value="Sort it!" /></label>
+    </form>-->
   </div>
 </body>
 </html>

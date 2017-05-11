@@ -133,7 +133,7 @@ div.leftoptions input {
 /*create button at the right bottom corner*/
 div.create {
     position: fixed;
-    bottom: 30px;
+    bottom: 80px;
     right: 20px;
 }
 div.create input {
@@ -201,7 +201,24 @@ table.answers img {
 }
 
 
-
+/*sort_by right bottom corner*/
+form.sortby {
+    position: fixed;
+    bottom: 30px;
+    right: 10px;
+}
+form.sortby input {
+    border-radius: 5px;
+    background-color: #393f4d;
+    color: white;
+    border: 5px solid #252933;
+}
+form.sortby select {
+    border-radius: 5px;
+    background-color: #393f4d;
+    color: white;
+    border: 5px solid #252933;
+}
 
 
 
