@@ -1,41 +1,97 @@
 body {
-    background-color: #393f4d;
+    background-color: #51596d;
+    margin: 0;
     font-size: 0.8vw;
     text-align: center;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 10px;
+}
+ 
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+/*Left navigation bar*/
+div.leftmenu ul {
+    top: 0px;
+    left: 0px;
+    list-style-type: none;
     margin: 0;
-    padding: 0;
-    height: 100%;
-}
-
-div {
-    width: 30%;
-    margin: 0 auto;
-    height: 100%;
-}
-
-table {
+    padding: 0px 0px 0px 0px;
     width: 20%;
-    margin-left: 0px;
-    margin-right: auto;
-    padding-top: 20px;
-    height: 100%;
+    background-color: #393f4d;
+    position: fixed;
+    height: 80%;
+    overflow: auto;
+    border-right: 5px solid #252933;
+
+}
+div.leftmenu li {
+    display: block;
+    padding: 20px;
+    text-decoration: none;
+    color: white;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-style: italic;
+    font-size: 0.8vw;
+    word-wrap: break-word;
+}
+div.leftmenu li:hover  { background-color: #535c70; font-size: 0.9vw; }
+div.leftmenu label {
+    display: block;
+    color: #feda6a;
+    font-weight: bold;
+    padding: 10px 0px 5px 0px;
+    text-align: left;
+    font-size: 1vw;
+        border-top: 2px solid #535c70;
+    border-bottom: 2px solid #535c70;
 }
 
-td {
-    padding: 0;
-    height: 20%;
+/*Left navigation bar*/
+
+div.leftinfo ul {
+    bottom: 0px;
+    left: 0px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0px 0px 0px 0px;
+    width: 20%;
+    height: 22%;
+    background-color: #393f4d;
+    position: fixed;
+    overflow: auto;
+    border-right: 5px solid #252933;
+
 }
-tr {
+div.leftinfo li {
+    display: block;
+    text-decoration: none;
+    color: white;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-style: italic;
+    font-size: 0.8vw;
+    word-wrap: break-word;
+}
+div.leftinfo li:hover  { background-color: #535c70; font-size: 0.9vw; }
+img {
+    width: 20%;
     height: 100%;
 }
-textarea:hover {
-    background-color: #8f9dbf
-}
-textarea {
-    width: 100%;
-    height: 200%;
-    border-radius: 0px;
-    border: #393f4d;
-    background-color: #64728c;
-    resize: none;
+div.leftinfo p {
+    display: block;
+    color: #feda6a;
+    font-weight: bold;
+    padding: 10px 0px 5px 0px;
+    text-align: left;
+    font-size: 1vw;
+    border-top: 2px solid #535c70;
+    border-bottom: 2px solid #535c70;
 }

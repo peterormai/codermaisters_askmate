@@ -7,7 +7,38 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='answers.css') }}">
 </head>
 <body>
-    <table>
+    <div class="leftmenu">
+        <ul>
+            <label for="title">Question:</label>
+            <li id="title">{{ question[4] }}</li>
+
+            <label for="question">Description:</label>  
+            <li id="question">{{ question[5] }}</li>
+
+            <label for="question">Image:</label>  
+            <li id="question"><img src="{{ question[6] }}"></li>
+        </ul>
+    </div>
+
+    <div class="leftinfo">
+        <ul>
+            <p>ID: {{ question[0] }}</p> 
+            <p>Created at: {{ question[1] }}</p>  
+            <p>Views: {{ question[2] }}</p>  
+            <p>Votes: {{ question[3] }}</p>
+            <p>
+                <a href= /questions/{{ question[0] }}>
+                    <img src="http://www.argus-tv.com/wiki/images/e/eb/ICN_EDIT_GREEN.PNG" height="20px" width="20px"/>
+                </a>
+                <form action="/question/{{ question[0] }}/delete" method="post">
+                    <input type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png" height="20px" width="20px"/> 
+                </form>
+            </p>   
+        </ul>
+    </div>
+    <div>
+    </div>
+    <!--<table>
         <tr>
             <td>
                 <textarea type="text" value="">{{ question[4] }}</textarea/>
@@ -49,7 +80,7 @@
                 <textarea type="text" value="">{{ question[3] }}</textarea>
             </td>
         </tr>
-    </table>
+    </table>-->
         <!--<tr class="questions_details">
             <td width="5%" ><textarea type="text" value="">{{ question[0] }}</textarea /></td>
             <td width="10%" ><textarea type="text" value="">{{ question[1] }}</textarea /></td>
