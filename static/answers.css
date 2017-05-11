@@ -175,8 +175,8 @@ table.topmenu tr {
 
 table.answers {
     top: 0px;
-    width: calc(80% - 4px);
-    margin-right: 0px;
+    width: calc(60% - 4px);
+    margin-right: 10%;
     margin-left: auto;
     border: 1px solid black;
     padding: 3px;
@@ -195,6 +195,7 @@ table.answers td {
     overflow: hidden;
     table-layout: fixed;
     word-wrap:break-word;
+    margin-bottom: 200px;
 }
 table.answers tr {
     padding: 4px;
