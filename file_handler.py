@@ -10,17 +10,19 @@ def list_of_files(filename):
 
 
 def encode_string(string):
-    encoded_string = str(base64.urlsafe_b64encode(string.encode()))[2:-1]
+    encoded_string = string.replace("\r\n", " ")
+    encoded_string = " ".join(encoded_string.split())
+    encoded_string = str(base64.urlsafe_b64encode(encoded_string.encode()))[2:-1]
     return encoded_string
 
 
 def decode_file(filename):
     filelist = list_of_files(filename)
-    if filename == 'answer.csv':
+    if filename == 'database/answer.csv':
         for lines in filelist:
             lines[1] = time.ctime(int(lines[1]))
             lines[4] = base64.urlsafe_b64decode(str.encode(lines[4])).decode()
-    elif filename == 'question.csv':
+    elif filename == 'database/question.csv':
         for lines in filelist:
             lines[1] = time.ctime(int(lines[1]))
             lines[4] = base64.urlsafe_b64decode(str.encode(lines[4])).decode()
@@ -32,11 +34,5 @@ def decode_file(filename):
 
 def write_to_file(filename, datalist):
     with open(filename, 'w') as file:
-        for item in datalist: 
-            file.write(','.join(item) + '\n')
-
-        
-def append_to_file(filename, datalist):
-    with open(filename, 'a') as file:
-        for item in datalist: 
+        for item in datalist:
             file.write(','.join(item) + '\n')
