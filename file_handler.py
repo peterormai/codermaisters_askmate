@@ -45,6 +45,7 @@ def decode_file(filename):
             lines[1] = time.ctime(int(lines[1]))
             lines[4] = base64.urlsafe_b64decode(str.encode(lines[4])).decode()
             lines[5] = base64.urlsafe_b64decode(str.encode(lines[5])).decode()
+            lines[6] = base64.urlsafe_b64decode(str.encode(lines[6])).decode()
     else:
         pass
     return filelist

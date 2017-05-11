@@ -93,6 +93,7 @@ def update_question(id):
     for item in data_list:
         if int(item[0]) == int(id):
             item[4] = selected_question
+            item[2] = str(int(item[2]) + 1)
     data_list = file_handler.write_to_file('database/question.csv', data_list)
     return redirect("/list")
 
@@ -105,6 +106,9 @@ def page_not_found(e):
     return render_template('404.html')
 
 
+# Display question
+
+
 @app.route('/question/<int:question_id>')
 def question_display(question_id):
     """
@@ -112,24 +116,20 @@ def question_display(question_id):
     Given the right argument, the related question will be displayed with answers to it.
     """
     webpage_title = 'Question & answers'
-    with open('database/question.csv') as question:
-        question_list = question.read().splitlines()
-        question_list = [item.split(",") for item in question_list]
-        selected_question = []
-        for item in question_list:
-            if int(item[0]) == question_id:
-                selected_question = item
-    with open('database/answer.csv') as answer:
-        answer_list = answer.read().splitlines()
-        answer_list = [item.split(",") for item in answer_list]
-        related_answers = []
-        for item in answer_list:
-            if int(item[3]) == int(question_id):
-                related_answers.append(item)
-        return render_template('question_display.html',
-                               question=selected_question,
-                               answers=related_answers,
-                               webpage_title=webpage_title)
+    question_list = file_handler.decode_file('database/question.csv')
+    selected_question = []
+    for item in question_list:
+        if int(item[0]) == question_id:
+            selected_question = item
+    answer_list = file_handler.decode_file('database/answer.csv')
+    related_answers = []
+    for item in answer_list:
+        if int(item[3]) == int(question_id):
+            related_answers.append(item)
+    return render_template('question_display.html',
+                           question=selected_question,
+                           answers=related_answers,
+                           webpage_title=webpage_title)
 
 
 @app.route('/answer/<int:answer_id>/delete', methods=['POST'])
@@ -138,17 +138,19 @@ def delete_answer(answer_id):
     Given the right argument, the related answer will be removed from the database permanently. 
     """
     question_id = 0
-    with open('database/answer.csv') as answer:
-        answer_list = answer.read().splitlines()
-        answer_list = [item.split(",") for item in answer_list]
-        for item in answer_list:
-            if int(item[0]) == answer_id:
-                answer_list.remove(item)
-                question_id = item[3]
-    with open('database/answer.csv', 'w') as file:
-        for item in answer_list:
-            answers = ','.join(item)
-            file.write(str(answers) + '\n')
+    # with open('database/answer.csv') as answer:
+    #     answer_list = answer.read().splitlines()
+    #     answer_list = [item.split(",") for item in answer_list]
+    answer_list = file_handler.list_of_files('database/answer.csv')
+    for item in answer_list:
+        if int(item[0]) == answer_id:
+            answer_list.remove(item)
+            question_id = item[3]
+    write_to_file('database/answer.csv', answer_list)
+    # with open('database/answer.csv', 'w') as file:
+    #     for item in answer_list:
+    #         answers = ','.join(item)
+    #         file.write(str(answers) + '\n')
     question_url = '/question/' + str(question_id)
     return redirect(question_url)
 
@@ -158,28 +160,21 @@ def delete_question(question_id):
     """
     Given the right argument, the related question will be removed with all the answers from the database permanently. 
     """
-    with open('database/question.csv') as question:
-        question_list = question.read().splitlines()
-        question_list = [item.split(",") for item in question_list]
-        for item in question_list:
-            if int(item[0]) == question_id:
-                question_list.remove(item)
-    with open('database/question.csv', 'w') as file:
-        for item in question_list:
-            questions = ','.join(item)
-            file.write(str(questions) + '\n')
-    with open('database/answer.csv') as answer:
-        answer_list = answer.read().splitlines()
-        answer_list = [item.split(",") for item in answer_list]
-        new_answer_list = []
-        for item in answer_list:
-            if int(item[3]) != question_id:
-                new_answer_list.append(item)
-    with open('database/answer.csv', 'w') as file:
-        for item in new_answer_list:
-            answers = ','.join(item)
-            file.write(str(answers) + '\n')
+    question_list = file_handler.list_of_files('database/question.csv')
+    for item in question_list:
+        if int(item[0]) == question_id:
+            question_list.remove(item)
+    file_handler.write_to_file('database/question.csv', question_list)
+    answer_list = file_handler.list_of_files('database/answer.csv')
+    new_answer_list = []
+    for item in answer_list:
+        if int(item[3]) != question_id:
+            new_answer_list.append(item)
+    file_handler.write_to_file('database/answer.csv', new_answer_list)
     return redirect('/')
+
+
+# New answer
 
 
 @app.route('/question/<int:question_id>/new_answer')
@@ -215,6 +210,8 @@ def add_answer(question_id):
         file.write(str('') + '\n')  # This will be the image
     return redirect('/list')
 
+# New question
+
 
 @app.route("/new_question")
 def question():
@@ -237,6 +234,7 @@ def submit_new_question():
     new_question_message = request.form["new_question_long"]
     new_question_message_encoded = file_handler.encode_string(new_question_message)
     picture_url = request.form["picture"]
+    picture_encoded = file_handler.encode_string(picture_url)
     count_view = 0
     count_like = 0
     question_time = int(time.time())
@@ -256,7 +254,7 @@ def submit_new_question():
         file.write(str(count_like) + ",")
         file.write(str(new_question_title_encoded) + ",")
         file.write(str(new_question_message_encoded) + ",")
-        file.write(str(picture_url + "\n"))
+        file.write(str(picture_encoded) + "\n")
 
     return render_template("new_question.html")
     # redirect to Peti's page at the end with ...question/current_id !!!!!! ****
