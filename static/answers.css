@@ -179,7 +179,7 @@ table.answers {
     margin-right: 10%;
     margin-left: auto;
     border: 1px solid black;
-    padding: 3px;
+    /*padding: 3px;*/
     color: #feda6a;
     background-color: #495163;
     font-size: 0.9vw;
@@ -207,6 +207,10 @@ table.answers img {
     height: 100px;
 }
 
+table.answers tr.atrib {
+    background-color: #393f4d;
+    border-color: #252933;
+}
 
 /*sort_by right bottom corner*/
 form.sortby {
