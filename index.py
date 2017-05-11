@@ -202,7 +202,11 @@ def add_answer(question_id):
         return redirect('/question/' + str(question_id) + '/new_answer')
     else:
         with open('database/answer.csv', 'a') as file:
-            file.write(str(int(answer_id[-1][0]) + 1) + ',')
+            if answer_id:
+                answer_id = int(answer_id[-1][0])
+            else:
+                answer_id = -1
+            file.write(str(answer_id + 1) + ',')
             file.write(str(int(time.time())) + ',')
             file.write(str(vote_number) + ',')
             file.write(str(question_id) + ',')
