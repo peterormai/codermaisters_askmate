@@ -8,7 +8,7 @@
   <body>
       <div class="updatediv">
           <h1>Update your question</h1>
-          <form class="update" action="/questions/{{ selected_question[0] }}", method="POST">
+          <form class="update" action="/question/{{ selected_question[0] }}/edit", method="POST">
           <label for id="question_area">Your question</label>
           <textarea type="text" id="question_area" name="question_update">{{ selected_question[4] }}</textarea>
           <input id="submit" type="submit" value="Update it!" />
