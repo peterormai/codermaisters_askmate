@@ -65,7 +65,7 @@
             <td width="20%">Image</td>
         </tr>
     </table>-->
-
+    <div class="all_answers">
         {% for items in answers %}
         <table class="answers">
             <tr class="atrib">
@@ -73,6 +73,12 @@
                 <td width="100px">Question ID: {{ items[3] }}</td>
                 <td>Submission Time: {{ items[1] }}</td>
                 <td>Votes: {{ items[2] }}</td>
+                <td>
+                    <a href= /like/{{ items[0] }}/1> <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/Facebook_like_thumb.png"/></a>
+                </td>
+                <td>
+                    <a href= /like/{{ items[0] }}/0> <img src="http://www.freeiconspng.com/uploads/dislike-button-png-1.png"/></a>
+                </td>
                 <td>
                     <form action="/answer/{{ items[0] }}/delete" method="post">
                         <input type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png" width="20px" height="20px"/> 
@@ -83,13 +89,12 @@
         <table class="answers">
             <tr class="text">
                 <td width="70%">{{ items[4] }}</td>
-                <td width="30%"><img class="uploaded" src="{{ question[5] }}"></td>
-            
+                <td width="30%"><img class="uploaded" src="{{ question[6] }}"></td>
             </tr>
         </table>
         <p></p>
         {% endfor %}
-
+    </div>
     <div class="create">
       <form action="/question/{{ question[0] }}/new_answer">
           <input type="image" src="http://www.freeiconspng.com/uploads/add-create-new-plus-icon-26.png"/>

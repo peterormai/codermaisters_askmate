@@ -130,6 +130,11 @@ div.leftoptions input {
     height: 20px;
 }
 
+div.answers img{
+    width: 20px !important;
+    height: 20px !important;
+}
+
 /*create button at the right bottom corner*/
 div.create {
     position: fixed;
@@ -172,6 +177,9 @@ table.topmenu tr {
     padding: 4px;
 }
 
+div.all_answers {
+    margin-top: 50px;
+}
 
 table.answers {
     top: 0px;
@@ -186,6 +194,7 @@ table.answers {
     border-radius: 3px;
     /*border-collapse:separate; 
     border-spacing:0.5em;*/
+    /*margin-top: 50px;*/
 }
 
 table.answers td {  
@@ -232,7 +241,10 @@ form.sortby select {
 }
 
 
-
+img {
+    width: 20px;
+    height: 20px;
+}
 
 
 
