@@ -28,3 +28,15 @@ def decode_file(filename):
     else:
         pass
     return filelist
+
+
+def write_to_file(filename, datalist):
+    with open(filename, 'w') as file:
+        for item in datalist: 
+            file.write(','.join(item) + '\n')
+
+        
+def append_to_file(filename, datalist):
+    with open(filename, 'a') as file:
+        for item in datalist: 
+            file.write(','.join(item) + '\n')
