@@ -28,7 +28,7 @@ div.leftmenu ul {
     width: 20%;
     background-color: #393f4d;
     position: fixed;
-    height: 80%;
+    height: 77%;
     overflow: auto;
     border-right: 5px solid #252933;
 
@@ -51,7 +51,7 @@ div.leftmenu label {
     padding: 10px 0px 5px 0px;
     text-align: left;
     font-size: 1vw;
-        border-top: 2px solid #535c70;
+    border-top: 2px solid #535c70;
     border-bottom: 2px solid #535c70;
 }
 
@@ -64,7 +64,7 @@ div.leftinfo ul {
     margin: 0;
     padding: 0px 0px 0px 0px;
     width: 20%;
-    height: 22%;
+    height: 23%;
     background-color: #393f4d;
     position: fixed;
     overflow: auto;
@@ -81,11 +81,9 @@ div.leftinfo li {
     word-wrap: break-word;
 }
 div.leftinfo li:hover  { background-color: #535c70; font-size: 0.9vw; }
-img {
-    width: 20%;
-    height: 100%;
-}
+
 div.leftinfo p {
+    margin: 0;
     display: block;
     color: #feda6a;
     font-weight: bold;
@@ -95,3 +93,55 @@ div.leftinfo p {
     border-top: 2px solid #535c70;
     border-bottom: 2px solid #535c70;
 }
+div.leftoptions {
+    max-height: 50px !important;
+}
+div.leftinfo p:hover { background-color: #535c70; font-size: 1.1vw; }
+
+
+
+div.leftoptions table {
+    font-size: 0.9vw;
+    top: 0px;
+    right: 0px;
+    position:fixed;
+    width: 20%;
+    height: 5%;
+    background-color: #393f4d;
+    color: #feda6a;
+    border-bottom: 4px solid #252933;
+    border-left: 4px solid #252933;
+}
+
+td:hover { 
+    transition: background-color 0.7s ease-in; 
+    background-color: #8f9dbf;
+}
+
+div.leftmenu img {
+    width: 100%;
+    height: auto;
+}
+
+div.leftoptions img {
+    width: 30px;
+    height: 30px;
+}
+div.leftoptions input {
+    width: 30px;
+    height: 30px;
+}
+
+/*create button at the right bottom corner*/
+div.create {
+    position: fixed;
+    bottom: 30px;
+    right: 20px;
+}
+div.create input {
+    width: 60px;
+    height: 60px;
+    opacity: 0.7;
+}
+div.create input:hover { opacity: 1; -webkit-filter: brightness(150%); }
+/*create button at the right bottom corner*/

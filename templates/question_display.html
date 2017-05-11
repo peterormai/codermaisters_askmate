@@ -16,7 +16,7 @@
             <li id="question">{{ question[5] }}</li>
 
             <label for="question">Image:</label>  
-            <li id="question"><img src="{{ question[6] }}"></li>
+            <li id="question"><img class="uploaded" src="{{ question[6] }}"></li>
         </ul>
     </div>
 
@@ -26,89 +26,36 @@
             <p>Created at: {{ question[1] }}</p>  
             <p>Views: {{ question[2] }}</p>  
             <p>Votes: {{ question[3] }}</p>
-            <p>
-                <a href= /questions/{{ question[0] }}>
-                    <img src="http://www.argus-tv.com/wiki/images/e/eb/ICN_EDIT_GREEN.PNG" height="20px" width="20px"/>
-                </a>
-                <form action="/question/{{ question[0] }}/delete" method="post">
-                    <input type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png" height="20px" width="20px"/> 
-                </form>
-            </p>   
         </ul>
     </div>
-    <div>
+
+    <div class="leftoptions">
+        <table>
+            <tr>
+                <td>
+                    <a href= /questions/{{ question[0] }}>
+                        <img src="http://www.argus-tv.com/wiki/images/e/eb/ICN_EDIT_GREEN.PNG"/>
+                    </a>
+                </td>
+
+                <td>
+                    <form action="/question/{{ question[0] }}/delete" method="post">
+                        <input type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png"/> 
+                    </form>
+                </td>
+
+                <td>
+                    <a href= /like/{{ question[0] }}/1> <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/Facebook_like_thumb.png"/></a>
+                </td>
+
+                <td>
+                    <a href= /like/{{ question[0] }}/0> <img src="http://www.freeiconspng.com/uploads/dislike-button-png-1.png"/></a>
+                </td>
+            </tr>  
+        </table>
     </div>
-    <!--<table>
-        <tr>
-            <td>
-                <textarea type="text" value="">{{ question[4] }}</textarea/>
-            </td>
-        </tr>
 
-        <tr>
-            <td width="50%">
-                <textarea type="text" value="">{{ question[5] }}</textarea/>
-            </td>
-        </tr>
-
-        <tr>
-            <td width="20%">
-                <textarea type="text" value="">{{ question[6] }}</textarea>
-            </td>
-        </tr>
-
-        <tr>
-            <td width="20%">
-                <textarea type="text" value="">{{ question[0] }}</textarea>
-            </td>
-        </tr>
-
-        <tr>
-            <td width="20%">
-                <textarea type="text" value="">{{ question[1] }}</textarea>
-            </td>
-        </tr>
-
-        <tr>
-            <td width="20%">
-                <textarea type="text" value="">{{ question[2] }}</textarea>
-            </td>
-        </tr>
-
-        <tr>
-            <td width="20%">
-                <textarea type="text" value="">{{ question[3] }}</textarea>
-            </td>
-        </tr>
-    </table>-->
-        <!--<tr class="questions_details">
-            <td width="5%" ><textarea type="text" value="">{{ question[0] }}</textarea /></td>
-            <td width="10%" ><textarea type="text" value="">{{ question[1] }}</textarea /></td>
-            <td width="5%" ><textarea type="text" value="">{{ question[2] }}</textarea /></td>
-            <td width="5%" ><textarea type="text" value="">{{ question[3] }}</textarea /></td>
-
-            <td width="5%"><form action="/question/{{ question[0] }}/delete" method="post">
-            <input type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png" height="20px" width="20px"/> 
-            </form>
-            </td>
-
-            <td width="5%"><form action="/question/{{ question[0] }}/delete" method="post">
-            <input type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png" height="20px" width="20px"/> 
-            </form>
-            </td>
-
-            <td width="5%"><form action="/question/{{ question[0] }}/delete" method="post">
-            <input type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png" height="20px" width="20px"/> 
-            </form>
-            </td>
-
-            <td width="5%"><form action="/question/{{ question[0] }}/delete" method="post">
-            <input type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png" height="20px" width="20px"/> 
-            </form>
-            </td>
-        </tr>-->
-    <!--</table>
-    <table class="answer">
+    <!--<table class="answer">
         {% for items in answers %}
         <tr>
             <td><textarea type="text" value="" id="answer" name="answer">{{ items[4] }}</textarea /></td>
@@ -126,5 +73,11 @@
         </tr>
         {% endfor %}
     </table>-->
+    <div class="create">
+      <form action="/story">
+          <input type="image" src="http://www.freeiconspng.com/uploads/add-create-new-plus-icon-26.png"/>
+          <input type="image" src="http://icons.iconarchive.com/icons/robsonbillponte/iRob/512/Folder-Home-Folder-icon.png"/>
+      </form>
+  </div>
 </body>
 </html>
