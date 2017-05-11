@@ -32,7 +32,7 @@ def sort_by():
     title = "Super Sprinter 3000"
     top_menu = ['ID', 'Created at', 'Views', 'Votes', 'Title', 'Edit', 'Delete', "Like", "Dislike"]
     search_key = str(request.form['sortby'])
-    data_list = file_handler.decode_file('database/question.csv')
+    data_list = file_handler.list_of_files('database/question.csv')
     sort_value = str(request.form['sortby'])
     if search_key == 'ID':
         data_list = sorted(data_list, key=lambda x: x[0])
@@ -44,8 +44,11 @@ def sort_by():
         data_list = sorted(data_list, key=lambda x: int(x[3]))
     elif search_key == 'title':
         data_list = sorted(data_list, key=lambda x: str(x[4]))
-    for item in data_list:
-        item[1] = time.strftime("%D %H:%M", time.localtime(int(item[1])))
+    for lines in data_list:
+            lines[1] = time.ctime(int(lines[1]))
+            lines[4] = base64.urlsafe_b64decode(str.encode(lines[4])).decode()
+            lines[5] = base64.urlsafe_b64decode(str.encode(lines[5])).decode()
+            lines[6] = base64.urlsafe_b64decode(str.encode(lines[6])).decode()
     return render_template('index.html', data_list=data_list, title=title, top_menu=top_menu)
 
 
