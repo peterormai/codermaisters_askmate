@@ -74,6 +74,11 @@
                 <td>Question ID: {{ items[3] }}</td>
                 <td>Submission Time: {{ items[1] }}</td>
                 <td>Votes: {{ items[2] }}</td>
+                <td>
+                    <form action="/answer/{{ items[0] }}/delete" method="post">
+                        <input type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png" width="20px" height="20px"/> 
+                    </form>
+                </td>
             </tr>
         </table>
         <table class="answers">
@@ -87,7 +92,7 @@
     </table>
 
     <div class="create">
-      <form action="/new_question">
+      <form action="/new_question" method="POST">
           <input type="image" src="http://www.freeiconspng.com/uploads/add-create-new-plus-icon-26.png"/>
           <input type="image" src="http://icons.iconarchive.com/icons/robsonbillponte/iRob/512/Folder-Home-Folder-icon.png"/>
       </form>
