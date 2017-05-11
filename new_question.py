@@ -5,14 +5,14 @@ import base64
 app = Flask(__name__)
 
 
-@app.route("/new_question")
-def question():
-    return render_template("new_question.html")
-
-
 def encode_text(plain_text):
     encoded_text = base64.urlsafe_b64encode(plain_text.encode())
     return encoded_text
+
+
+@app.route("/new_question")
+def question():
+    return render_template("new_question.html")
 
 
 @app.route("/new_question", methods=["POST"])
@@ -42,10 +42,6 @@ def submit_new_question():
         file.write(str(new_question_title_encoded)[2:-1] + ",")
         file.write(str(new_question_message_encoded)[2:-1] + ",")
         file.write(str(picture_url + "\n"))
-
-    with open("new_questions.csv", "r") as file:
-        data_list = file.read().splitlines()
-        data_list = [item.split(",") for item in data_list]
 
     return render_template("new_question.html")
 
