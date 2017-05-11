@@ -1,13 +1,16 @@
 <!doctype hmtl>
 <html>
     <head>
+        <meta charset="UTF-8">
         <title>AskMate - {{ webpage_title }}</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='update.css') }}">
     </head>
     <body>
-        <h1>Question:</h1>
-        <p>{{ question[4] }}</p>
-        <p>{{ question[5] }}</p>
-        <h2>Your answer:</h2>
+        <div class="updatediv">
+            <h1>Question:</h1>
+            <p>{{ question[4] }}</p>
+            <p>{{ question[5] }}</p>
+            <h2>Your answer:</h2>
         <p><button><a href='/list'>Back</a></button></p>
         <form action='/question/{{ question[0] }}/new_answer' method='POST'>
             <textarea rows='5' cols='100' name='answer' minlength='10'></textarea>
