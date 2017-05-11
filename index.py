@@ -31,9 +31,9 @@ def sort_by():
     """
     title = "Super Sprinter 3000"
     top_menu = ['ID', 'Created at', 'Views', 'Votes', 'Title', 'Edit', 'Delete', "Like", "Dislike"]
-    search_key = str(request.form['sortby'])
     data_list = file_handler.list_of_files('database/question.csv')
-    sort_value = str(request.form['sortby'])
+    search_key = str(request.form['sortby'])
+    sort_value = str(request.form['arrange'])
     if search_key == 'ID':
         data_list = sorted(data_list, key=lambda x: x[0])
     elif search_key == 'created':
@@ -44,6 +44,8 @@ def sort_by():
         data_list = sorted(data_list, key=lambda x: int(x[3]))
     elif search_key == 'title':
         data_list = sorted(data_list, key=lambda x: str(x[4]))
+    if sort_value == 'descending':
+        data_list = reversed(data_list)
     for lines in data_list:
             lines[1] = time.ctime(int(lines[1]))
             lines[4] = base64.urlsafe_b64decode(str.encode(lines[4])).decode()
