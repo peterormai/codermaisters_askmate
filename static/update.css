@@ -8,7 +8,10 @@ body {
 h1 {
     color: #feda6a;
 }
-
+div.update form p {
+    color:white;
+    font-size: 14px;
+}
 form.update textarea {
     width: 75%; /*Don't change it, it will be too big in new_question.html*/
     height: 100px;
