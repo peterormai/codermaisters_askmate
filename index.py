@@ -33,7 +33,6 @@ def sort_by():
     top_menu = ['ID', 'Created at', 'Views', 'Votes', 'Title', 'Edit', 'Delete', "Like", "Dislike"]
     data_list = file_handler.list_of_files('database/question.csv')
     search_key = str(request.form['sortby'])
-    sort_value = str(request.form['arrange'])
     if search_key == 'ID':
         data_list = sorted(data_list, key=lambda x: x[0])
     elif search_key == 'created':
@@ -44,23 +43,22 @@ def sort_by():
         data_list = sorted(data_list, key=lambda x: int(x[3]))
     elif search_key == 'title':
         data_list = sorted(data_list, key=lambda x: str(x[4]))
-    if sort_value == 'descending':
-        data_list = reversed(data_list)
     for lines in data_list:
-            lines[1] = time.ctime(int(lines[1]))
-            lines[4] = base64.urlsafe_b64decode(str.encode(lines[4])).decode()
-            lines[5] = base64.urlsafe_b64decode(str.encode(lines[5])).decode()
-            lines[6] = base64.urlsafe_b64decode(str.encode(lines[6])).decode()
+        lines[1] = time.ctime(int(lines[1]))
+        lines[4] = base64.urlsafe_b64decode(str.encode(lines[4])).decode()
+        lines[5] = base64.urlsafe_b64decode(str.encode(lines[5])).decode()
+        lines[6] = base64.urlsafe_b64decode(str.encode(lines[6])).decode()
     return render_template('index.html', data_list=data_list, title=title, top_menu=top_menu)
 
 
-@app.route("/like/<int:id>/<int:like_value>", methods=['GET'])
-def handle_like(id, like_value):
+@app.route("/like/<int:id>/<int:like_value>/<from_page>", methods=['GET'])
+def handle_like(id, like_value, from_page):
     """Change the number of likes according to user.
-    Receives two arguments:
+    Receives three arguments:
         - id: ID row
         - like_value: number of current likes (default is set to ‘0’)
-    Overwrites old data with new data and redirects to the ../list page.
+        - from_page: name of the current page
+    Overwrites old data with new data and redirects to the current page.
     """
     data_list = file_handler.list_of_files('database/question.csv')
     for item in data_list:
@@ -70,7 +68,31 @@ def handle_like(id, like_value):
             elif int(like_value) == 0:
                 item[3] = str(int(item[3]) - 1)
     file_handler.write_to_file('database/question.csv', data_list)
-    return redirect("/list")
+    if from_page == 'display':
+        return redirect("/question/" + str(id))
+    else:
+        return redirect("/list")
+
+
+@app.route("/like/<int:answer_id>/<from_page>/<int:like_value>", methods=['GET'])
+def answer_handle_like(answer_id, from_page, like_value):
+    """Change the number of likes according to user.
+    Receives two arguments:
+        - answer_id
+        - like_value: number of current likes (default is set to ‘0’)
+    Overwrites old data with new data and redirects to the current page.
+    """
+    data_list = file_handler.list_of_files('database/answer.csv')
+    for item in data_list:
+        if int(item[0]) == int(answer_id):
+            if int(like_value) == 1:
+                item[2] = str(int(item[2]) + 1)
+            elif int(like_value) == 0:
+                item[2] = str(int(item[2]) - 1)
+            question = item
+            break
+    file_handler.write_to_file('database/answer.csv', data_list)
+    return redirect("/question/" + str(question[3]))
 
 
 @app.route("/question/<int:id>/edit", methods=["GET"])
@@ -96,7 +118,6 @@ def update_question(id):
     for item in data_list:
         if int(item[0]) == int(id):
             item[4] = selected_question
-            item[2] = str(int(item[2]) + 1)
     data_list = file_handler.write_to_file('database/question.csv', data_list)
     return redirect("/list")
 
@@ -124,6 +145,7 @@ def question_display(question_id):
     for item in question_list:
         if int(item[0]) == question_id:
             selected_question = item
+            item[2] = str(int(item[2]) + 1)
     answer_list = file_handler.decode_file('database/answer.csv')
     related_answers = []
     for item in answer_list:

@@ -45,11 +45,11 @@
                 </td>
 
                 <td>
-                    <a href="/like/{{ question[0] }}/1"> <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/Facebook_like_thumb.png"/></a>
+                    <a href="/like/{{ question[0] }}/1/display"> <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/Facebook_like_thumb.png"/></a>
                 </td>
 
                 <td>
-                    <a href="/like/{{ question[0] }}/0"> <img src="http://www.freeiconspng.com/uploads/dislike-button-png-1.png"/></a>
+                    <a href="/like/{{ question[0] }}/0/display"> <img src="http://www.freeiconspng.com/uploads/dislike-button-png-1.png"/></a>
                 </td>
             </tr>  
         </table>
@@ -74,10 +74,10 @@
                 <td>Submission Time: {{ items[1] }}</td>
                 <td>Votes: {{ items[2] }}</td>
                 <td>
-                    <a href= /like/{{ items[0] }}/1> <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/Facebook_like_thumb.png"/></a>
+                    <a href= /like/{{ items[0] }}/ans/1> <img src="http://i.picresize.com/images/2017/05/11/qy3u.png"/></a>
                 </td>
                 <td>
-                    <a href= /like/{{ items[0] }}/0> <img src="http://www.freeiconspng.com/uploads/dislike-button-png-1.png"/></a>
+                    <a href= /like/{{ items[0] }}/ans/0> <img src="http://www.freeiconspng.com/uploads/dislike-button-png-1.png"/></a>
                 </td>
                 <td>
                     <form action="/answer/{{ items[0] }}/delete" method="post">

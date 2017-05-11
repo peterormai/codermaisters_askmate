@@ -106,4 +106,8 @@ form.sortby select {
     color: white;
     border: 5px solid #535c70;
 }
-
+#sorter {
+    position: fixed;
+    bottom: 30px;
+    right: 194px; 
+}
