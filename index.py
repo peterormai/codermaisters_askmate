@@ -15,7 +15,8 @@ app = Flask(__name__)
 @app.route('/list', methods=['GET'])
 @app.route('/', methods=['GET'])
 def list_questions():
-    """ lists all the questions from the database
+    """
+    List all questions from the database.
     """
     data_list = file_handler.decode_file('database/question.csv')
     title = "Cödermeisters's ask-mate"
@@ -25,7 +26,8 @@ def list_questions():
 
 @app.route("/sortby", methods=['POST'])
 def sort_by():
-    """ sorts the list based on different criterias
+    """
+    Sort the list by indicators.
     """
     title = "Super Sprinter 3000"
     top_menu = ['ID', 'Created at', 'Views', 'Votes', 'Title', 'Edit', 'Delete', "Like", "Dislike"]
@@ -49,8 +51,13 @@ def sort_by():
 
 @app.route("/like/<int:id>/<int:like_value>", methods=['GET'])
 def handle_like(id, like_value):
-    """ receives two inputs, id and likevalue, then
-    changes the quantity of likes based on the ID row, based on likevalue.
+    """Change the number of likes according to user.
+
+    Receives two arguments:
+        - id: ID row
+        - like_value: number of current likes (default is set to ‘0’)
+
+    Overwrites old data with new data and redirects to the ../list page.
     """
     data_list = file_handler.list_of_files('database/question.csv')
     for item in data_list:
@@ -65,8 +72,8 @@ def handle_like(id, like_value):
 
 @app.route("/question/<int:id>/edit", methods=["GET"])
 def show_question(id):
-    """ receives an ID from the browser then redirects to a new page where the
-    question gets displayed
+    """
+    Redirect to the page of the question based on the received question ID as an argument.
     """
     data_list = file_handler.decode_file('database/question.csv')
     for item in data_list:
@@ -77,7 +84,8 @@ def show_question(id):
 
 @app.route("/question/<int:id>/edit", methods=["POST"])
 def update_question(id):
-    """ The user can change the question title and description on this page
+    """
+    Redirect to a page where the user can change the question title and description.
     """
     selected_question = request.form["question_update"]
     selected_question = file_handler.encode_string(selected_question)
@@ -91,13 +99,18 @@ def update_question(id):
 
 @app.errorhandler(404)
 def page_not_found(e):
+    """
+    Error handling for wrong DNS address request.
+    """
     return render_template('404.html')
-
-# Display question
 
 
 @app.route('/question/<int:question_id>')
 def question_display(question_id):
+    """
+    Display the question with all the answers below.
+    Given the right argument, the related question will be displayed with answers to it.
+    """
     webpage_title = 'Question & answers'
     with open('database/question.csv') as question:
         question_list = question.read().splitlines()
@@ -121,6 +134,9 @@ def question_display(question_id):
 
 @app.route('/answer/<int:answer_id>/delete', methods=['POST'])
 def delete_answer(answer_id):
+    """
+    Given the right argument, the related answer will be removed from the database permanently. 
+    """
     question_id = 0
     with open('database/answer.csv') as answer:
         answer_list = answer.read().splitlines()
@@ -139,6 +155,9 @@ def delete_answer(answer_id):
 
 @app.route('/question/<int:question_id>/delete', methods=['POST'])
 def delete_question(question_id):
+    """
+    Given the right argument, the related question will be removed with all the answers from the database permanently. 
+    """
     with open('database/question.csv') as question:
         question_list = question.read().splitlines()
         question_list = [item.split(",") for item in question_list]
@@ -163,11 +182,12 @@ def delete_question(question_id):
     return redirect('/')
 
 
-# New answer
-
-
 @app.route('/question/<int:question_id>/new_answer')
 def new_answer(question_id):
+    """
+    The user is able to answer any question. 
+    One argument: specific question ID of the question.
+    """
     question_list = file_handler.decode_file('database/question.csv')
     selected_question = ''
     for question in question_list:
@@ -182,6 +202,9 @@ def new_answer(question_id):
 
 @app.route('/question/<int:question_id>/new_answer', methods=['POST'])
 def add_answer(question_id):
+    """
+    Create a new answer by the user input to a specific question.
+    """
     answer_id = file_handler.decode_file('database/answer.csv')
     with open('database/answer.csv', 'a') as file:
         file.write(str(int(answer_id[-1][0]) + 1) + ',')
@@ -193,16 +216,22 @@ def add_answer(question_id):
     return redirect('/list')
 
 
-# New question
-
-
 @app.route("/new_question")
 def question():
+    """
+    Show new_question page.
+    """
     return render_template("new_question.html")
 
 
 @app.route("/new_question", methods=["POST"])
 def submit_new_question():
+    """Takes a new question and description from user and encrypts it.
+
+    Receives data fromm the user input, uses BASE64 encryption for title and description.
+
+    Set by default an ID number, creation time, view and like number and save it as a .csv file.
+    """
     new_question_title = request.form["new_question"]
     new_question_title_encoded = file_handler.encode_string(new_question_title)
     new_question_message = request.form["new_question_long"]
