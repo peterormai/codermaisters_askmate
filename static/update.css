@@ -66,6 +66,8 @@ div.updatediv {
 
 /*create button at the right bottom corner*/
 div.create {
+    width: 50px;
+    height: 50px;
     position: fixed;
     bottom: 60px;
     right: 50px;
