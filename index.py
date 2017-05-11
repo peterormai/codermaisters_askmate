@@ -136,19 +136,12 @@ def delete_answer(answer_id):
     Given the right argument, the related answer will be removed from the database permanently. 
     """
     question_id = 0
-    # with open('database/answer.csv') as answer:
-    #     answer_list = answer.read().splitlines()
-    #     answer_list = [item.split(",") for item in answer_list]
     answer_list = file_handler.list_of_files('database/answer.csv')
     for item in answer_list:
         if int(item[0]) == answer_id:
             answer_list.remove(item)
             question_id = item[3]
-    write_to_file('database/answer.csv', answer_list)
-    # with open('database/answer.csv', 'w') as file:
-    #     for item in answer_list:
-    #         answers = ','.join(item)
-    #         file.write(str(answers) + '\n')
+    file_handler.write_to_file('database/answer.csv', answer_list)
     question_url = '/question/' + str(question_id)
     return redirect(question_url)
 
@@ -178,7 +171,7 @@ def delete_question(question_id):
 @app.route('/question/<int:question_id>/new_answer')
 def new_answer(question_id):
     """
-    The user is able to answer any question. 
+    The user is able to answer any question.
     One argument: specific question ID of the question.
     """
     question_list = file_handler.decode_file('database/question.csv')
@@ -199,13 +192,14 @@ def add_answer(question_id):
     Create a new answer by the user input to a specific question.
     """
     answer_id = file_handler.decode_file('database/answer.csv')
+    vote_number = 0
     if len(request.form['answer']) < 10:
         return redirect('/question/' + str(question_id) + '/new_answer')
     else:
         with open('database/answer.csv', 'a') as file:
             file.write(str(int(answer_id[-1][0]) + 1) + ',')
             file.write(str(int(time.time())) + ',')
-            file.write(str(0) + ',')    # Vote number
+            file.write(str(vote_number) + ',')
             file.write(str(question_id) + ',')
             file.write(str(file_handler.file_handler.encode_string(request.form['answer'])) + ',')
             file.write(str('') + '\n')  # This will be the image
@@ -239,15 +233,13 @@ def submit_new_question():
         picture_encoded = file_handler.encode_string(picture_url)
         count_view = 0
         count_like = 0
-        question_time = int(time.time())
+        question_time = (int(time.time()))
+        data_list = file_handler.list_of_files("database/question.csv")
 
-        with open("database/question.csv", "r") as file:
-            data_list = file.read().splitlines()
-            data_list = [item.split(",") for item in data_list]
-            if len(data_list) > 0:
-                question_id = str(int(data_list[-1][0]) + 1)
-            else:
-                question_id = 0
+        if len(data_list) > 0:
+            question_id = str(int(data_list[-1][0]) + 1)
+        else:
+            question_id = 0
 
         with open("database/question.csv", "a") as file:
             file.write(str(question_id) + ",")
@@ -258,8 +250,7 @@ def submit_new_question():
             file.write(str(new_question_message_encoded) + ",")
             file.write(str(picture_encoded) + "\n")
 
-        return render_template("new_question.html")
-        # redirect to Peti's page at the end with ...question/current_id !!!!!! ****
+        return redirect('/question/' + str(question_id))
 
 
 def main():
