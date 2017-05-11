@@ -1,30 +1,25 @@
 <!DOCTYPE html>
 <html>
-
     <head>
         <meta charset="UTF-8">
         <title>New Question</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='update.css') }}">
     </head>
-
     <body>
         <div class="update">
             <h1>New Question</h1>
-
             <form class="update" action="/new_question" method="POST">
-            Question title: 
-            <input id=question_input type="text" name="new_question" minlength=10 placeholder="Min. 10 characters">
-            <br><br>
-            Question story:
-            <textarea type="text" name="new_question_long" ></textarea>
-            <br><br>
-            Add a picture:
-            <input id=picture_url type="text" name="picture" placeholder="http://example.url/picture.png">
-            <br>
-            <input id=submit_new_question type="Submit" value="Add new question">
-            
+                Question title: 
+                <input id=question_input type="text" name="new_question" minlength=10 placeholder="Min. 10 characters">
+                <br><br>
+                Question story:
+                <textarea type="text" name="new_question_long" ></textarea>
+                <br><br>
+                Add a picture:
+                <input id=picture_url type="text" name="picture" placeholder="http://example.url/picture.png">
+                <br>
+                <input id=submit_new_question type="Submit" value="Add new question">       
             </form>
         </div>
     </body>
-
 </html>
