@@ -27,7 +27,7 @@ div.leftmenu ul {
     width: 20%;
     background-color: #393f4d;
     position: fixed;
-    height: 70%;
+    height: 75%;
     overflow: auto;
     border-right: 5px solid #252933;
 
@@ -57,7 +57,7 @@ div.leftmenu label {
 /*Left navigation bar*/
 
 div.leftinfo ul {
-    top: 70%;
+    bottom: 0px;
     left: 0px;
     list-style-type: none;
     margin: 0;
@@ -80,7 +80,7 @@ div.leftinfo li {
 }
 div.leftinfo li:hover  { background-color: #535c70; font-size: 0.9vw; }
 
-div.leftinfo p {
+div.leftinfo li {
     margin: 0;
     display: block;
     color: #feda6a;
@@ -94,23 +94,26 @@ div.leftinfo p {
 
 div.leftinfo p:hover { background-color: #535c70; font-size: 1.1vw; }
 
-
+div.leftoptions {
+    border-top: 5px solid black;
+}
 div.leftoptions table {
     padding: 0px;
     margin: 0;
     font-size: 0.9vw;
     bottom: 0px;
-    left: 0px;
+    right: -15px;
     position:fixed;
-    height: 5%;
+    height: 20px;
     background-color: #393f4d;
     color: #feda6a;
     margin-right: 10px;
-    width: calc(20% + 5px);
-    border-right: 5px solid #252933;
-    padding: 5px 0px 5px 0px;
+    width: 80%;
+    border-top: 5px solid #101216;
 }
-
+div.leftoptions table td {
+    border-right: 2px solid black;
+}
 td:hover { 
     transition: background-color 0.7s ease-in; 
     background-color: #8f9dbf;
@@ -195,6 +198,7 @@ table.answers {
     /*border-collapse:separate; 
     border-spacing:0.5em;*/
     /*margin-top: 50px;*/
+    
 }
 
 table.answers td {  
@@ -204,11 +208,12 @@ table.answers td {
     overflow: hidden;
     table-layout: fixed;
     word-wrap:break-word;
-    margin-bottom: 200px;
+    margin-bottom: 20px;
 }
 table.answers tr {
     padding: 4px;
     background-color: #495163;
+    margin-bottom: 20px;
 }
 
 table.answers img {
@@ -242,41 +247,12 @@ form.sortby select {
 
 
 img {
-  display: block;
   max-width:20px;
   max-height:20px;
   width: auto;
   height: auto;
 }
-
-
-
-
-/*table.answers {
-    top: 0px;
-    width: calc(80% - 5px);
-    margin-right: 5px;
-    margin-left: auto;
-    border-radius: 5px;
-    border-spacing: 5px;
-    font-family: Tahoma, Geneva, sans-serif;
-    font-style: italic;
-    color: white;
-    box-shadow: 10px -4px 25px 2px rgba(0,0,0,0.75);
-    margin-top: 0px;
-    word-wrap:break-word;
-    table-layout:fixed;
+img.uploaded {
+    max-width: 200px;
+    max-height: 200px;
 }
-table.answers textarea {
-    width: 100%;
-    height: 100%;
-    border-radius: 5px;
-    margin: 0px;
-    background-color: #393f4d;
-    color: white;
-}
-table.answers td {
-    padding: 5px;
-    background-color: #393f4d;
-}
-table.answers td:hover {background-color: inherit;}*/
