@@ -1,5 +1,7 @@
 import queries
 
+# xxgitbe mappa???
+
 
 def show_question(id):
     """

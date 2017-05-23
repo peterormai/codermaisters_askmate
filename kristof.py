@@ -9,7 +9,7 @@ def list_questions():
     """
     List all questions from the database.
     """
-    data_list = queries.all_queistions()
+    data_list = queries.all_questions()
     title = "Cödermeisters's ask-mate"
     top_menu = ['ID', 'Created at', 'Views', 'Votes', 'Title', 'Edit', 'Delete', "Like", "Dislike"]
     return render_template('index.html', title=title, data_list=data_list, top_menu=top_menu)

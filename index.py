@@ -44,15 +44,16 @@ def ans_like():
 
 
 @app.route("/question/<int:id>/edit", methods=["GET"])
-def show_ques():
-    result = peti.show_question()
-    return result
+def show_ques(id):
+    selected_question = queries.show_question(id)[0][0]
+    return render_template('update.html', selected_question=selected_question, id=id)
 
 
 @app.route("/question/<int:id>/edit", methods=["POST"])
-def update_quest():
-    result = peti.update_question()
-    return result
+def update_quest(id):
+    selected_question = request.form["question_update"]
+    queries.update_question(selected_question, id)
+    return redirect("/list")
 
 
 @app.errorhandler(404)

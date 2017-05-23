@@ -8,50 +8,52 @@ def user_datas():
         return data
 
 
-def fetch_database(func):
-    def wrap():
-        try:
-            data = user_datas()
-            connect_str = "dbname={0} user={0} host='localhost' password={1}".format(data[0], data[1])
-            conn = psycopg2.connect(connect_str)
-            conn.autocommit = True
-            cursor = conn.cursor()
-            cursor.execute(func())
-            rows = cursor.fetchall()
-            return rows
+def fetch_database(query):
+    try:
+        data = user_datas()
+        connect_str = "dbname={0} user={0} host='localhost' password={1}".format(data[0], data[1])
+        conn = psycopg2.connect(connect_str)
+        conn.autocommit = True
+        cursor = conn.cursor()
+        cursor.execute(query)
+        rows = cursor.fetchall()
+        return rows
 
-        except psycopg2.DatabaseError as exception:
-            print(exception)
+    except psycopg2.DatabaseError as exception:
+        print(exception)
 
-        # finally:
-        #     if connection:
-        #         connection.close()
-
-    return wrap
+    # finally:
+    #     if connection:
+    #         connection.close()
 
 
-def modify_database(func):
-    def wrap():
-        try:
-            data = user_datas()
-            connect_str = "dbname={0} user={0} host='localhost' password={1}".format(data[0], data[1])
-            conn = psycopg2.connect(connect_str)
-            conn.autocommit = True
-            cursor = conn.cursor()
-            cursor.execute(func())
-            rows = cursor.fetchall()
-            return rows
+def modify_database(query):
+    try:
+        data = user_datas()
+        connect_str = "dbname={0} user={0} host='localhost' password={1}".format(data[0], data[1])
+        conn = psycopg2.connect(connect_str)
+        conn.autocommit = True
+        cursor = conn.cursor()
+        cursor.execute(query)  # fetchall ksizedése!!
 
-        except psycopg2.DatabaseError as exception:
-            print(exception)
+    except psycopg2.DatabaseError as exception:
+        print(exception)
 
-        # finally:
-        #     if connection:
-        #         connection.close()
-
-    return wrap
+    # finally:
+    #     if connection:
+    #         connection.close()
 
 
-@fetch_database
-def all_queistions():
-    return """SELECT * FROM question;"""
+def all_questions():
+    result = fetch_database("""SELECT * FROM question ORDER BY id;""")
+    return result
+
+
+def show_question(id):
+    result = fetch_database("""SELECT title FROM question WHERE id={};""".format(id))
+    return result
+
+
+def update_question(title, id):
+    result = modify_database("""UPDATE question SET title='{0}' WHERE id={1};""".format(title, id))
+    return result
