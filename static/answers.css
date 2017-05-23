@@ -32,7 +32,7 @@ div.leftmenu ul {
     position: fixed;
     height: 70%;
     overflow: auto;
-    border-right: 5px solid #252933;
+    border-right: 10px solid #222222;
 
 }
 div.leftmenu li {
@@ -72,7 +72,7 @@ div.question_comments ul {
     background-color: #393f4d;
     position: fixed;
     overflow: auto;
-    border-right: 5px solid #252933;
+    border-right: 10px solid #222222;
 }
 div.question_comments li {
     display: block;
@@ -112,14 +112,15 @@ div.top_menu table {
     margin: 0;
     font-size: 0.85vw;
     top: 0px;
-    right: -15px;
+    right: -5px;
     position:fixed;
-    height: 20px;
-    background-color: #393f4d;
+    height: 30px;
+    background-color: #373737;
     color: #feda6a;
-    margin-right: 10px;
+    /*margin-right: 10px;*/
     width: 80%;
-    border-bottom: 5px solid #101216;
+    border-bottom: 5px solid #222222;
+    table-layout: fixed;
 }
 div.top_menu table td {
     border-right: 2px solid black;
@@ -168,7 +169,7 @@ div.create input {
 div.create input:hover { opacity: 1; -webkit-filter: brightness(150%); }
 /*create button at the right bottom corner*/
 
-table.topmenu {
+/*table.topmenu {
     position: sticky;
     top: 0px;
     width: calc(80% - 4px);
@@ -188,7 +189,7 @@ table.topmenu td {
 }
 table.topmenu tr {
     padding: 4px;
-}
+}*/
 
 div.all_answers {
     margin-top: 100px;
