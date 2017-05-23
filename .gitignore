@@ -12,6 +12,10 @@ __pycache__/
 
 *.csv
 
+*.txt
+*.md 
+*.sql
+
 # Distribution / packaging
 .Python
 env/
