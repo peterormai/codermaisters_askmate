@@ -1,7 +1,10 @@
 body {
-    background-color: #51596d;
+    background: url("http://aurora-awards.com/wp-content/uploads/2017/04/python-wallpaper-27262470-wallpaperspng.jpg");
+    background-size: contain;
+    background-attachment: fixed;
     margin: 0;
     text-align: center;
+    font-family: "Franklin Gothic Medium", "Franklin Gothic", "ITC Franklin Gothic", Arial, sans-serif;*/
 }
 
 ::-webkit-scrollbar {
@@ -27,7 +30,7 @@ div.leftmenu ul {
     width: 20%;
     background-color: #393f4d;
     position: fixed;
-    height: 75%;
+    height: 70%;
     overflow: auto;
     border-right: 5px solid #252933;
 
@@ -42,7 +45,7 @@ div.leftmenu li {
     font-size: 0.9vw;
     word-wrap: break-word;
 }
-div.leftmenu li:hover  { background-color: #535c70; font-size: 1vw; }
+div.leftmenu li:hover  { background-color: #535c70;}
 div.leftmenu label {
     display: block;
     color: #feda6a;
@@ -52,24 +55,26 @@ div.leftmenu label {
     font-size: 1vw;
     border-top: 2px solid #535c70;
     border-bottom: 2px solid #535c70;
+    text-align: center;
+    padding: 10px 0px 10px 0px;
 }
 
 /*Left navigation bar*/
 
-div.leftinfo ul {
+div.question_comments ul {
     bottom: 0px;
     left: 0px;
     list-style-type: none;
     margin: 0;
     padding: 0px 0px 0px 0px;
     width: 20%;
-    height: 25%;
+    height: 30%;
     background-color: #393f4d;
     position: fixed;
     overflow: auto;
     border-right: 5px solid #252933;
 }
-div.leftinfo li {
+div.question_comments li {
     display: block;
     text-decoration: none;
     color: white;
@@ -78,30 +83,35 @@ div.leftinfo li {
     font-size: 0.8vw;
     word-wrap: break-word;
 }
-div.leftinfo li:hover  { background-color: #535c70; font-size: 0.9vw; }
+div.question_comments li:hover  { background-color: #535c70;}
 
-div.leftinfo li {
+div.question_comments li {
     margin: 0;
     display: block;
-    color: #feda6a;
+    color: white;
     font-weight: bold;
-    padding: 10px 0px 10px 0px;
+    padding: 10px 0px 10px 10px;
     text-align: left;
-    font-size: 1vw;
+    font-size: 0.7vw;
     border-top: 2px solid #535c70;
-    border-bottom: 2px solid #535c70;
+    border-bottom: 2px solid #252933;
 }
+#question_comment_info {
+    font-size: 1vw;
+    color: #feda6a;
+    text-align: center;
+    border-top: 5px solid  #252933;
+}
+div.question_comments p:hover { background-color: #535c70;}
 
-div.leftinfo p:hover { background-color: #535c70; font-size: 1.1vw; }
-
-div.leftoptions {
+div.top_menu {
     border-top: 5px solid black;
 }
-div.leftoptions table {
+div.top_menu table {
     padding: 0px;
     margin: 0;
-    font-size: 0.9vw;
-    bottom: 0px;
+    font-size: 0.85vw;
+    top: 0px;
     right: -15px;
     position:fixed;
     height: 20px;
@@ -109,9 +119,9 @@ div.leftoptions table {
     color: #feda6a;
     margin-right: 10px;
     width: 80%;
-    border-top: 5px solid #101216;
+    border-bottom: 5px solid #101216;
 }
-div.leftoptions table td {
+div.top_menu table td {
     border-right: 2px solid black;
 }
 td:hover { 
@@ -124,11 +134,11 @@ div.leftmenu img {
     height: auto;
 }
 
-div.leftoptions img {
+div.top_menu img {
     width: 20px;
     height: 20px;
 }
-div.leftoptions input {
+div.top_menu input {
     width: 20px;
     height: 20px;
 }
@@ -141,8 +151,8 @@ div.answers img{
 /*create button at the right bottom corner*/
 div.create {
     position: fixed;
-    bottom: 60px;
-    right: 120px;
+    bottom: 20px;
+    right: 100px;
 }
 div.create input {
     width: 60px;
@@ -152,8 +162,8 @@ div.create input {
 
 #home {
     position: fixed;
-    bottom: 60px;
-    right: 50px;
+    bottom: 20px;
+    right: 30px;
 }
 div.create input:hover { opacity: 1; -webkit-filter: brightness(150%); }
 /*create button at the right bottom corner*/
@@ -168,7 +178,7 @@ table.topmenu {
     padding: 3px;
     color: #feda6a;
     background-color: #495163;
-    font-size: 0.9vw;
+    font-size: 0.8vw;
     border-radius: 3px;
 }
 
@@ -181,7 +191,7 @@ table.topmenu tr {
 }
 
 div.all_answers {
-    margin-top: 50px;
+    margin-top: 100px;
 }
 
 table.answers {
@@ -192,15 +202,16 @@ table.answers {
     border: 1px solid black;
     /*padding: 3px;*/
     color: #feda6a;
-    background-color: #495163;
-    font-size: 0.9vw;
+    background-color: #222222;
+    font-size: 0.8vw;
     border-radius: 3px;
     /*border-collapse:separate; 
     border-spacing:0.5em;*/
-    /*margin-top: 50px;*/
-    
+    /*margin-top: 50px;*/ 
 }
-
+tr.text td {
+    background-color: #373737;
+}
 table.answers td {  
     border-right: 3px solid black;    
     /*border-radius: 3px;*/
@@ -209,6 +220,9 @@ table.answers td {
     table-layout: fixed;
     word-wrap:break-word;
     margin-bottom: 20px;
+}
+table.answers td:first-child {
+    border-left: 3px solid black;
 }
 table.answers tr {
     padding: 4px;
@@ -222,7 +236,8 @@ table.answers img {
 }
 
 table.answers tr.atrib {
-    background-color: #393f4d;
+    /*background-color: #393f4d;*/
+    background: #222222;
     border-color: #252933;
 }
 
