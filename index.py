@@ -126,7 +126,7 @@ def new_answer(question_id):
     One argument: specific question ID of the question.
     """
     webpage_title = 'Post an Answer'
-    question = queries.fetch_database("""SELECT * FROM question WHERE id={};""".format(question_id))[0]
+    question = queries.display_question(question_id)[0]
     return render_template('/new_answer.html', webpage_title=webpage_title, question=question)
 
 
@@ -142,8 +142,8 @@ def add_answer(question_id):
         vote_number = 0
         message = request.form['answer']
         image = request.form['picture']
-        queries.modify_database("""INSERT INTO answer(submission_time, vote_number, question_id, message, image) SELECT
-                                '{}', {}, {}, '{}', '{}';""".format(submission_time, vote_number, question_id, message, image))
+        queries.add_new_anser(submission_time, vote_number, question_id, message, image)
+        # jó ez a sok paraméter így?
         return redirect('/question/' + str(question_id))
 
 

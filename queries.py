@@ -111,3 +111,8 @@ def delete_answer_comment(answer_id):
 def delete_question(id):
     result = modify_database("""DELETE FROM question WHERE id={};""".format(id))
     return result
+
+
+def add_new_anser(submission_time, vote_number, question_id, message, image):
+    result = modify_database("""INSERT INTO answer(submission_time, vote_number, question_id, message, image) SELECT
+                                '{}', {}, {}, '{}', '{}';""".format(submission_time, vote_number, question_id, message, image))
