@@ -11,6 +11,7 @@ import kristof
 import helga
 import barna
 import peti
+from datetime import datetime
 
 
 app = Flask(__name__)
@@ -92,9 +93,13 @@ def question_display(question_id):
 
 
 @app.route('/answer/<int:answer_id>/delete', methods=['POST'])
-def del_ans():
-    result = peti.delete_answer()
-    return result
+def delete_answer(answer_id):
+    """
+    Given the right argument, the related answer will be removed from the database permanently. 
+    """
+    queries.delete_answer_comment(answer_id)
+    queries.delete_one_answer(answer_id)
+    return redirect('/')
 
 
 @app.route('/question/<int:question_id>/delete', methods=['POST'])
@@ -102,9 +107,11 @@ def delete_one_question(question_id):
     """
     Given the right argument, the related question will be removed with all the answers from the database permanently. 
     """
+    # queries.delete_answer_comment(answer_id)
+
+    # queries.delete_all_answer(question_id)
+    # queries.delete_question_comment(question_id)
     queries.delete_question(question_id)
-    queries.delete_answer(question_id)
-    queries.delete_comment(question_id)
     return redirect('/')
 
 
@@ -121,9 +128,20 @@ def new_answer(question_id):
 
 
 @app.route('/question/<int:question_id>/new_answer', methods=['POST'])
-def add_ans():
-    result = helga.add_answer()
-    return result
+def add_answer(question_id):
+    """
+    Create a new answer by the user input to a specific question.
+    """
+    if len(request.form['answer']) < 10:
+        return redirect('/question/' + str(question_id) + '/new_answer')
+    else:
+        submission_time = datetime.now()
+        vote_number = 0
+        message = request.form['answer']
+        image = request.form['picture']
+        queries.modify_database("""INSERT INTO answer(submission_time, vote_number, question_id, message, image) SELECT
+                                '{}', {}, {}, '{}', '{}';""".format(submission_time, vote_number, question_id, message, image))
+        return redirect('/question/' + str(question_id))
 
 
 # New question

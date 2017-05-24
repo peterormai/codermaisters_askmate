@@ -55,7 +55,7 @@ def show_question(id):
 
 
 def update_question(title, id):
-    result = modify_database("""UPDATE question SET title='{0}' WHERE id={1};""".format(title, id))
+    result = modify_database("""UPDATE question SET title='{}' WHERE id={};""".format(title, id))
     return result
 
 
@@ -88,16 +88,26 @@ def answer_comment_ids(id):
     return q
 
 
-def delete_question(id):
-    result = modify_database("""DELETE FROM question WHERE id={};""".format(id))
-    return result
-
-
-def delete_answer(id):
+def delete_all_answer(id):
     result = modify_database("""DELETE FROM answer WHERE question_id={};""".format(id))
     return result
 
 
-def delete_comment(id):
-    result = modify_database("""DELETE FROM comment WHERE question_id={};""".format(id))
+def delete_question_comment(question_id):
+    result = modify_database("""DELETE FROM comment WHERE question_id={};""".format(question_id))
+    return result
+
+
+def delete_one_answer(answer_id):
+    result = modify_database("""DELETE FROM answer WHERE id={};""".format(answer_id))
+    return result
+
+
+def delete_answer_comment(answer_id):
+    result = modify_database("""DELETE FROM comment WHERE answer_id={};""".format(answer_id))
+    return result
+
+
+def delete_question(id):
+    result = modify_database("""DELETE FROM question WHERE id={};""".format(id))
     return result
