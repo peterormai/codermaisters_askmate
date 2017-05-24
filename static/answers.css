@@ -229,11 +229,13 @@ table.answer_comments {
     border-left: 3px solid black;
     border-bottom: 3px solid black;
     color: white;
-    background-color: #393f4d;
+    background-color: #565656;
     font-size: 0.8vw;
     border-radius: 3px;
 }
-
+table.answer_comments td {
+    background-color: #565656;
+}
 /*sort_by right bottom corner*/
 form.sortby {
     position: fixed;
