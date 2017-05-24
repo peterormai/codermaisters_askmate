@@ -169,27 +169,6 @@ div.create input {
 div.create input:hover { opacity: 1; -webkit-filter: brightness(150%); }
 /*create button at the right bottom corner*/
 
-/*table.topmenu {
-    position: sticky;
-    top: 0px;
-    width: calc(80% - 4px);
-    margin-right: 0px;
-    margin-left: auto;
-    border: 1px solid black;
-    padding: 3px;
-    color: #feda6a;
-    background-color: #495163;
-    font-size: 0.8vw;
-    border-radius: 3px;
-}
-
-table.topmenu td {
-    border: 1px solid black;    
-    border-radius: 3px;
-}
-table.topmenu tr {
-    padding: 4px;
-}*/
 
 div.all_answers {
     margin-top: 100px;
@@ -242,7 +221,17 @@ table.answers tr.atrib {
     border-color: #252933;
 }
 table.answer_comments {
-    
+    top: 0px;
+    width: calc(60% - 4px);
+    margin-right: 10%;
+    margin-left: auto;
+    border-right: 3px solid black;
+    border-left: 3px solid black;
+    border-bottom: 3px solid black;
+    color: white;
+    background-color: #393f4d;
+    font-size: 0.8vw;
+    border-radius: 3px;
 }
 
 /*sort_by right bottom corner*/

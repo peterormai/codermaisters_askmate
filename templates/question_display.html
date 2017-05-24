@@ -39,7 +39,7 @@
                 </td>
 
                 <td>
-                    <form action="/question/{{ question[3] }}/delete" method="post">
+                    <form action="/question/{{ question[0] }}/delete" method="post">
                         <input type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png"/> 
                     </form>
                 </td>
@@ -93,14 +93,18 @@
                 <td width="70%">{{ items[4] }}</td>
                 <td width="30%"><img class="uploaded" src="{{ items[5] }}"></td>
             </tr>
-        <!--</table>
-        <table class="answer_comments">-->
-            <!--{% for comment in answer_comment %}
-            <tr class="answer_comments">
-                <td>{{ comment[0] }}</td>
-                <td>{{ comment[1] }}</td>
-            </tr>
-                {% endfor %}-->
+        </table>
+        <table class="answer_comments">
+            {% for comments in answer_comment %}
+                {% for comment in comments  %}
+                    {% if comment[0] == items[0] %}
+                        <tr class="answer_comments">
+                                <td width="70%">{{ comment[1] }}</td>
+                                <td width="30%">{{ comment[2] }}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
         </table>
         <p></p>
         {% endfor %}

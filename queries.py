@@ -75,13 +75,17 @@ def display_question_comment(id):
 
 
 def display_answer_comment(answer_id):
-    result = fetch_database("""SELECT message, submission_time FROM comment WHERE answer_id={}""".format(answer_id))
+    result = fetch_database(
+        """SELECT answer_id, message, submission_time FROM comment WHERE answer_id={}""".format(answer_id))
     return result
 
 
 def answer_comment_ids(id):
-    result = fetch_database("""SELECT answer_id FROM comment WHERE question_id={}""".format(id))
-    return result
+    result = fetch_database("""SELECT id FROM answer WHERE question_id={}""".format(id))
+    q = []
+    for item in result:
+        q.append("".join(map(str, item)))
+    return q
 
 
 def delete_question(id):

@@ -78,16 +78,16 @@ def question_display(question_id):
     # item[2] = str(int(item[2]) + 1)   # view counter!!!!!!!!!!!!!!!!!!!!!!!!!!!
     related_answers = queries.display_answer(question_id)
     question_comment = queries.display_question_comment(question_id)
-    answer_ids = queries.answer_comment_ids(question_id)[0]
+    answer_ids = queries.answer_comment_ids(question_id)
     answer_comment = []
-    for id in answer_ids:
-        answer_comment.append(queries.display_answer_comment(id))
+    for answer_id in answer_ids:
+        answer_comment.append(queries.display_answer_comment(int(answer_id)))
     return render_template('question_display.html',
                            question=selected_question,
                            answers=related_answers,
                            webpage_title=webpage_title,
                            question_comment=question_comment,
-                           answer_comment=answer_comment
+                           answer_comment=answer_comment,
                            answer_ids=answer_ids)
 
 
