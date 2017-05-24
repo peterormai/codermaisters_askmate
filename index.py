@@ -2,14 +2,7 @@ from flask import Flask
 from flask import render_template
 from flask import request
 from flask import redirect
-import time
-import base64
 import queries
-
-import kristof
-import helga
-import barna
-import peti
 from datetime import datetime
 
 
@@ -147,11 +140,8 @@ def delete_answer(answer_id):
     """
     Given the right argument, the related answer will be removed from the database permanently. 
     """
-    # queries.delete_answer_comment(answer_id)
-
-    # ne a fő oldalre irányítson hanem a kérdés oldalra!!!
     queries.delete_one_answer(answer_id)
-    return redirect('/')
+    return redirect(redirect_url())
 
 
 @app.route('/question/<int:question_id>/delete', methods=['POST'])
@@ -159,16 +149,13 @@ def delete_one_question(question_id):
     """
     Given the right argument, the related question will be removed with all the answers from the database permanently. 
     """
-    # queries.delete_answer_comment(answer_id)
-
-    # queries.delete_all_answer(question_id)
-    # queries.delete_question_comment(question_id)
-
     queries.delete_question(question_id)
     return redirect('/')
 
 
 # New answer
+
+
 @app.route('/question/<int:question_id>/new_answer')
 def new_answer(question_id):
     """
@@ -192,8 +179,7 @@ def add_answer(question_id):
         vote_number = 0
         message = request.form['answer']
         image = request.form['picture']
-        queries.add_new_anser(submission_time, vote_number, question_id, message, image)
-        # jó ez a sok paraméter így?
+        queries.add_new_answer(submission_time, vote_number, question_id, message, image)
         return redirect('/question/' + str(question_id))
 
 

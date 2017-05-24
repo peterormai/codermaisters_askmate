@@ -113,7 +113,7 @@ def delete_question(id):
     return result
 
 
-def add_new_anser(submission_time, vote_number, question_id, message, image):
+def add_new_answer(submission_time, vote_number, question_id, message, image):
     result = modify_database("""INSERT INTO answer(submission_time, vote_number, question_id, message, image) SELECT
                                 '{}', {}, {}, '{}', '{}';""".format(submission_time, vote_number, question_id, message, image))
 
