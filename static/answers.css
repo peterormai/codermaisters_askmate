@@ -241,6 +241,9 @@ table.answers tr.atrib {
     background: #222222;
     border-color: #252933;
 }
+table.answer_comments {
+    
+}
 
 /*sort_by right bottom corner*/
 form.sortby {

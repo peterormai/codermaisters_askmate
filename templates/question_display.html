@@ -22,35 +22,15 @@
 
     <div class="question_comments">
         <ul>
-            <li id="question_comment_info">Question Comments:</li> 
-            <li>questio answer1questio answer1questio answer1questio answer1questio answer1</li>  
-            <li>questio answer1</li>  
-            <li>Vquestio answer1</li>
-            <li>questio answer1</li> 
-            <li>questio answer1</li>  
-            <li>questio answer1</li>  
-            <li>Vquestio answer1</li>
-            <li>questio answer1</li> 
-            <li>questio answer1</li>  
-            <li>questio answer1</li>  
-            <li>Vquestio answer1</li>
-            <li>questio answer1</li> 
-            <li>questio answer1</li>  
-            <li>questio answer1</li>  
-            <li>Vquestio answer1</li>
-            <li>questio answer1</li> 
-            <li>questio answer1</li>  
-            <li>questio answer1</li>  
-            <li>Vquestio answer1</li>
-            <li>questio answer1</li> 
-            <li>questio answer1</li>  
-            <li>questio answer1</li>  
-            <li>Vquestio answer1</li>
+            <li id="question_comment_info">Question comments:</li>
+            {% for comment in question_comment %}
+            <li>{{ comment[0] }}</li> 
+            {% endfor %}
         </ul>
     </div>
 
     <div class="top_menu">
-        <table>
+        <table> 
             <tr>
                 <td>
                     <a href= /question/{{ question[0] }}/edit>
@@ -111,8 +91,16 @@
         <table class="answers">
             <tr class="text">
                 <td width="70%">{{ items[4] }}</td>
-                <td width="30%"><img class="uploaded" src="{{ question[6] }}"></td>
+                <td width="30%"><img class="uploaded" src="{{ items[5] }}"></td>
             </tr>
+        <!--</table>
+        <table class="answer_comments">-->
+            <!--{% for comment in answer_comment %}
+            <tr class="answer_comments">
+                <td>{{ comment[0] }}</td>
+                <td>{{ comment[1] }}</td>
+            </tr>
+                {% endfor %}-->
         </table>
         <p></p>
         {% endfor %}
