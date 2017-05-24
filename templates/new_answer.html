@@ -11,7 +11,7 @@
             <p>{{ question[4] }}</p>
             <p>{{ question[5] }}</p>
             <h2>Your answer:</h2>
-        <p><button><a href='/list'>Back</a></button></p>
+        <p><button><a href='/question/{{ question[0] }}'>Back</a></button></p>
         <form action='/question/{{ question[0] }}/new_answer' method='POST'>
             <textarea rows='5' cols='70' name='answer' minlength='10'></textarea>
             <input id=picture_url type="text" name="picture" placeholder="http://example.url/picture.png">

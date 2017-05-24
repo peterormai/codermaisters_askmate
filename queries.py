@@ -74,6 +74,26 @@ def display_question_comment(id):
     return result
 
 
-def display_answer_comment(id):
-    result = fetch_database("""SELECT message, submission_time FROM comment WHERE answer_id={}""".format(id))
+def display_answer_comment(answer_id):
+    result = fetch_database("""SELECT message, submission_time FROM comment WHERE answer_id={}""".format(answer_id))
+    return result
+
+
+def answer_comment_ids(id):
+    result = fetch_database("""SELECT answer_id FROM comment WHERE question_id={}""".format(id))
+    return result
+
+
+def delete_question(id):
+    result = modify_database("""DELETE FROM question WHERE id={};""".format(id))
+    return result
+
+
+def delete_answer(id):
+    result = modify_database("""DELETE FROM answer WHERE question_id={};""".format(id))
+    return result
+
+
+def delete_comment(id):
+    result = modify_database("""DELETE FROM comment WHERE question_id={};""".format(id))
     return result

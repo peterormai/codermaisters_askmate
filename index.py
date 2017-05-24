@@ -78,13 +78,17 @@ def question_display(question_id):
     # item[2] = str(int(item[2]) + 1)   # view counter!!!!!!!!!!!!!!!!!!!!!!!!!!!
     related_answers = queries.display_answer(question_id)
     question_comment = queries.display_question_comment(question_id)
-    answer_comment = queries.display_answer_comment(question_id)
+    answer_ids = queries.answer_comment_ids(question_id)[0]
+    answer_comment = []
+    for id in answer_ids:
+        answer_comment.append(queries.display_answer_comment(id))
     return render_template('question_display.html',
                            question=selected_question,
                            answers=related_answers,
                            webpage_title=webpage_title,
                            question_comment=question_comment,
-                           answer_comment=answer_comment)
+                           answer_comment=answer_comment
+                           answer_ids=answer_ids)
 
 
 @app.route('/answer/<int:answer_id>/delete', methods=['POST'])
@@ -94,16 +98,26 @@ def del_ans():
 
 
 @app.route('/question/<int:question_id>/delete', methods=['POST'])
-def del_ques():
-    result = kristof.delete_question()
-    return result
+def delete_one_question(question_id):
+    """
+    Given the right argument, the related question will be removed with all the answers from the database permanently. 
+    """
+    queries.delete_question(question_id)
+    queries.delete_answer(question_id)
+    queries.delete_comment(question_id)
+    return redirect('/')
 
 
 # New answer
 @app.route('/question/<int:question_id>/new_answer')
-def new_ans():
-    result = helga.new_answer()
-    return result
+def new_answer(question_id):
+    """
+    The user is able to answer any question.
+    One argument: specific question ID of the question.
+    """
+    webpage_title = 'Post an Answer'
+    question = queries.fetch_database("""SELECT * FROM question WHERE id={};""".format(question_id))[0]
+    return render_template('/new_answer.html', webpage_title=webpage_title, question=question)
 
 
 @app.route('/question/<int:question_id>/new_answer', methods=['POST'])
@@ -127,6 +141,16 @@ def question():
 def submit_n_ques():
     result = peti.submit_new_question()
     return result
+
+
+def show_latest_five_questions():
+    """
+    Show the latest 5 submitted questions.
+    """
+    title = "Super Sprinter 3000"
+    top_menu = ['ID', 'Created at', 'Views', 'Votes', 'Title', 'Edit', 'Delete', "Like", "Dislike"]
+    data_list = queries.fetch_database("""SELECT * FROM question ORDER BY id DESC LIMIT 5;""")
+    return render_template('index.html', data_list=data_list, title=title, top_menu=top_menu)
 
 
 def main():
