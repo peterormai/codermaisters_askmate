@@ -65,7 +65,7 @@ def display_question(id):
 
 
 def display_answer(id):
-    result = fetch_database("""SELECT * FROM answer WHERE question_id={}""".format(id))
+    result = fetch_database("""SELECT * FROM answer WHERE question_id={} ORDER BY id""".format(id))
     return result
 
 
@@ -116,3 +116,13 @@ def delete_question(id):
 def add_new_anser(submission_time, vote_number, question_id, message, image):
     result = modify_database("""INSERT INTO answer(submission_time, vote_number, question_id, message, image) SELECT
                                 '{}', {}, {}, '{}', '{}';""".format(submission_time, vote_number, question_id, message, image))
+
+
+def handle_question_like(id, like_value):
+    result = modify_database(
+        """UPDATE question SET vote_number = vote_number + {} WHERE id={}""".format(like_value, id))
+
+
+def handle_answer_like(id, like_value):
+    result = modify_database(
+        """UPDATE answer SET vote_number = vote_number + {} WHERE id={}""".format(like_value, id))

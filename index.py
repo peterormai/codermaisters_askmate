@@ -6,7 +6,6 @@ import time
 import base64
 import queries
 
-# EZEKET MÓDOSÍTANI
 import kristof
 import helga
 import barna
@@ -17,6 +16,12 @@ from datetime import datetime
 app = Flask(__name__)
 
 # Main page
+
+
+def redirect_url(default='index'):
+    return request.args.get('next') or \
+        request.referrer or \
+        url_for(default)
 
 
 @app.route('/list', methods=['GET'])
@@ -32,16 +37,35 @@ def sorting():
     return result
 
 
-@app.route("/like/<int:id>/<int:like_value>/<from_page>", methods=['GET'])
-def like():
-    result = kristof.handle_like()
-    return result
+@app.route("/like/<int:id>/<int:like_value>", methods=['GET'])
+def question_handle_like(id, like_value):
+    """Change the number of likes according to user.
+    Receives three arguments:
+        - id: ID row
+        - like_value: number of current likes (default is set to ‘0’)
+        - from_page: name of the current page
+    Overwrites old data with new data and redirects to the current page.
+    """
+    if like_value == 1:
+        queries.handle_question_like(id, like_value)
+    else:
+        queries.handle_question_like(id, -1)
+    return redirect(redirect_url())
 
 
 @app.route("/like/<int:answer_id>/<from_page>/<int:like_value>", methods=['GET'])
-def ans_like():
-    result = kristof.answer_handle_like()
-    return result
+def answer_handle_like(answer_id, from_page, like_value):
+    """Change the number of likes according to user.
+    Receives two arguments:
+        - answer_id
+        - like_value: number of current likes (default is set to ‘0’)
+    Overwrites old data with new data and redirects to the current page.
+    """
+    if like_value == 1:
+        queries.handle_answer_like(answer_id, like_value)
+    else:
+        queries.handle_answer_like(answer_id, -1)
+    return redirect(redirect_url())
 
 
 @app.route("/question/<int:id>/edit", methods=["GET"])
