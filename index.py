@@ -15,8 +15,6 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-# Main page
-
 
 def redirect_url(default='index'):
     return request.args.get('next') or \
@@ -24,19 +22,48 @@ def redirect_url(default='index'):
         url_for(default)
 
 
-@app.route('/list', methods=['GET'])
-def questions_list():
-    result = kristof.list_questions()
-    return result
+# Main page
 
 
-@app.route("/sortby", methods=['POST'])
-def sorting():
-    result = helga.sort_by()
-    return result
+@app.route('/list')
+def list_questions():
+    """
+    List all questions from the database.
+    """
+    data_list = queries.all_questions()
+    title = "Cödermeisters's ask-mate"
+    top_menu = ['ID', 'Created at', 'Views', 'Votes', 'Title', 'Edit', 'Delete', "Like", "Dislike"]
+    return render_template('index.html', title=title, data_list=data_list, top_menu=top_menu)
 
 
-@app.route("/like/<int:id>/<int:like_value>", methods=['GET'])
+# @app.route("/sortby", methods=['POST'])
+# def sort_by():
+#     """
+#     Sort the list by indicators.
+#     """
+#     title = "Super Sprinter 3000"
+#     top_menu = ['ID', 'Created at', 'Views', 'Votes', 'Title', 'Edit', 'Delete', "Like", "Dislike"]
+#     data_list = file_handler.list_of_files('database/question.csv')
+#     search_key = str(request.form['sortby'])
+#     if search_key == 'ID':
+#         data_list = sorted(data_list, key=lambda x: x[0])
+#     elif search_key == 'created':
+#         data_list = sorted(data_list, key=lambda x: str(x[1]))
+#     elif search_key == 'views':
+#         data_list = sorted(data_list, key=lambda x: int(x[2]))
+#     elif search_key == 'votes':
+#         data_list = sorted(data_list, key=lambda x: int(x[3]))
+#     elif search_key == 'title':
+#         data_list = sorted(data_list, key=lambda x: str(x[4]))
+#     for lines in data_list:
+#         lines[1] = time.ctime(int(lines[1]))
+#         lines[4] = base64.urlsafe_b64decode(str.encode(lines[4])).decode()
+#         lines[5] = base64.urlsafe_b64decode(str.encode(lines[5])).decode()
+#         lines[6] = base64.urlsafe_b64decode(str.encode(lines[6])).decode()
+#     return render_template('index.html', data_list=data_list, title=title, top_menu=top_menu)
+
+
+@app.route("/like/<int:id>/<int:like_value>")
 def question_handle_like(id, like_value):
     """Change the number of likes according to user.
     Receives three arguments:
@@ -52,7 +79,7 @@ def question_handle_like(id, like_value):
     return redirect(redirect_url())
 
 
-@app.route("/like/<int:answer_id>/<from_page>/<int:like_value>", methods=['GET'])
+@app.route("/like/<int:answer_id>/<from_page>/<int:like_value>")
 def answer_handle_like(answer_id, from_page, like_value):
     """Change the number of likes according to user.
     Receives two arguments:
@@ -67,8 +94,8 @@ def answer_handle_like(answer_id, from_page, like_value):
     return redirect(redirect_url())
 
 
-@app.route("/question/<int:id>/edit", methods=["GET"])
-def show_ques(id):
+@app.route("/question/<int:id>/edit")
+def question_show(id):
     selected_question = queries.show_question(id)[0][0]
     return render_template('update.html', selected_question=selected_question, id=id)
 
@@ -97,9 +124,9 @@ def question_display(question_id):
     Display the question with all the answers below.
     Given the right argument, the related question will be displayed with answers to it.
     """
+    queries.view_counter(question_id)
     webpage_title = 'Question & answers'
     selected_question = queries.display_question(question_id)[0]
-    # item[2] = str(int(item[2]) + 1)   # view counter!!!!!!!!!!!!!!!!!!!!!!!!!!!
     related_answers = queries.display_answer(question_id)
     question_comment = queries.display_question_comment(question_id)
     answer_ids = queries.answer_comment_ids(question_id)
@@ -182,12 +209,25 @@ def question():
 
 
 @app.route("/new_question", methods=["POST"])
-def submit_n_ques():
-    result = peti.submit_new_question()
-    return result
+def new_question():
+    """Takes a new question and description from user and encrypts it.
+    Receives data fromm the user input, uses BASE64 encryption for title and description.
+    Set by default an ID number, creation time, view and like number and save it as a .csv file.
+    """
+    submission_time = datetime.now()
+    view_number = 0
+    vote_number = 0
+    title = request.form["new_question"]
+    if len(title) < 10:
+        return redirect('new_question')
+    else:
+        message = request.form["new_question_long"]
+        image = request.form['picture']
+        queries.submit_new_question(submission_time, view_number, vote_number, title, message, image)
+        return redirect('/list')
 
 
-@app.route('/', methods=['GET'])
+@app.route('/')
 def show_latest_five_questions():
     """
     Show the latest 5 submitted questions.

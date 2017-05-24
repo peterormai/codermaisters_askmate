@@ -126,3 +126,14 @@ def handle_question_like(id, like_value):
 def handle_answer_like(id, like_value):
     result = modify_database(
         """UPDATE answer SET vote_number = vote_number + {} WHERE id={}""".format(like_value, id))
+
+
+def submit_new_question(submission_time, view_number, vote_number, title, message, image):
+    result = modify_database(
+        """INSERT INTO question(submission_time, view_number, vote_number, title, message, image)
+        SELECT '{}', {}, {}, '{}', '{}', '{}';""".format
+        (submission_time, view_number, vote_number, title, message, image))
+
+
+def view_counter(question_id):
+    modify_database("""UPDATE question SET view_number=view_number + 1 WHERE id={};""".format(question_id))
