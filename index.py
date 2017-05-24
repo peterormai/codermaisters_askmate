@@ -25,7 +25,6 @@ def redirect_url(default='index'):
 
 
 @app.route('/list', methods=['GET'])
-@app.route('/', methods=['GET'])
 def questions_list():
     result = kristof.list_questions()
     return result
@@ -188,6 +187,7 @@ def submit_n_ques():
     return result
 
 
+@app.route('/', methods=['GET'])
 def show_latest_five_questions():
     """
     Show the latest 5 submitted questions.

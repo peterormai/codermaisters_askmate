@@ -6,15 +6,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
   </head>
   <body>
-    <form class="sortby" action="/sortby" method="POST">
-      <select id="sort" name="sortby" required>
-          <option value="ID">ID</option>
-          <option value="created">Create date</option>
-          <option value="views">Views</option>
-          <option value="votes">Votes</option>
-          <option value="title">Question</option>
-      </select>
-      <label for="sort" ><input id="sortit" type="submit" value="Sort it!" /></label>
+    <form class="sortby" action="/">
+      <label><input id="sortit" type="submit" value="Show latest five question" /></label>
     </form>
     <table class="topmenu">
       <tr>
@@ -57,12 +50,13 @@
       {% endfor %}
     </table>
     <div class="create">
-      <form action="/new_question">
-          <input type="image" src="http://www.freeiconspng.com/uploads/add-create-new-plus-icon-26.png"/>
-      </form>
-      <form id="home" action="/">
-          <input type="image" src="http://icons.iconarchive.com/icons/robsonbillponte/iRob/512/Folder-Home-Folder-icon.png"/>
-      </form>
+
+      <a  href="/new_question">
+          <img src="http://www.freeiconspng.com/uploads/add-create-new-plus-icon-26.png" height="50px" width="50px"/>
+      </a>
+      <a id="home" href="/list">
+          <img src="http://icons.iconarchive.com/icons/robsonbillponte/iRob/512/Folder-Home-Folder-icon.png" height="50px" width="50px"/>
+      </a>
   </div>
   </body>
-</html>
+</html>action
