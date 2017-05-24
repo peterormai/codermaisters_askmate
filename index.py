@@ -187,7 +187,7 @@ def add_answer(question_id):
 
 
 @app.route("/new_question")
-def question():
+def show_new_question():
     """
     Show new_question page.
     """

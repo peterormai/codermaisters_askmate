@@ -34,7 +34,7 @@ def modify_database(query):
         conn = psycopg2.connect(connect_str)
         conn.autocommit = True
         cursor = conn.cursor()
-        cursor.execute(query)  # fetchall ksizedése!!
+        cursor.execute(query)
 
     except psycopg2.DatabaseError as exception:
         print(exception)
@@ -56,7 +56,6 @@ def show_question(id):
 
 def update_question(title, id):
     result = modify_database("""UPDATE question SET title='{}' WHERE id={};""".format(title, id))
-    return result
 
 
 def display_question(id):
@@ -81,36 +80,31 @@ def display_answer_comment(answer_id):
 
 
 def answer_comment_ids(id):
-    result = fetch_database("""SELECT id FROM answer WHERE question_id={}""".format(id))
-    q = []
-    for item in result:
-        q.append("".join(map(str, item)))
-    return q
+    answer_ids = fetch_database("""SELECT id FROM answer WHERE question_id={}""".format(id))
+    id_numbers = []
+    for item in answer_ids:
+        id_numbers.append("".join(map(str, item)))
+    return id_numbers
 
 
 def delete_all_answer(id):
     result = modify_database("""DELETE FROM answer WHERE question_id={};""".format(id))
-    return result
 
 
 def delete_question_comment(question_id):
     result = modify_database("""DELETE FROM comment WHERE question_id={};""".format(question_id))
-    return result
 
 
 def delete_one_answer(answer_id):
     result = modify_database("""DELETE FROM answer WHERE id={};""".format(answer_id))
-    return result
 
 
 def delete_answer_comment(answer_id):
     result = modify_database("""DELETE FROM comment WHERE answer_id={};""".format(answer_id))
-    return result
 
 
 def delete_question(id):
     result = modify_database("""DELETE FROM question WHERE id={};""".format(id))
-    return result
 
 
 def add_new_answer(submission_time, vote_number, question_id, message, image):
