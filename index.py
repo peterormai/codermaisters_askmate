@@ -77,8 +77,8 @@ def question_display(question_id):
     selected_question = queries.display_question(question_id)[0]
     # item[2] = str(int(item[2]) + 1)   # view counter!!!!!!!!!!!!!!!!!!!!!!!!!!!
     related_answers = queries.display_answer(question_id)
-    question_comment = queries.display_question_comment()
-    answer_comment = queries.display_answer_comment()
+    question_comment = queries.display_question_comment(question_id)
+    answer_comment = queries.display_answer_comment(question_id)
     return render_template('question_display.html',
                            question=selected_question,
                            answers=related_answers,
