@@ -57,3 +57,23 @@ def show_question(id):
 def update_question(title, id):
     result = modify_database("""UPDATE question SET title='{0}' WHERE id={1};""".format(title, id))
     return result
+
+
+def display_question(id):
+    result = fetch_database("""SELECT * FROM question WHERE id={}""".format(id))
+    return result
+
+
+def display_answer(id):
+    result = fetch_database("""SELECT * FROM answer WHERE question_id={}""".format(id))
+    return result
+
+
+def display_question_comment(id):
+    result = fetch_database("""SELECT message FROM comment WHERE question_id={}""".format(id))
+    return result
+
+
+def display_answer_comment(id):
+    result = fetch_database("""SELECT message, submission_time FROM comment WHERE answer_id={}""".format(id))
+    return result

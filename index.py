@@ -68,9 +68,23 @@ def page_not_found(e):
 
 
 @app.route('/question/<int:question_id>')
-def ques_display():
-    result = peti.question_display()
-    return result
+def question_display(question_id):
+    """
+    Display the question with all the answers below.
+    Given the right argument, the related question will be displayed with answers to it.
+    """
+    webpage_title = 'Question & answers'
+    selected_question = queries.display_question(question_id)[0]
+    # item[2] = str(int(item[2]) + 1)   # view counter!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    related_answers = queries.display_answer(question_id)
+    question_comment = queries.display_question_comment()
+    answer_comment = queries.display_answer_comment()
+    return render_template('question_display.html',
+                           question=selected_question,
+                           answers=related_answers,
+                           webpage_title=webpage_title,
+                           question_comment=question_comment,
+                           answer_comment=answer_comment)
 
 
 @app.route('/answer/<int:answer_id>/delete', methods=['POST'])
