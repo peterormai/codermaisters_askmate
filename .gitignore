@@ -15,6 +15,7 @@ __pycache__/
 *.txt
 *.md 
 *.sql
+/AskMate-part2-sample-data
 
 # Distribution / packaging
 .Python

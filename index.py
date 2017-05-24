@@ -97,7 +97,9 @@ def delete_answer(answer_id):
     """
     Given the right argument, the related answer will be removed from the database permanently. 
     """
-    queries.delete_answer_comment(answer_id)
+    # queries.delete_answer_comment(answer_id)
+
+    # ne a fő oldalre irányítson hanem a kérdés oldalra!!!
     queries.delete_one_answer(answer_id)
     return redirect('/')
 
@@ -111,6 +113,7 @@ def delete_one_question(question_id):
 
     # queries.delete_all_answer(question_id)
     # queries.delete_question_comment(question_id)
+
     queries.delete_question(question_id)
     return redirect('/')
 
