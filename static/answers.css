@@ -175,7 +175,10 @@ div.create input:hover { opacity: 1; -webkit-filter: brightness(150%); }
 div.all_answers {
     margin-top: 100px;
 }
-
+tr.text td {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
 table.answers {
     top: 0px;
     width: calc(60% - 4px);
@@ -224,7 +227,7 @@ table.answers tr.atrib {
 }
 table.answer_comments {
     top: 0px;
-    width: calc(60% - 4px);
+    width: calc(60% - 10px);
     margin-right: 10%;
     margin-left: auto;
     border-right: 3px solid black;
@@ -232,7 +235,7 @@ table.answer_comments {
     border-bottom: 3px solid black;
     color: white;
     background-color: #565656;
-    font-size: 0.8vw;
+    font-size: 0.7vw;
     border-radius: 3px;
 }
 table.answer_comments td {
