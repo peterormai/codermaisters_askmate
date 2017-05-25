@@ -8,6 +8,9 @@ body {
 h1 {
     color: #feda6a;
 }
+p {
+    font-size: 1.2vw;
+}
 div.update form p {
     color:white;
     font-size: 14px;
