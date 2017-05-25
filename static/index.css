@@ -89,25 +89,27 @@ div.create input:hover { opacity: 1; -webkit-filter: brightness(150%); }
 /*create button at the right bottom corner*/
 
 /*sort_by right bottom corner*/
-form.sortby {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-}   
-form.sortby input {
-    border-radius: 5px;
-    background-color: #535c70;;
-    color: white;
-    border: 5px solid #535c70;;
-}
-form.sortby select {
-    border-radius: 5px;
-    background-color: #535c70;;
-    color: white;
-    border: 5px solid #535c70;
-}
+
 #sorter {
     position: fixed;
     bottom: 30px;
     right: 194px; 
+}
+
+/* Show all questions' button */
+.show_all {
+    position: fixed;
+    bottom: 20px;
+    right: 40px;
+    color: #feda6a;
+    border-radius: 10px;
+    border-width: 3px;
+    border-color: #6f737c;
+    padding: 5px;
+    background-color: #6f737c;
+}
+
+#show_all {
+    text-decoration: none;
+    color: #feda6a;
 }

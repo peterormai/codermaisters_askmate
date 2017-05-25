@@ -6,9 +6,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
   </head>
   <body>
-    <form class="sortby" action="/list">
-      <label><input id="sortit" type="submit" value="Show all questions" /></label>
-    </form>
+    <button class="show_all"><a id="show_all" href="/list">Show all questions</a></button>
     <table class="topmenu">
       <tr>
         <td width="5%">{{ top_menu[0] }}</td>

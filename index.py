@@ -23,7 +23,7 @@ def list_questions():
     """
     List all questions from the database.
     """
-    data_list = queries.all_questions()
+    data_list = queries.get_all_questions()
     title = "Cödermeisters's ask-mate"
     top_menu = ['ID', 'Created at', 'Views', 'Votes', 'Title', 'Edit', 'Delete', "Like", "Dislike"]
     return render_template('index.html', title=title, data_list=data_list, top_menu=top_menu)
@@ -88,15 +88,16 @@ def answer_handle_like(answer_id, from_page, like_value):
 
 
 @app.route("/question/<int:id>/edit")
-def question_show(id):
-    selected_question = queries.show_question(id)[0][0]
+def show_question(id):
+    selected_question = queries.edit_question(id)[0][0]
     return render_template('update.html', selected_question=selected_question, id=id)
 
 
 @app.route("/question/<int:id>/edit", methods=["POST"])
 def update_quest(id):
     selected_question = request.form["question_update"]
-    queries.update_question(selected_question, id)
+    selected_message = request.form["message_update"]
+    queries.update_question_query(selected_question, selected_message, id)
     return redirect("/list")
 
 
@@ -119,13 +120,13 @@ def question_display(question_id):
     """
     queries.view_counter(question_id)
     webpage_title = 'Question & answers'
-    selected_question = queries.display_question(question_id)[0]
-    related_answers = queries.display_answer(question_id)
-    question_comment = queries.display_question_comment(question_id)
-    answer_ids = queries.answer_comment_ids(question_id)
+    selected_question = queries.get_question_details(question_id)[0]
+    related_answers = queries.get_question_answers(question_id)
+    question_comment = queries.get_question_comments(question_id)
+    answer_ids = queries.get_answer_comment_ids(question_id)
     answer_comment = []
     for answer_id in answer_ids:
-        answer_comment.append(queries.display_answer_comment(int(answer_id)))
+        answer_comment.append(queries.get_answer_comment(int(answer_id)))
     return render_template('question_display.html',
                            question=selected_question,
                            answers=related_answers,
@@ -163,6 +164,14 @@ def new_comment(question_id):
     webpage_title = 'Post a comment'
     question = queries.display_question(question_id)[0]
     return render_template('/new_comment.html', webpage_title=webpage_title, question=question)
+
+
+@app.route('/question/<int:question_id>/new_comment', methods=['POST'])
+def add_new_comment(question_id):
+    submission_time = datetime.now()
+    message = request.form['answer']
+    queries.submit_new_question_comment(question_id, message, submission_time)
+    return redirect('/question/' + str(question_id))
 
 
 @app.route('/question/<int:question_id>/new_answer')
