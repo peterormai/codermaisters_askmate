@@ -15,18 +15,40 @@ def redirect_url(default='index'):
         url_for(default)
 
 
-# Main page
+@app.route('/')
+def show_latest_five_questions():
+    """
+    Show the latest 5 submitted questions.
+    """
+    title = "Super Sprinter 3000"
+    top_menu = ['ID', 'Created at', 'Views', 'Votes', 'Title', 'Edit', 'Delete', "Like", "Dislike"]
+    data_list = queries.fetch_database("""SELECT * FROM question ORDER BY id DESC LIMIT 5;""")
+    return render_template('index.html', data_list=data_list, title=title, top_menu=top_menu)
 
 
 @app.route('/list')
 def list_questions():
     """
-    List all questions from the database.
+    Lists all questions from the database.
     """
     data_list = queries.get_all_questions()
     title = "Cödermeisters's ask-mate"
     top_menu = ['ID', 'Created at', 'Views', 'Votes', 'Title', 'Edit', 'Delete', "Like", "Dislike"]
     return render_template('index.html', title=title, data_list=data_list, top_menu=top_menu)
+
+
+@app.route("/question/<int:id>/edit")
+def show_question(id):
+    selected_question = queries.show_one_question(id)[0][0]
+    return render_template('update.html', selected_question=selected_question, id=id)
+
+
+@app.route("/question/<int:id>/edit", methods=["POST"])
+def update_question(id):
+    selected_question = request.form["question_update"]
+    selected_message = request.form["message_update"]
+    queries.update_question_query(selected_question, selected_message, id)
+    return redirect("/list")
 
 
 @app.route("/like/<int:id>/<int:like_value>")
@@ -60,20 +82,6 @@ def answer_handle_like(answer_id, from_page, like_value):
     return redirect(redirect_url())
 
 
-@app.route("/question/<int:id>/edit")
-def show_question(id):
-    selected_question = queries.show_one_question(id)[0][0]
-    return render_template('update.html', selected_question=selected_question, id=id)
-
-
-@app.route("/question/<int:id>/edit", methods=["POST"])
-def update_quest(id):
-    selected_question = request.form["question_update"]
-    selected_message = request.form["message_update"]
-    queries.update_question_query(selected_question, selected_message, id)
-    return redirect("/list")
-
-
 @app.errorhandler(404)
 def page_not_found(e):
     """
@@ -99,7 +107,7 @@ def question_display(question_id):
     answer_ids = queries.get_answer_comment_ids(question_id)
     answer_comment = []
     for answer_id in answer_ids:
-        answer_comment.append(queries.get_answer_comment(int(answer_id)))
+        answer_comment.append(queries.get_answer_comments(int(answer_id)))
     return render_template('question_display.html',
                            question=selected_question,
                            answers=related_answers,
@@ -202,17 +210,6 @@ def new_question():
         image = request.form['picture']
         queries.submit_new_question(submission_time, view_number, vote_number, title, message, image)
         return redirect('/list')
-
-
-@app.route('/')
-def show_latest_five_questions():
-    """
-    Show the latest 5 submitted questions.
-    """
-    title = "Super Sprinter 3000"
-    top_menu = ['ID', 'Created at', 'Views', 'Votes', 'Title', 'Edit', 'Delete', "Like", "Dislike"]
-    data_list = queries.fetch_database("""SELECT * FROM question ORDER BY id DESC LIMIT 5;""")
-    return render_template('index.html', data_list=data_list, title=title, top_menu=top_menu)
 
 
 def main():
