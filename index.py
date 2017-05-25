@@ -89,7 +89,7 @@ def answer_handle_like(answer_id, from_page, like_value):
 
 @app.route("/question/<int:id>/edit")
 def show_question(id):
-    selected_question = queries.edit_question(id)[0][0]
+    selected_question = queries.show_one_question(id)[0][0]
     return render_template('update.html', selected_question=selected_question, id=id)
 
 
@@ -162,7 +162,7 @@ def new_comment(question_id):
     One argument: specific question ID of the question.
     """
     webpage_title = 'Post a comment'
-    question = queries.display_question(question_id)[0]
+    question = queries.get_question_details(question_id)[0]
     return render_template('/new_comment.html', webpage_title=webpage_title, question=question)
 
 
@@ -181,7 +181,7 @@ def new_answer(question_id):
     One argument: specific question ID of the question.
     """
     webpage_title = 'Post an Answer'
-    question = queries.display_question(question_id)[0]
+    question = queries.get_question_details(question_id)[0]
     return render_template('/new_answer.html', webpage_title=webpage_title, question=question)
 
 

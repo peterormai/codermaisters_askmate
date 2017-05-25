@@ -58,7 +58,7 @@ def get_all_questions():
     return fetch_database("""SELECT * FROM question ORDER BY id;""")
 
 
-def edit_question(id):
+def show_one_question(id):
     """Returns the currect question details that are to be changed by user"""
     return fetch_database("""SELECT title FROM question WHERE id={};""".format(id))
 
