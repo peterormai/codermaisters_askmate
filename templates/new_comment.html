@@ -12,9 +12,8 @@
             <p>{{ question[5] }}</p>
             <h2>Your comment:</h2>
         <p><button><a href='/question/{{ question[0] }}'>Back</a></button></p>
-        <form action='/question/{{ question[0] }}' method='"POST", "GET"'>
+        <form action='/question/{{ question[0] }}/new_comment' method='POST'>
             <textarea rows='5' cols='70' name='answer' minlength='10'></textarea>
-            <input id=picture_url type="text" name="picture" placeholder="http://example.url/picture.png">
             <br><br>
             <input type='submit', value=' Send '>
         </form>
