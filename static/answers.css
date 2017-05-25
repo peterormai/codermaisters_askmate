@@ -261,8 +261,8 @@ img {
   height: auto;
 }
 img.uploaded {
-    max-width: 200px;
-    max-height: 200px;
+    max-width: 200px !important;
+    max-height: 200px !important;
 }
 div.question_comments img{
     max-width: 30px;
@@ -286,4 +286,8 @@ div.question_comments img{
     width: 15px;
     height: 15px;
     text-align: right;
+}
+tr.text td img{
+    width: 100px;
+    height: 100px;
 }
