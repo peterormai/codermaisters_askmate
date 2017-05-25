@@ -124,7 +124,6 @@ def question_display(question_id):
     Display the question with all the answers below.
     Given the right argument, the related question will be displayed with answers to it.
     """
-    queries.view_counter(question_id)
     webpage_title = 'Question & answers'
     selected_question = queries.get_question_details(question_id)[0]
     related_answers = queries.get_question_answers(question_id)
