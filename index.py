@@ -166,6 +166,14 @@ def new_comment(question_id):
     return render_template('/new_comment.html', webpage_title=webpage_title, question=question)
 
 
+@app.route('/question/<int:question_id>/new_comment', methods=['POST'])
+def add_new_comment(question_id):
+    submission_time = datetime.now()
+    message = request.form['answer']
+    queries.submit_new_question_comment(question_id, message, submission_time)
+    return redirect('/question/' + str(question_id))
+
+
 @app.route('/question/<int:question_id>/new_answer')
 def new_answer(question_id):
     """

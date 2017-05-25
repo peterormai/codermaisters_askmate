@@ -150,3 +150,8 @@ def submit_new_question(submission_time, view_number, vote_number, title, messag
 def view_counter(question_id):
     """Adds one to the view counter in the database"""
     modify_database("""UPDATE question SET view_number=view_number + 1 WHERE id={};""".format(question_id))
+
+
+def submit_new_question_comment(question_id, message, submission_time):
+    modify_database("""INSERT INTO comment(question_id, message, submission_time)
+                    SELECT {}, '{}', '{}';""".format(question_id, message, submission_time))
