@@ -88,6 +88,11 @@
                 <td>Submission Time: {{ items[1] }}</td>
                 <td>Votes: {{ items[2] }}</td>
                 <td>
+                    <a href= '/answer/{{ items[0] }}/new_comment'>
+                        <img src="https://maxcdn.icons8.com/office/PNG/512/Cinema/breast-512.png"/>
+                    </a>
+                </td>
+                <td>
                     <a href= /like/{{ items[0] }}/ans/1> <img src="http://i.picresize.com/images/2017/05/11/qy3u.png"/></a>
                 </td>
                 <td>
@@ -107,9 +112,6 @@
             </tr>
         </table>
         <table class="answer_comments">
-            <tr>
-                <td class="answer_comments">Answer comments:</td>
-            </tr>
             {% for comments in answer_comment %}
                 {% for comment in comments  %}
                     {% if comment[0] == items[0] %}
