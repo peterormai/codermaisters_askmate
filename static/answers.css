@@ -275,3 +275,10 @@ div.question_comments img{
     max-width: 30px;
     max-height: 30px;
 }
+
+#delete_comment {
+    max-width: 15px;
+    max-height: 15px;
+    width: 15px;
+    height: 15px;
+}
