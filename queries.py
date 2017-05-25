@@ -95,7 +95,7 @@ def get_answer_comment_ids(question_id):
 
 def show_one_answer(answer_id):
     """Returns the currect answer details that are to be changed by user"""
-    return fetch_database("""SELECT id, submission_time, message, image FROM answer WHERE id={};""".format(answer_id))
+    return fetch_database("""SELECT id, submission_time, message, image FROM answer WHERE id={};""".format(answer_id,))
 
 # Database modifiers!
 
@@ -118,19 +118,19 @@ def delete_one_answer(answer_id):
 def add_new_answer(submission_time, vote_number, question_id, message, image):
     """Adds a new answer to a question"""
     modify_database("""INSERT INTO answer(submission_time, vote_number, question_id, message, image) VALUES
-                    (%s, %s, %s, %s, %s); """, (submission_time, vote_number, question_id, message, image,))
+                    (%s, %s, %s, %s, %s); """, (submission_time, vote_number, question_id, message, image))
 
 
 def submit_new_question(submission_time, view_number, vote_number, title, message, image):
     """Gets all the nessecery inputs from the user"""
     modify_database(
         """INSERT INTO question(submission_time, view_number, vote_number, title, message, image)
-        VALUES (%s, %s, %s, %s, %s, %s);""", (submission_time, view_number, vote_number, title, message, image,))
+        VALUES (%s, %s, %s, %s, %s, %s);""", (submission_time, view_number, vote_number, title, message, image))
 
 
 def submit_new_question_comment(question_id, message, submission_time):
     modify_database("""INSERT INTO comment(question_id, message, submission_time)
-                    VALUES (%s, %s, %s);""", (question_id, message, submission_time,))
+                    VALUES (%s, %s, %s);""", (question_id, message, submission_time))
 
 
 def update_question_query(title, message, question_id):
