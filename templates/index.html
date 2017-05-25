@@ -6,8 +6,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
   </head>
   <body>
-    <form class="sortby" action="/">
-      <label><input id="sortit" type="submit" value="Show latest five question" /></label>
+    <form class="sortby" action="/list">
+      <label><input id="sortit" type="submit" value="Show all questions" /></label>
     </form>
     <table class="topmenu">
       <tr>
@@ -53,7 +53,7 @@
       <a  href="/new_question">
           <img src="http://www.freeiconspng.com/uploads/add-create-new-plus-icon-26.png" height="50px" width="50px"/>
       </a>
-      <a id="home" href="/list">
+      <a id="home" href="/">
           <img src="http://icons.iconarchive.com/icons/robsonbillponte/iRob/512/Folder-Home-Folder-icon.png" height="50px" width="50px"/>
       </a>
   </div>
