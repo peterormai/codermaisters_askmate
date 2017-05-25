@@ -154,6 +154,15 @@ def delete_one_question(question_id):
 
 
 # New answer
+@app.route('/question/<int:question_id>/new_comment')
+def new_comment(question_id):
+    """
+    The user is able to comment any question.
+    One argument: specific question ID of the question.
+    """
+    webpage_title = 'Post a comment'
+    question = queries.display_question(question_id)[0]
+    return render_template('/new_comment.html', webpage_title=webpage_title, question=question)
 
 
 @app.route('/question/<int:question_id>/new_answer')
