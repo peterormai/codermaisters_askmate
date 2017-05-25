@@ -117,7 +117,6 @@ div.top_menu table {
     height: 30px;
     background-color: #373737;
     color: #feda6a;
-    /*margin-right: 10px;*/
     width: 80%;
     border-bottom: 5px solid #222222;
     table-layout: fixed;
@@ -185,21 +184,16 @@ table.answers {
     margin-right: 10%;
     margin-left: auto;
     border: 1px solid black;
-    /*padding: 3px;*/
     color: #feda6a;
     background-color: #222222;
     font-size: 0.8vw;
     border-radius: 3px;
-    /*border-collapse:separate; 
-    border-spacing:0.5em;*/
-    /*margin-top: 50px;*/ 
 }
 tr.text td {
     background-color: #373737;
 }
 table.answers td {  
     border-right: 3px solid black;    
-    /*border-radius: 3px;*/
     max-width: 100px;
     overflow: hidden;
     table-layout: fixed;
@@ -221,7 +215,6 @@ table.answers img {
 }
 
 table.answers tr.atrib {
-    /*background-color: #393f4d;*/
     background: #222222;
     border-color: #252933;
 }
