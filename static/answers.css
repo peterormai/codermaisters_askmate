@@ -271,3 +271,7 @@ img.uploaded {
     max-width: 200px;
     max-height: 200px;
 }
+div.question_comments img{
+    max-width: 30px;
+    max-height: 30px;
+}
