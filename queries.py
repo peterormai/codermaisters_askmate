@@ -28,9 +28,9 @@ def fetch_database(query):
     except psycopg2.DatabaseError as exception:
         print(exception)
 
-    # finally:
-    #     if connection:
-    #         connection.close()
+    finally:
+        if conn:
+            conn.close()
 
 
 def modify_database(query):
@@ -48,9 +48,9 @@ def modify_database(query):
     except psycopg2.DatabaseError as exception:
         print(exception)
 
-    # finally:
-    #     if connection:
-    #         connection.close()
+    finally:
+        if conn:
+            conn.close()
 
 
 def get_all_questions():
