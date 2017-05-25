@@ -103,7 +103,7 @@ def new_question():
     Receives data fromm the user input, uses BASE64 encryption for title and description.
     Set by default an ID number, creation time, view and like number and save it as a .csv file.
     """
-    submission_time = datetime.now()
+    submission_time = str(datetime.now())[:-7]
     view_number = 0
     vote_number = 0
     title = request.form["new_question"]
@@ -184,7 +184,7 @@ def add_answer(question_id):
     if len(request.form['answer']) < 10:
         return redirect('/question/' + str(question_id) + '/new_answer')
     else:
-        submission_time = datetime.now()
+        submission_time = str(datetime.now())[:-7]
         vote_number = 0
         message = request.form['answer']
         image = request.form['picture']
@@ -200,14 +200,15 @@ def new_comment(question_id):
     The user is able to comment any question.
     One argument: specific question ID of the question.
     """
+    action_variable = 'question'
     webpage_title = 'Post a comment'
-    question = queries.get_question_details(question_id)[0]
-    return render_template('/new_comment.html', webpage_title=webpage_title, question=question)
+    details = queries.get_question_details(question_id)[0]
+    return render_template('/new_comment.html', webpage_title=webpage_title, details=details, action_variable=action_variable)
 
 
 @app.route('/question/<int:question_id>/new_comment', methods=['POST'])
 def add_new_comment(question_id):
-    submission_time = datetime.now()
+    submission_time = str(datetime.now())[:-7]
     message = request.form['answer']
     queries.submit_new_question_comment(question_id, message, submission_time)
     return redirect('/question/' + str(question_id))
@@ -220,6 +221,27 @@ def delete_comment(comment_id):
     """
     queries.delete_comment(comment_id)
     return redirect(redirect_url())
+
+
+@app.route('/answer/<int:answer_id>/new_comment')
+def new_answer_comment(answer_id):
+    """
+    The user is able to comment any question.
+    One argument: specific question ID of the question.
+    """
+    action_variable = 'answer'
+    webpage_title = 'Post a comment'
+    details = queries.show_one_answer(answer_id)[0]
+    return render_template('/new_comment.html', webpage_title=webpage_title,
+                           details=details, action_variable=action_variable)
+
+
+@app.route('/answer/<int:answer_id>/new_comment', methods=['POST'])
+def add_new_answer_comment(answer_id):
+    submission_time = str(datetime.now())[:-7]
+    message = request.form['answer']
+    queries.submit_new_answer_comment(answer_id, message, submission_time)
+    return redirect('/')
 # #######################COMMENTS########################
 
 
