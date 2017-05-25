@@ -98,14 +98,6 @@ def get_answer_comment_ids(id):
     return id_numbers
 
 
-# def delete_all_answer(id):
-#     result = modify_database("""DELETE FROM answer WHERE question_id = {}; """.format(id))
-
-
-# def delete_question_comment(question_id):
-#     return modify_database("""DELETE FROM comment WHERE question_id = {}; """.format(question_id))
-
-
 def delete_one_answer(answer_id):
     """Deletes a question based on ID from the database"""
     modify_database("""DELETE FROM answer WHERE id = {}; """.format(answer_id))
