@@ -276,9 +276,21 @@ div.question_comments img{
     max-height: 30px;
 }
 
+.comment_table {
+    table-layout: fixed;
+}
+
+#comments td {
+    width: 80% !important;
+    height: auto;
+}
+
+
+#delete_comments td{
+    width: 20%;
+}
 #delete_comment {
-    max-width: 15px;
-    max-height: 15px;
     width: 15px;
     height: 15px;
+    text-align: right;
 }

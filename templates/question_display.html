@@ -28,10 +28,10 @@
                 </a></li>
             {% for comment in question_comment %}
             <li>
-                <table>
+                <table class="comment_table">
                     <tr>
-                        <td>{{ comment[0] }}</td>
-                        <td>
+                        <td width="80%"id="comments">{{ comment[0] }}</td>
+                        <td width="20%"id="delete_comments">
                             <form action="/comment/{{ comment[1] }}/delete" method="post">
                                 <input id="delete_comment" type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png"/> 
                             </form>
