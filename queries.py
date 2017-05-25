@@ -86,11 +86,7 @@ def get_answer_comments(answer_id):
 
 def get_answer_comment_ids(question_id):
     """Returns all the answer_comments IDs"""
-    answer_ids = fetch_database("""SELECT id FROM answer WHERE question_id = %s""", (question_id,))
-    id_numbers = []
-    for item in answer_ids:
-        id_numbers.append("".join(map(str, item)))
-    return id_numbers
+    return fetch_database("""SELECT id FROM answer WHERE question_id = %s""", (question_id,))
 
 
 def show_one_answer(answer_id):
