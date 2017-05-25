@@ -16,7 +16,7 @@ div.update form p {
     font-size: 14px;
 }
 form.update textarea {
-    width: 75%; /*Don't change it, it will be too big in new_question.html*/
+    width: 75%;
     height: 100px;
     background-color: #8f9dbf;
     border: 0px;
