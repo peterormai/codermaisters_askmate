@@ -7,12 +7,11 @@
     </head>
     <body>
         <div class="updatediv">
-            <h1>Question:</h1>
-            <p>{{ question[4] }}</p>
-            <p>{{ question[5] }}</p>
+            <p>{{ details[4] }}</p>
+            <p>{{ details[5] }}</p>
             <h2>Your comment:</h2>
-        <p><button><a href='/question/{{ question[0] }}'>Back</a></button></p>
-        <form action='/question/{{ question[0] }}/new_comment' method='POST'>
+        <button><a href='/question/{{ details[0] }}'>Back</a></button>
+        <form action='/{{ action_variable }}/{{ details[0] }}/new_comment' method='POST'>
             <textarea rows='5' cols='70' name='answer' minlength='10'></textarea>
             <br><br>
             <input type='submit', value=' Send '>
