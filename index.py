@@ -2,6 +2,7 @@ from flask import Flask
 from flask import render_template
 from flask import request
 from flask import redirect
+from flask import url_for
 import queries
 from datetime import datetime
 
@@ -77,7 +78,7 @@ def update_question(id):
     selected_question = request.form["question_update"]
     selected_message = request.form["message_update"]
     queries.update_question_query(selected_question, selected_message, id)
-    return redirect("/list")
+    return redirect(url_for('show_latest_five_questions'))
 
 
 @app.route('/question/<int:question_id>/delete', methods=['POST'])
@@ -86,7 +87,7 @@ def delete_one_question(question_id):
     Given the right argument, the related question will be removed with all the answers from the database permanently. 
     """
     queries.delete_question(question_id)
-    return redirect('/')
+    return redirect(url_for('show_latest_five_questions'))
 
 
 @app.route("/new_question")
@@ -108,12 +109,12 @@ def new_question():
     vote_number = 0
     title = request.form["new_question"]
     if len(title) < 10:
-        return redirect('new_question')
+        return redirect(url_for('new_question'))
     else:
         message = request.form["new_question_long"]
         image = request.form['picture']
         queries.submit_new_question(submission_time, view_number, vote_number, title, message, image)
-        return redirect('/list')
+        return redirect(url_for('show_latest_five_questions'))
 # #######################QUESTIONS########################
 
 
@@ -241,7 +242,8 @@ def add_new_answer_comment(answer_id):
     submission_time = str(datetime.now())[:-7]
     message = request.form['answer']
     queries.submit_new_answer_comment(answer_id, message, submission_time)
-    return redirect('/')
+    question_id = queries.search_question_id(answer_id)[0][0]
+    return redirect('/question/' + str(question_id))
 # #######################COMMENTS########################
 
 
