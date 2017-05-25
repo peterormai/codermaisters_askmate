@@ -65,7 +65,7 @@ def edit_question(id):
 
 def update_question_query(title, message, id):
     """Updates the database with the edited question details"""
-    return modify_database("""UPDATE question SET title='{}', message='{}' WHERE id={};""".format(title, message, id))
+    modify_database("""UPDATE question SET title='{}', message='{}' WHERE id={};""".format(title, message, id))
 
 
 def get_question_details(id):
@@ -107,38 +107,46 @@ def get_answer_comment_ids(id):
 
 
 def delete_one_answer(answer_id):
-    return modify_database("""DELETE FROM answer WHERE id = {}; """.format(answer_id))
+    """Deletes a question based on ID from the database"""
+    modify_database("""DELETE FROM answer WHERE id = {}; """.format(answer_id))
 
 
 def delete_answer_comment(answer_id):
-    result = modify_database("""DELETE FROM comment WHERE answer_id = {}; """.format(answer_id))
+    """Deletes a comment from an answer"""
+    modify_database("""DELETE FROM comment WHERE answer_id = {}; """.format(answer_id))
 
 
 def delete_question(id):
-    result = modify_database("""DELETE FROM question WHERE id = {}; """.format(id))
+    """Deletes a question and all the associated answers and comments"""
+    modify_database("""DELETE FROM question WHERE id = {}; """.format(id))
 
 
 def add_new_answer(submission_time, vote_number, question_id, message, image):
-    result = modify_database("""INSERT INTO answer(submission_time, vote_number, question_id, message, image) SELECT
-                                '{}', {}, {}, '{}', '{}'; """.format(submission_time, vote_number, question_id, message, image))
+    """Adds a new answer to a question"""
+    modify_database("""INSERT INTO answer(submission_time, vote_number, question_id, message, image) SELECT
+                    '{}', {}, {}, '{}', '{}'; """.format(submission_time, vote_number, question_id, message, image))
 
 
 def handle_question_like(id, like_value):
-    result = modify_database(
-        """UPDATE question SET vote_number = vote_number + {} WHERE id = {}""".format(like_value, id))
+    """"Adds one or takes one from the question vote/like counter"""
+    modify_database("""UPDATE question SET vote_number = vote_number + {} WHERE id = {}""".format(like_value, id))
 
 
 def handle_answer_like(id, like_value):
-    result = modify_database(
+    """"Adds one or takes one from the answer vote/like counter"""
+    modify_database(
         """UPDATE answer SET vote_number = vote_number + {} WHERE id = {}""".format(like_value, id))
 
 
 def submit_new_question(submission_time, view_number, vote_number, title, message, image):
-    result = modify_database(
+    """Gets all the nessecery inputs from the user"""
+    modify_database(
         """INSERT INTO question(submission_time, view_number, vote_number, title, message, image)
-        SELECT '{}', {}, {}, '{}', '{}', '{}';""".format
-        (submission_time, view_number, vote_number, title, message, image))
+        SELECT '{}', {}, {}, '{}', '{}', '{}';"""
+        .format(submission_time, view_number, vote_number, title, message, image)
+    )
 
 
 def view_counter(question_id):
+    """Adds one to the view counter in the database"""
     modify_database("""UPDATE question SET view_number=view_number + 1 WHERE id={};""".format(question_id))
