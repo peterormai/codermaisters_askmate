@@ -58,24 +58,24 @@ def get_all_questions():
     return fetch_database("""SELECT * FROM question ORDER BY id;""")
 
 
-def show_one_question(id):
+def show_one_question(question_id):
     """Returns the currect question details that are to be changed by user"""
-    return fetch_database("""SELECT title, message FROM question WHERE id=%s;""", (id,))
+    return fetch_database("""SELECT title, message FROM question WHERE id=%s;""", (question_id,))
 
 
-def get_question_details(id):
+def get_question_details(question_id):
     """Returns all the details about a specific question"""
-    return fetch_database("""SELECT * FROM question WHERE id=%s""", (id,))
+    return fetch_database("""SELECT * FROM question WHERE id=%s""", (question_id,))
 
 
-def get_question_answers(id):
+def get_question_answers(question_id):
     """Returns all the answers to a specific question"""
-    return fetch_database("""SELECT * FROM answer WHERE question_id=%s ORDER BY id""", (id,))
+    return fetch_database("""SELECT * FROM answer WHERE question_id=%s ORDER BY id""", (question_id,))
 
 
-def get_question_comments(id):
+def get_question_comments(question_id):
     """Returns all the comments to a specific question"""
-    return fetch_database("""SELECT message, id FROM comment WHERE question_id = %s""", (id,))
+    return fetch_database("""SELECT message, id FROM comment WHERE question_id = %s""", (question_id,))
 
 
 def get_answer_comments(answer_id):
@@ -84,18 +84,18 @@ def get_answer_comments(answer_id):
                          FROM comment WHERE answer_id = %s""", (answer_id,))
 
 
-def get_answer_comment_ids(id):
+def get_answer_comment_ids(question_id):
     """Returns all the answer_comments IDs"""
-    answer_ids = fetch_database("""SELECT id FROM answer WHERE question_id = %s""", (id,))
+    answer_ids = fetch_database("""SELECT id FROM answer WHERE question_id = %s""", (question_id,))
     id_numbers = []
     for item in answer_ids:
         id_numbers.append("".join(map(str, item)))
     return id_numbers
 
 
-def show_one_answer(id):
+def show_one_answer(answer_id):
     """Returns the currect answer details that are to be changed by user"""
-    return fetch_database("""SELECT id, submission_time, message, image FROM answer WHERE id={};""".format(id))
+    return fetch_database("""SELECT id, submission_time, message, image FROM answer WHERE id={};""".format(answer_id,))
 
 # Database modifiers!
 
@@ -105,9 +105,9 @@ def submit_new_answer_comment(answer_id, message, submission_time):
                     SELECT {}, '{}', '{}';""".format(answer_id, message, submission_time))
 
 
-def delete_question(id):
+def delete_question(question_id):
     """Deletes a question and all the associated answers and comments"""
-    modify_database("""DELETE FROM question WHERE id = %s; """, (id,))
+    modify_database("""DELETE FROM question WHERE id = %s; """, (question_id,))
 
 
 def delete_one_answer(answer_id):
@@ -118,35 +118,35 @@ def delete_one_answer(answer_id):
 def add_new_answer(submission_time, vote_number, question_id, message, image):
     """Adds a new answer to a question"""
     modify_database("""INSERT INTO answer(submission_time, vote_number, question_id, message, image) VALUES
-                    (%s, %s, %s, %s, %s); """, (submission_time, vote_number, question_id, message, image,))
+                    (%s, %s, %s, %s, %s); """, (submission_time, vote_number, question_id, message, image))
 
 
 def submit_new_question(submission_time, view_number, vote_number, title, message, image):
     """Gets all the nessecery inputs from the user"""
     modify_database(
         """INSERT INTO question(submission_time, view_number, vote_number, title, message, image)
-        VALUES (%s, %s, %s, %s, %s, %s);""", (submission_time, view_number, vote_number, title, message, image,))
+        VALUES (%s, %s, %s, %s, %s, %s);""", (submission_time, view_number, vote_number, title, message, image))
 
 
 def submit_new_question_comment(question_id, message, submission_time):
     modify_database("""INSERT INTO comment(question_id, message, submission_time)
-                    VALUES (%s, %s, %s);""", (question_id, message, submission_time,))
+                    VALUES (%s, %s, %s);""", (question_id, message, submission_time))
 
 
-def update_question_query(title, message, id):
+def update_question_query(title, message, question_id):
     """Updates the database with the edited question details"""
-    modify_database("""UPDATE question SET title=%s, message=%s WHERE id=%s;""", (title, message, id))
+    modify_database("""UPDATE question SET title=%s, message=%s WHERE id=%s;""", (title, message, question_id))
 
 
-def handle_question_like(id, like_value):
+def handle_question_like(question_id, like_value):
     """"Adds one or takes one from the question vote/like counter"""
-    modify_database("""UPDATE question SET vote_number = vote_number + %s WHERE id = %s""", (like_value, id))
+    modify_database("""UPDATE question SET vote_number = vote_number + %s WHERE id = %s""", (like_value, question_id))
 
 
-def handle_answer_like(id, like_value):
+def handle_answer_like(answer_id, like_value):
     """"Adds one or takes one from the answer vote/like counter"""
     modify_database(
-        """UPDATE answer SET vote_number = vote_number + %s WHERE id = %s""", (like_value, id))
+        """UPDATE answer SET vote_number = vote_number + %s WHERE id = %s""", (like_value, answer_id))
 
 
 def get_latest_five_questions():
