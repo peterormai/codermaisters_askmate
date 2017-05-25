@@ -157,3 +157,8 @@ def get_latest_five_questions():
 def delete_comment(comment_id):
     """Deletes a comment from answer or question comments"""
     modify_database("""DELETE FROM comment WHERE id=%s;""", (comment_id,))
+
+
+def search_question_id(answer_id):
+    """Searches the releted question id of the given answer id"""
+    return fetch_database("""SELECT question_id FROM answer WHERE id=%s;""", (answer_id,))

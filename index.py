@@ -242,7 +242,8 @@ def add_new_answer_comment(answer_id):
     submission_time = str(datetime.now())[:-7]
     message = request.form['answer']
     queries.submit_new_answer_comment(answer_id, message, submission_time)
-    return redirect('/')
+    question_id = queries.search_question_id(answer_id)[0][0]
+    return redirect('/question/' + str(question_id))
 # #######################COMMENTS########################
 
 
