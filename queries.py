@@ -93,7 +93,18 @@ def get_answer_comment_ids(id):
     return id_numbers
 
 
+def show_one_answer(id):
+    """Returns the currect answer details that are to be changed by user"""
+    return fetch_database("""SELECT id, submission_time, message, image FROM answer WHERE id={};""".format(id))
+
 # Database modifiers!
+
+
+def submit_new_answer_comment(answer_id, message, submission_time):
+    modify_database("""INSERT INTO comment(answer_id, message, submission_time)
+                    SELECT {}, '{}', '{}';""".format(answer_id, message, submission_time))
+
+
 def delete_question(id):
     """Deletes a question and all the associated answers and comments"""
     modify_database("""DELETE FROM question WHERE id = %s; """, (id,))
