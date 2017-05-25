@@ -13,6 +13,9 @@ app = Flask(__name__)
 
 
 def redirect_url(default='index'):
+    """
+    It redirects to the previous page.
+    """
     return request.args.get('next') or \
         request.referrer or \
         url_for(default)
@@ -57,8 +60,7 @@ def question_handle_like(id, like_value):
     Receives three arguments:
         - id: ID row
         - like_value: number of current likes (default is set to ‘0’)
-        - from_page: name of the current page
-    Overwrites old data with new data and redirects to the current page.
+    Overwrites old data with new data and redirects to the page where the like button is placed.
     """
     if like_value == 1:
         queries.handle_question_like(id, like_value)
@@ -69,12 +71,18 @@ def question_handle_like(id, like_value):
 
 @app.route("/question/<int:id>/edit")
 def show_question(id):
+    """
+    Shows the question edit page with the chosen question's informations.
+    """
     selected_question = queries.show_one_question(id)[0]
     return render_template('update.html', selected_question=selected_question, id=id)
 
 
 @app.route("/question/<int:id>/edit", methods=["POST"])
 def update_question(id):
+    """
+    Saves the modified question information to the database.
+    """
     selected_question = request.form["question_update"]
     selected_message = request.form["message_update"]
     queries.update_question_query(selected_question, selected_message, id)
@@ -84,7 +92,7 @@ def update_question(id):
 @app.route('/question/<int:question_id>/delete', methods=['POST'])
 def delete_one_question(question_id):
     """
-    Given the right argument, the related question will be removed with all the answers from the database permanently. 
+    The selected question will be removed with all the associated answers and comments from the database permanently.
     """
     queries.delete_question(question_id)
     return redirect(url_for('show_latest_five_questions'))
@@ -93,16 +101,15 @@ def delete_one_question(question_id):
 @app.route("/new_question")
 def show_new_question():
     """
-    Show new_question page.
+    Show the new_question page.
     """
     return render_template("new_question.html")
 
 
 @app.route("/new_question", methods=["POST"])
 def new_question():
-    """Takes a new question and description from user and encrypts it.
-    Receives data fromm the user input, uses BASE64 encryption for title and description.
-    Set by default an ID number, creation time, view and like number and save it as a .csv file.
+    """
+    It saves the question and all of entered details to the database.
     """
     submission_time = str(datetime.now())[:-7]
     view_number = 0
@@ -122,8 +129,7 @@ def new_question():
 @app.route('/question/<int:question_id>')
 def question_display(question_id):
     """
-    Display the question with all the answers below.
-    Given the right argument, the related question will be displayed with answers to it.
+    The related question will be displayed with answers and comments.
     """
     webpage_title = 'Question & answers'
     selected_question = queries.get_question_details(question_id)[0]
@@ -149,7 +155,7 @@ def question_display(question_id):
 
 @app.route("/like/<int:answer_id>/<from_page>/<int:like_value>")
 def answer_handle_like(answer_id, from_page, like_value):
-    """Change the number of likes according to user.
+    """Change the number of votes according to user.
     Receives two arguments:
         - answer_id
         - like_value: number of current likes (default is set to ‘0’)
@@ -165,7 +171,7 @@ def answer_handle_like(answer_id, from_page, like_value):
 @app.route('/answer/<int:answer_id>/delete', methods=['POST'])
 def delete_answer(answer_id):
     """
-    Given the right argument, the related answer will be removed from the database permanently. 
+    The selected answer will be removed from the database permanently.
     """
     queries.delete_one_answer(answer_id)
     return redirect(redirect_url())
@@ -174,8 +180,7 @@ def delete_answer(answer_id):
 @app.route('/question/<int:question_id>/new_answer')
 def new_answer(question_id):
     """
-    The user is able to answer any question.
-    One argument: specific question ID of the question.
+    It diplays a page with the selected question details. With a field where the user can write a new answer to it.
     """
     webpage_title = 'Post an Answer'
     question = queries.get_question_details(question_id)[0]
@@ -185,7 +190,7 @@ def new_answer(question_id):
 @app.route('/question/<int:question_id>/new_answer', methods=['POST'])
 def add_answer(question_id):
     """
-    Create a new answer by the user input to a specific question.
+    Saves the new answer by the user input to a specific question.
     """
     if len(request.form['answer']) < 10:
         return redirect('/question/' + str(question_id) + '/new_answer')
@@ -203,7 +208,7 @@ def add_answer(question_id):
 @app.route('/question/<int:question_id>/new_comment')
 def new_comment(question_id):
     """
-    The user is able to comment any question.
+    It diplays a page with a field where the user can write a new comment to the selected question.
     One argument: specific question ID of the question.
     """
     action_variable = 'question'
@@ -214,6 +219,9 @@ def new_comment(question_id):
 
 @app.route('/question/<int:question_id>/new_comment', methods=['POST'])
 def add_new_comment(question_id):
+    """
+    Saves the given comment by the user to a specific question.
+    """
     submission_time = str(datetime.now())[:-7]
     message = request.form['answer']
     queries.submit_new_question_comment(question_id, message, submission_time)
@@ -232,7 +240,7 @@ def delete_comment(comment_id):
 @app.route('/answer/<int:answer_id>/new_comment')
 def new_answer_comment(answer_id):
     """
-    The user is able to comment any question.
+    It diplays a page with a field where the user can write a new comment to the selected answer.
     One argument: specific question ID of the question.
     """
     action_variable = 'answer'
@@ -244,6 +252,9 @@ def new_answer_comment(answer_id):
 
 @app.route('/answer/<int:answer_id>/new_comment', methods=['POST'])
 def add_new_answer_comment(answer_id):
+    """
+    Saves the given comment by the user to a specific answer.
+    """
     submission_time = str(datetime.now())[:-7]
     message = request.form['answer']
     queries.submit_new_answer_comment(answer_id, message, submission_time)
