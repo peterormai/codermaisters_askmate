@@ -218,7 +218,7 @@ def delete_comment(comment_id):
     """
     Delete a comment from a question or an answer.
     """
-    queries.modify_database("""DELETE FROM comment WHERE id={};""".format(comment_id))
+    queries.delete_comment(comment_id)
     return redirect(redirect_url())
 # #######################COMMENTS########################
 

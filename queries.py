@@ -141,3 +141,8 @@ def handle_answer_like(id, like_value):
 def get_latest_five_questions():
     """Returns with the details of the latest 5 question in descending order"""
     return fetch_database("""SELECT * FROM question ORDER BY id DESC LIMIT 5;""")
+
+
+def delete_comment(comment_id):
+    """Deletes a comment from answer or question comments"""
+    modify_database("""DELETE FROM comment WHERE id=%s;""", (comment_id,))
