@@ -75,12 +75,12 @@ def get_question_answers(id):
 
 def get_question_comments(id):
     """Returns all the comments to a specific question"""
-    return fetch_database("""SELECT message FROM comment WHERE question_id = %s""", (id,))
+    return fetch_database("""SELECT message, id FROM comment WHERE question_id = %s""", (id,))
 
 
 def get_answer_comments(answer_id):
     """Returns all the comments to a specific question-answer"""
-    return fetch_database("""SELECT answer_id, message, submission_time
+    return fetch_database("""SELECT answer_id, message, submission_time, id
                          FROM comment WHERE answer_id = %s""", (answer_id,))
 
 

@@ -212,6 +212,14 @@ def add_new_comment(question_id):
     queries.submit_new_question_comment(question_id, message, submission_time)
     return redirect('/question/' + str(question_id))
 
+
+@app.route('/comment/<int:comment_id>/delete', methods=['POST'])
+def delete_comment(comment_id):
+    """
+    Delete a comment from a question or an answer.
+    """
+    queries.modify_database("""DELETE FROM comment WHERE id={};""".format(comment_id))
+    return redirect(redirect_url())
 # #######################COMMENTS########################
 
 

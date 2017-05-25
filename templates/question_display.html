@@ -27,10 +27,19 @@
                     <img src="https://maxcdn.icons8.com/office/PNG/512/Cinema/breast-512.png" height="50px" width="50px"/>
                 </a></li>
             {% for comment in question_comment %}
-            <li>{{ comment[0] }}</li> 
+            <li>{{ comment[0] }}
+                <form action="/comment/{{ comment[1] }}/delete" method="post">
+                    <input id="delete_comment" type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png"/> 
+                </form>
+            </li>
             {% endfor %}
         </ul>
     </div>
+
+
+
+
+
 
     <div class="top_menu">
         <table> 
@@ -106,7 +115,12 @@
                     {% if comment[0] == items[0] %}
                         <tr class="answer_comments">
                                 <td width="70%">{{ comment[1] }}</td>
-                                <td width="30%">{{ comment[2] }}</td>
+                                <td width="20%">{{ comment[2] }}</td>
+                                <td width="10%">
+                                    <form action="/comment/{{ comment[3] }}/delete" method="post">
+                                        <input id="delete_comment" type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png"/> 
+                                    </form>
+                                </td>
                         </tr>
                     {% endif %}
                 {% endfor %}
