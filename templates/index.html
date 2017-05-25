@@ -7,6 +7,7 @@
   </head>
   <body>
     <button class="show_all"><a id="show_all" href="/list">Show all questions</a></button>
+  
     <table class="topmenu">
       <tr>
         <td width="5%">{{ top_menu[0] }}</td>
@@ -20,6 +21,7 @@
         <td width="5%">{{ top_menu[8] }}</td>
       </tr>
     </table>
+
     <table class="mainlist">
       {% for item in data_list %}
       <tr>
@@ -28,32 +30,39 @@
         <td width="5%"><a href="/question/{{ item[0] }}">{{ item[2] }}</td>
         <td width="5%"><a href="/question/{{ item[0] }}">{{ item[3] }}</td>
         <td width="45%"><a href="/question/{{ item[0] }}">{{ item[4] }}</td>
+
         <td width="5%">
           <a href= /question/{{ item[0] }}/edit>
               <img src="http://www.argus-tv.com/wiki/images/e/eb/ICN_EDIT_GREEN.PNG" height="20px" width="20px"/>
           </a>
         </td class="cell-delete">
+
         <td width="5%">
           <form action="/question/{{ item[0] }}/delete" method="post">
             <input type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png" height="20px" width="20px"/> 
           </form>
         </td>
+
         <td width="5%">
           <a href= /like/{{ item[0] }}/1> <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/Facebook_like_thumb.png" height="20px" width="20px"/></a>
         </td>
+
         <td width="5%">
           <a href= /like/{{ item[0] }}/0> <img src="http://www.freeiconspng.com/uploads/dislike-button-png-1.png" height="20px" width="20px"/></a>
         </td>
+
       </tr>  
       {% endfor %}
     </table>
+
     <div class="create">
       <a  href="/new_question">
-          <img src="http://www.freeiconspng.com/uploads/add-create-new-plus-icon-26.png" height="50px" width="50px"/>
+        <img src="http://www.freeiconspng.com/uploads/add-create-new-plus-icon-26.png" height="50px" width="50px"/>
       </a>
+
       <a id="home" href="/">
-          <img src="http://icons.iconarchive.com/icons/robsonbillponte/iRob/512/Folder-Home-Folder-icon.png" height="50px" width="50px"/>
+        <img src="http://icons.iconarchive.com/icons/robsonbillponte/iRob/512/Folder-Home-Folder-icon.png" height="50px" width="50px"/>
       </a>
-  </div>
+    </div>
   </body>
 </html>
