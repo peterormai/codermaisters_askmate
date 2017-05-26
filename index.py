@@ -214,7 +214,7 @@ def new_comment(question_id):
     action_variable = 'question'
     webpage_title = 'Post a comment'
     details = queries.get_question_details(question_id)[0]
-    return render_template('/new_comment.html', webpage_title=webpage_title, details=details, action_variable=action_variable)
+    return render_template('/new_comment.html', webpage_title=webpage_title, details=details, action_variable=action_variable, question_id=question_id)
 
 
 @app.route('/question/<int:question_id>/new_comment', methods=['POST'])
