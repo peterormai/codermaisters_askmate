@@ -7,6 +7,243 @@ body {
     font-family: "Franklin Gothic Medium", "Franklin Gothic", "ITC Franklin Gothic", Arial, sans-serif;*/
 }
 
+/*############################ TOP BAR #############################*/
+div.top_menu img {
+    width: 20px;
+    height: 20px 
+}
+div.top_menu input {
+    width: 20px;
+    height: 20px; 
+}
+
+div.top_menu {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    background-color: #222222;
+    width: calc(80% - 10px);
+    height: 40px;
+    color: #feda6a;
+    font-size: 0.7vw;
+    border-bottom: 3px solid black;
+}
+div.topmenu table {
+    table-layout: fixed;
+    word-wrap:break-word;
+}
+div.top_menu table td {
+    width: 10%;
+    overflow: hidden;
+    padding: 0px 10px 0px 10px;
+    border-right: 3px solid black;
+}
+div.top_menu table td:hover {
+    transition: background-color 0.7s ease-in; 
+    background-color: #414756;
+}
+/*############################ TOP BAR #############################*/
+
+
+
+
+
+/*############################ ANSWERS #############################*/
+
+div.answers {
+    width: 60%;
+    color: white;
+    margin-top: 80px;
+    margin-right: 10%;
+    margin-left: auto;
+    margin-bottom: 30px; 
+}
+div.answers img{
+    max-width: 20px;
+    max-height: 20px;
+}
+div.answers input{
+    max-width: 20px;
+    max-height: 20px;
+}
+div.answers table {
+    font-size: 0.8vw;
+    border-collapse: collapse;
+    width: 100%;
+    word-wrap:break-word;
+}
+
+div.answers table {
+    border: 3px solid #222222;
+}
+
+
+/*####MAINLIST TOP-BAR####*/
+div.answers thead {
+    background-color: #222222;
+    width: 100%;
+}
+div.answers thead td{
+    border: 1px solid black;
+    padding: 5px 10px 5px 10px;
+    color: #feda6a; 
+}
+div.answers thead td:hover { 
+    transition: background-color 0.7s ease-in; 
+    background-color: #414756;
+}
+/*####MAINLIST TOP-BAR####*/
+
+
+/*####MAINLIST ANSWERS####*/
+div.answers tbody {
+    background-color: #373737;
+}
+div.answers tbody td {
+    padding: 20px; 
+    border-bottom: 3px solid #222222;
+}
+/*####MAINLIST ANSWERS####*/
+
+
+/*####MAINLIST COMMENTS####*/
+div.answers tfoot {
+    background-color: #565656;
+}
+div.answers tfoot td {
+    font-size: 0.6vw;
+}
+div.answers tfoot td:hover { 
+    transition: background-color 0.7s ease-in; 
+    background-color: #414756;
+}
+/*####MAINLIST COMMENTS####*/
+
+/*############################ ANSWERS #############################*/
+
+
+
+
+/*############################ QUESTIONS #############################*/
+
+/*####QUESTION DETAILS####*/
+div.question_details {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 70%;
+    width: 20%;
+    background-color: #393f4d;
+    overflow: auto;
+    border-right: 10px solid #222222;
+    border-bottom: 2px solid #222222;
+}
+div.question_details ul {
+    padding: 0;
+    list-style-type: none;
+}
+div.question_details li {
+    color: white;
+    font-family: Tahoma, Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 0.8vw;
+    padding: 20px;
+    text-align: center;
+    border-top: 2px solid #535c70;
+    border-bottom: 2px solid #535c70;
+}
+div.question_details label {
+    color: #feda6a;
+    font-weight: bold;
+    /*padding: 10px 0px 5px 0px;*/
+    font-size: 1vw;
+    margin-top: 10px;
+}
+div.question_details img {
+    max-width: 100%;
+    max-height: 100%;
+}
+/*####QUESTION DETAILS####*/
+
+
+/*####QUESTION COMMENTS####*/
+div.question_comments {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    width: 20%;
+    height: calc(30% - 4px);
+    background-color: #393f4d;
+    border-right: 10px solid #222222;
+    border-top: 2px solid #222222;
+    overflow: auto;
+}
+div.question_comments ul {
+    padding: 0;
+    list-style-type: none;
+    margin-top: 3px;
+}
+div.question_comments li {
+    color: white;
+    font-family: Tahoma, Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 0.8vw;
+    padding: 20px;
+    text-align: center;
+    border-top: 2px solid #535c70;
+    border-bottom: 2px solid #535c70;
+}
+
+
+div.question_comments input {
+    max-width: 30px;
+    max-height: 30px;
+}
+div.question_comments img {
+    vertical-align: middle;
+    max-width: 20px;
+    max-height: 20px;
+}
+#question_comment_info {
+    padding: 10px;
+    color: #feda6a;
+    vertical-align: middle;
+    font-size: 1vw;
+}
+#comment_action {
+    padding: 0px;
+    vertical-align: left;
+    border-bottom: 5px solid #222222;
+}
+#delete-comment {
+    max-width: 15px;
+    max-height: 15px;
+    vertical-align: left;
+}
+
+/*####QUESTION COMMENTS####*/
+
+/*############################ QUESTIONS #############################*/
+
+
+
+
+
+/*############################ HOME, BACK BUTTON #############################*/
+
+div.buttons {
+    position: fixed;
+    bottom: 20px;
+    right: 50px;
+}
+div.buttons img:hover { opacity: 1; -webkit-filter: brightness(150%); }
+
+/*############################ HOME, BACK BUTTON #############################*/
+
+
+
+
+
+
+/*############################ Scroll bar #############################*/
 ::-webkit-scrollbar {
     width: 12px;
 }
@@ -20,274 +257,4 @@ body {
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
 }
-/*Left navigation bar*/
-div.leftmenu ul {
-    top: 0px;
-    left: 0px;
-    list-style-type: none;
-    margin: 0;
-    padding: 0px 0px 0px 0px;
-    width: 20%;
-    background-color: #393f4d;
-    position: fixed;
-    height: 70%;
-    overflow: auto;
-    border-right: 10px solid #222222;
-
-}
-div.leftmenu li {
-    display: block;
-    padding: 20px;
-    text-decoration: none;
-    color: white;
-    font-family: Tahoma, Geneva, sans-serif;
-    font-style: italic;
-    font-size: 0.9vw;
-    word-wrap: break-word;
-}
-div.leftmenu li:hover  { background-color: #535c70;}
-div.leftmenu label {
-    display: block;
-    color: #feda6a;
-    font-weight: bold;
-    padding: 10px 0px 5px 0px;
-    text-align: left;
-    font-size: 1vw;
-    border-top: 2px solid #535c70;
-    border-bottom: 2px solid #535c70;
-    text-align: center;
-    padding: 10px 0px 10px 0px;
-}
-
-/*Left navigation bar*/
-
-div.question_comments ul {
-    bottom: 0px;
-    left: 0px;
-    list-style-type: none;
-    margin: 0;
-    padding: 0px 0px 0px 0px;
-    width: 20%;
-    height: 30%;
-    background-color: #393f4d;
-    position: fixed;
-    overflow: auto;
-    border-right: 10px solid #222222;
-}
-div.question_comments li {
-    display: block;
-    text-decoration: none;
-    color: white;
-    font-family: Tahoma, Geneva, sans-serif;
-    font-style: italic;
-    font-size: 0.8vw;
-    word-wrap: break-word;
-}
-div.question_comments li:hover  { background-color: #535c70;}
-
-div.question_comments li {
-    margin: 0;
-    display: block;
-    color: white;
-    font-weight: bold;
-    padding: 10px 0px 10px 10px;
-    text-align: left;
-    font-size: 0.7vw;
-    border-top: 2px solid #535c70;
-    border-bottom: 2px solid #252933;
-}
-#question_comment_info {
-    font-size: 1vw;
-    color: #feda6a;
-    text-align: center;
-    border-top: 5px solid  #252933;
-}
-div.question_comments p:hover { background-color: #535c70;}
-
-div.top_menu {
-    border-top: 5px solid black;
-}
-div.top_menu table {
-    padding: 0px;
-    margin: 0;
-    font-size: 0.85vw;
-    top: 0px;
-    right: -5px;
-    position:fixed;
-    height: 30px;
-    background-color: #373737;
-    color: #feda6a;
-    width: 80%;
-    border-bottom: 5px solid #222222;
-    table-layout: fixed;
-}
-div.top_menu table td {
-    border-right: 2px solid black;
-}
-td:hover { 
-    transition: background-color 0.7s ease-in; 
-    background-color: #8f9dbf;
-}
-
-div.leftmenu img {
-    width: 100%;
-    height: auto;
-}
-
-div.top_menu img {
-    width: 20px;
-    height: 20px;
-}
-div.top_menu input {
-    width: 20px;
-    height: 20px;
-}
-
-div.answers img{
-    width: 20px !important;
-    height: 20px !important;
-}
-
-/*create button at the right bottom corner*/
-div.create {
-    position: fixed;
-    bottom: 20px;
-    right: 100px;
-}
-div.create input {
-    width: 60px;
-    height: 60px;
-    opacity: 0.7;
-}
-
-#home {
-    position: fixed;
-    bottom: 30px;
-    right:  30px;
-    width: 50px;
-    height: 50px;
-}
-div.create input:hover { opacity: 1; -webkit-filter: brightness(150%); }
-/*create button at the right bottom corner*/
-
-
-div.all_answers {
-    margin-top: 100px;
-}
-tr.text td {
-    padding-top: 20px;
-    padding-bottom: 20px;
-}
-table.answers {
-    top: 0px;
-    width: calc(60% - 4px);
-    margin-right: 10%;
-    margin-left: auto;
-    border: 1px solid black;
-    color: #feda6a;
-    background-color: #222222;
-    font-size: 0.8vw;
-    border-radius: 3px;
-}
-tr.text td {
-    background-color: #373737;
-}
-table.answers td {  
-    border-right: 3px solid black;    
-    max-width: 100px;
-    overflow: hidden;
-    table-layout: fixed;
-    word-wrap:break-word;
-    margin-bottom: 20px;
-}
-table.answers td:first-child {
-    border-left: 3px solid black;
-}
-table.answers tr {
-    padding: 4px;
-    background-color: #495163;
-    margin-bottom: 20px;
-}
-
-table.answers img {
-    width: 15px;
-    height: 15px;
-}
-
-table.answers tr.atrib {
-    background: #222222;
-    border-color: #252933;
-}
-table.answer_comments {
-    top: 0px;
-    width: calc(60% - 10px);
-    margin-right: 10%;
-    margin-left: auto;
-    border-right: 3px solid black;
-    border-left: 3px solid black;
-    border-bottom: 3px solid black;
-    color: white;
-    background-color: #565656;
-    font-size: 0.7vw;
-    border-radius: 3px;
-}
-table.answer_comments td {
-    background-color: #565656;
-}
-/*sort_by right bottom corner*/
-form.sortby {
-    position: fixed;
-    bottom: 30px;
-    right: 10px;
-}
-form.sortby input {
-    border-radius: 5px;
-    background-color: #393f4d;
-    color: white;
-    border: 5px solid #252933;
-}
-form.sortby select {
-    border-radius: 5px;
-    background-color: #393f4d;
-    color: white;
-    border: 5px solid #252933;
-}
-
-
-img {
-  max-width:60px;
-  max-height:60px;
-  width: auto;
-  height: auto;
-}
-img.uploaded {
-    max-width: 200px !important;
-    max-height: 200px !important;
-}
-div.question_comments img{
-    max-width: 30px;
-    max-height: 30px;
-}
-
-.comment_table {
-    table-layout: fixed;
-}
-
-#comments td {
-    width: 80% !important;
-    height: auto;
-}
-
-
-#delete_comments td{
-    width: 20%;
-}
-#delete_comment {
-    width: 15px;
-    height: 15px;
-    text-align: right;
-}
-tr.text td img{
-    width: 100px;
-    height: 100px;
-}
+/*############################ Scroll bar #############################*/

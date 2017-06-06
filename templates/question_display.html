@@ -2,149 +2,175 @@
 
 <html>
 
-<head>
-    <title>AskMate - {{ webpage_title }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='answers.css') }}">
-</head>
-<body>
-    <div class="leftmenu">
-        <ul>
-            <label for="title">Question:</label>
-            <li id="title">{{ question[4] }}</li>
+    <head>
+        <title>AskMate - {{ webpage_title }}</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='answers.css') }}">
+    </head>
 
-            <label for="question">Description:</label>  
-            <li id="question">{{ question[5] }}</li>
+    <body>
+        <!--############################ QUESTION #############################-->
+        <!--###QUESTION DETAILS###-->
+        <div class="question_details">
+            <ul>
+                <label for="title">Question:</label>
+                <li id="title">{{ question[4] }}</li>
 
-            <label for="question">Image:</label>  
-            <li id="question"><img class="uploaded" src="{{ question[6] }}"></li>
-        </ul>
-    </div>
+                <label for="question">Description:</label>  
+                <li id="question">{{ question[5] }}</li>
 
-    <div class="question_comments">
-        <ul>
-            <li id="question_comment_info">Question comments: 
-                <a href= '/question/{{ question[0] }}/new_comment'>
-                    <img src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-10/24/Comment-add-icon.png"/>
-                </a></li>
-            {% for comment in question_comment %}
-            <li>
-                <table class="comment_table">
-                    <tr>
-                        <td width="80%"id="comments">{{ comment[0] }}</td>
-                        <td width="20%"id="delete_comments">
-                            <form action="/comment/{{ comment[1] }}/delete" method="post">
-                                <input id="delete_comment" type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png"/> 
-                            </form>
-                        </td>
-                    </tr>
-                </table>
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
+                <label for="question">Image:</label>  
+                <li id="question"><img class="uploaded" src="{{ question[6] }}"></li>
+            </ul>
+        </div>
+        <!--###QUESTION DETAILS###-->
 
-
-
-
-
-
-    <div class="top_menu">
-        <table> 
-            <tr>
-                <td>
-                    <a href= /question/{{ question[0] }}/edit>
-                        <img src="http://www.argus-tv.com/wiki/images/e/eb/ICN_EDIT_GREEN.PNG"/>
-                    </a>
-                </td>
-
-                <td>
-                    <form action="/question/{{ question[0] }}/delete" method="post">
-                        <input type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png"/> 
+        <!--###QUESTION COMMENTS###-->
+        <div class="question_comments">
+            <ul>
+                <li id="question_comment_info">Question comments: 
+                    <a href= '/question/{{ question[0] }}/new_comment'>
+                        <img src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-10/24/Comment-add-icon.png"/>
+                    </a></li>
+                {% for comment in question_comment %}
+                <li>
+                {{ comment[0] }}
+                </li>
+                <li id="comment_action">
+                    <form action="/comment/{{ comment[1] }}/delete" method="post">
+                        <input id="delete_comment" type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png"/> 
                     </form>
-                </td>
-
-                <td>
-                    <a href="/like/{{ question[0] }}/1"> <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/Facebook_like_thumb.png"/></a>
-                </td>
-
-                <td>
-                    <a href="/like/{{ question[0] }}/0"> <img src="http://www.freeiconspng.com/uploads/dislike-button-png-1.png"/></a>
-                </td>
-                <td>
-                    <p>ID: {{ question[0] }}</p>
-                </td>
-                <td>
-                    <p>Created at: {{ question[1] }}</p>
-                </td>
-                <td>
-                    <p>Views: {{ question[2] }}</p>
-                </td>
-                <td>
-                    <p>Votes: {{ question[3] }}</p>
-                </td>
-            </tr>  
-        </table>
-    </div>
-
-    <div class="all_answers">
-        {% for items in answers %}
-        <table class="answers">
-            <tr class="atrib">
-                <td width="50px">ID: {{ items[0] }}</td>
-                <td width="100px">Question ID: {{ items[3] }}</td>
-                <td>Submission Time: {{ items[1] }}</td>
-                <td>Votes: {{ items[2] }}</td>
-                <td>
-                    <a href= '/answer/{{ items[0] }}/new_comment'>
-                        <img src="https://maxcdn.icons8.com/office/PNG/512/Cinema/breast-512.png"/>
-                    </a>
-                </td>
-                <td>
-                    <a href= /like/{{ items[0] }}/ans/1> <img src="http://i.picresize.com/images/2017/05/11/qy3u.png"/></a>
-                </td>
-                <td>
-                    <a href= /like/{{ items[0] }}/ans/0> <img src="http://www.freeiconspng.com/uploads/dislike-button-png-1.png"/></a>
-                </td>
-                <td>
-                    <form action="/answer/{{ items[0] }}/delete" method="post">
-                        <input type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png" width="20px" height="20px"/> 
-                    </form>
-                </td>
-            </tr>
-        </table>
-        <table class="answers">
-            <tr class="text">
-                <td width="70%">{{ items[4] }}</td>
-                <td width="30%"><img class="uploaded" src="{{ items[5] }}"></td>
-            </tr>
-        </table>
-        <table class="answer_comments">
-            {% for comments in answer_comment %}
-                {% for comment in comments  %}
-                    {% if comment[0] == items[0] %}
-                        <tr class="answer_comments">
-                                <td width="70%">{{ comment[1] }}</td>
-                                <td width="20%">{{ comment[2] }}</td>
-                                <td width="10%">
-                                    <form action="/comment/{{ comment[3] }}/delete" method="post">
-                                        <input id="delete_comment" type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png"/> 
-                                    </form>
-                                </td>
-                        </tr>
-                    {% endif %}
+                </li>
                 {% endfor %}
-            {% endfor %}
-        </table>
-        <p></p>
+            </ul>
+        </div>
+        <!--###QUESTION COMMENTS###-->
+        <!--############################ QUESTION #############################-->
+
+
+
+    <!--############################ TOP BAR #############################-->
+        <div class="top_menu">
+            <table> 
+                <tr>
+                    <td>
+                        <p>ID: {{ question[0] }}</p>
+                    </td>
+
+                    <td>
+                        <p>Created at: {{ question[1] }}</p>
+                    </td>
+
+                    <td>
+                        <p>Views: {{ question[2] }}</p>
+                    </td>
+
+                    <td>
+                        <p>Votes: {{ question[3] }}</p>
+                    </td>
+
+                    <td>
+                        <a href="/like/{{ question[0] }}/1"> <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/Facebook_like_thumb.png"/></a>
+                    </td>
+
+                    <td>
+                        <a href="/like/{{ question[0] }}/0"> <img src="http://www.freeiconspng.com/uploads/dislike-button-png-1.png"/></a>
+                    </td>
+                    
+                    <td>
+                        <a href= /question/{{ question[0] }}/edit>
+                            <img src="http://www.argus-tv.com/wiki/images/e/eb/ICN_EDIT_GREEN.PNG"/>
+                        </a>
+                    </td>
+
+                    <td>
+                        <form action="/question/{{ question[0] }}/delete" method="post">
+                            <input type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png"/> 
+                        </form>
+                    </td>
+                </tr>  
+            </table>
+        </div>
+    <!--############################ TOP BAR############################-->
+
+
+
+    <!--############################ ANSWERS #############################-->
+        {% for items in answers %}
+            <div class="answers">
+                <table>
+        <!--###ANSWER TOP BAR###-->
+                    <thead>
+                        <tr>
+                            <td width="3%">ID: {{ items[0] }}</td>
+                            <td width="6%">Question ID: {{ items[3] }}</td>
+                            <td width="13%">Submission Time: {{ items[1] }}</td>
+                            <td width="5%">Votes: {{ items[2] }}</td>
+                            <td width="5%">
+                                <a href= '/answer/{{ items[0] }}/new_comment'>
+                                    <img src="https://maxcdn.icons8.com/office/PNG/512/Cinema/breast-512.png"/>
+                                </a>
+                            </td>
+                            <td width="5%">
+                                <a href= /like/{{ items[0] }}/ans/1> <img src="http://i.picresize.com/images/2017/05/11/qy3u.png"/></a>
+                            </td>
+                            <td width="5%">
+                                <a href= /like/{{ items[0] }}/ans/0> <img src="http://www.freeiconspng.com/uploads/dislike-button-png-1.png"/></a>
+                            </td>
+                            <td width="5%">
+                                <form action="/answer/{{ items[0] }}/delete" method="post">
+                                    <input type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png" width="20px" height="20px"/> 
+                                </form>
+                            </td>
+                        </tr>
+                    </thead>
+
+        <!--###ANSWERS###-->            
+                    <tbody>
+                        <tr>
+                            <td colspan="5">{{ items[4] }}</td>
+                            <td colspan="3"><img class="uploaded" src="{{ items[5] }}"></td>
+                        </tr>
+                    <tbody>
+
+        <!--###ANSWER COMMENTS###-->
+                    <tfoot> 
+                        {% for comments in answer_comment %}
+                            {% for comment in comments  %}
+                                {% if comment[0] == items[0] %}
+                                    <tr class="answer_comments">
+                                            <td colspan="5">{{ comment[1] }}</td>
+                                            <td colspan="2">{{ comment[2] }}</td>
+                                            <td>
+                                                <form action="/comment/{{ comment[3] }}/delete" method="post">
+                                                    <input id="delete_comment" type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png"/> 
+                                                </form>
+                                            </td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                    </tfoot>
+                </table>
+            </div>
         {% endfor %}
-    </div>
-    <div class="create">
-      <a  href="/question/{{ question[0] }}/new_answer">
-          <img src="http://www.freeiconspng.com/uploads/add-create-new-plus-icon-26.png" height="50px" width="50px"/>
-      </a>
-      <a id="home" href="/">
-          <img src="http://icons.iconarchive.com/icons/robsonbillponte/iRob/512/Folder-Home-Folder-icon.png" height="50px" width="50px"/>
-      </a>
-  </div>
-</body>
+    <!--############################ ANSWERS #############################-->
+
+
+
+
+    <!--############################ Home, Create button #############################-->
+        <div class="buttons">
+
+            <a class="create" href="/question/{{ question[0] }}/new_answer">
+                <img src="http://www.freeiconspng.com/uploads/add-create-new-plus-icon-26.png" height="50px" width="50px"/>
+            </a>
+
+            <a class="home" href="/">
+                <img src="http://icons.iconarchive.com/icons/robsonbillponte/iRob/512/Folder-Home-Folder-icon.png" height="50px" width="50px"/>
+            </a>
+
+        </div>
+    <!--############################ Home, Create button #############################-->
+
+    </body>
 </html>
