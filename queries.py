@@ -53,6 +53,14 @@ def modify_database(query, tuple_parameters=None):
             conn.close()
 
 
+def check_user(username, password):
+    with open('user.txt') as file:
+        data = file.read()
+        data = data.split(',')
+        if username and password in data:
+            return True
+
+
 def get_all_questions():
     """Returns all the questions"""
     return fetch_database("""SELECT * FROM question ORDER BY id;""")

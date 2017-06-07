@@ -6,16 +6,49 @@ from flask import url_for
 import queries
 from datetime import datetime
 
+from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user
+from flask import Response, abort, session, flash
 
 app = Flask(__name__)
 
 
 # #######################USER AUTHENTICATION########################
+app.config.update(
+    SECRET_KEY='123124124512312'
+)
 
 
-@app.route('/login')
-def login_page():
-    return render_template('login.html')
+def login_required(function):
+    def wraps(*args, **kwargs):
+        if 'logged_in' in session:
+            return function(*args, **kwargs)
+        else:
+            flash('You need to login')
+            return redirect(url_for('login'))
+    return wraps
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        if queries.check_user(username, password) is True:
+            session['logged_in'] = True
+            session['username'] = username
+            return "logged in"
+        else:
+            return abort(401)
+    else:
+        return render_template('login.html')
+
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    flash('You have been logged out')
+    gc.collect()
+    return redirect(url_for('show_latest_five_questions'))
 
 # #######################USER AUTHENTICATION########################
 # #######################EXTRA FUNCTIONS########################
@@ -53,6 +86,7 @@ def show_latest_five_questions():
 
 
 @app.route('/list')
+@login_required
 def list_questions():
     """
     Lists all questions from the database.
