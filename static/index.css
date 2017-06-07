@@ -6,9 +6,38 @@ body {
     margin: 0;
     font-size: 0.8vw;
     text-align: center;
+    width: 100%;
 }
 
 /*List on the frontpage*/
+div.topbar {
+    position: sticky;
+    color: white;
+    text-decoration: none;
+    width: 100%;
+    height: 100px;
+    background-color: #595858;
+    border-bottom:5px solid  #222222;
+}
+div.topbar form {
+    width: 200px;
+    float:right;
+}
+div.topbar input {
+    width: 100px;
+}
+#login_button {
+    width: 180px;
+}
+div.topbar label {
+    font-size: 14px;
+}
+div.maindiv {
+}
+
+
+
+
 table.mainlist {
     border: 1px solid black;
     border-radius: 0px;
@@ -18,12 +47,11 @@ table.mainlist {
     color: white;
     box-shadow: 10px -4px 25px 2px rgba(0,0,0,0.75);
     padding: 5px;
-    margin-top: 3px;
-    width: 100%;
+    width: 80%;
     word-wrap:break-word;
     table-layout:fixed;
     background-color: #434b5b;
-    margin-right: 0px;
+    margin-right: auto;
     margin-left: auto;
 }
 
@@ -33,7 +61,7 @@ table.topmenu {
     font-size: 0.9vw;
     top: 0px;
     position:sticky;
-    width: 100%;
+    width: 80%;
     padding: 5px 5px 0px 5px;
     border-radius: 0px;
     border-spacing: 2px;
@@ -41,7 +69,7 @@ table.topmenu {
     color: white;
     text-align: center;
     color: #feda6a;
-    margin-right: 0px;
+    margin-right: auto;
     margin-left: auto;
     height: 30px;
     border: 1px solid black;
