@@ -35,11 +35,13 @@
                 <li>
                 {{ comment[0] }}
                 </li>
+                {% if username in session %}
                 <li id="comment_action">
                     <form action="/comment/{{ comment[1] }}/delete" method="post">
                         <input id="delete_comment" type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png"/> 
                     </form>
                 </li>
+                {% endif %}
                 {% endfor %}
             </ul>
         </div>

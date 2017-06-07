@@ -8,6 +8,7 @@ from datetime import datetime
 
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user
 from flask import Response, abort, session, flash
+from functools import wraps
 
 app = Flask(__name__)
 
@@ -19,13 +20,14 @@ app.config.update(
 
 
 def login_required(function):
-    def wraps(*args, **kwargs):
-        if 'logged_in' in session:
+    @wraps(function)
+    def wrap(*args, **kwargs):
+        if 'exworm' in session:
             return function(*args, **kwargs)
         else:
             flash('You need to login')
             return redirect(url_for('login'))
-    return wraps
+    return wrap
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -34,9 +36,9 @@ def login():
         username = request.form['username']
         password = request.form['password']
         if queries.check_user(username, password) is True:
-            session['logged_in'] = True
+            session[username, 'admin'] = True
             session['username'] = username
-            return "logged in"
+            return redirect(url_for('list_questions'))
         else:
             return abort(401)
     else:
@@ -47,7 +49,6 @@ def login():
 def logout():
     session.clear()
     flash('You have been logged out')
-    gc.collect()
     return redirect(url_for('show_latest_five_questions'))
 
 # #######################USER AUTHENTICATION########################
@@ -118,7 +119,7 @@ def show_question(id):
     Shows the question edit page with the chosen question's informations.
     """
     selected_question = queries.show_one_question(id)[0]
-    return render_template('update.html', selected_question=selected_question, id=id)
+    return render_template('update.html', selected_question=selected_question, id=id, username='exworm')
 
 
 @app.route("/question/<int:id>/edit", methods=["POST"])
