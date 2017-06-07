@@ -21,8 +21,9 @@ def new_registration():
 def registration():
     registration_time = str(datetime.now())[:-7]
     user_name = request.form["usrname"]
-    password = request.form["password"]
-    email = request.form["email"]
+    password = request.form["pass"]
+    email = request.form["mail"]
+    queries.register_new_user(user_name, password, email, registration_time)
     return redirect('/')
 
 
