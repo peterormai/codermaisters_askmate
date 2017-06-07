@@ -13,8 +13,17 @@ app = Flask(__name__)
 
 
 @app.route('/registration')
-def registration():
+def new_registration():
     return render_template('registration.html')
+
+
+@app.route('/registration', methods=["POST"])
+def registration():
+    registration_time = str(datetime.now())[:-7]
+    user_name = request.form["usrname"]
+    password = request.form["password"]
+    email = request.form["email"]
+    return redirect('/')
 
 
 def redirect_url(default='index'):
