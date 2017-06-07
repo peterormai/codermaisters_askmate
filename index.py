@@ -12,6 +12,11 @@ app = Flask(__name__)
 # #######################EXTRA FUNCTIONS########################
 
 
+@app.route('/registration')
+def registration():
+    return render_template('registration.html')
+
+
 def redirect_url(default='index'):
     """
     It redirects to the previous page.
