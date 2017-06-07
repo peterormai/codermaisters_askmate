@@ -171,3 +171,15 @@ def search_question_id(answer_id):
 def check_user(username, password):
     return fetch_database(
         """SELECT role FROM users WHERE username=%s AND password=%s""", (username, password), 'one')
+
+
+def creator_username(type_, id):
+    try:
+        return fetch_database("""SELECT username FROM users
+                            LEFT JOIN {0} ON users.id={0}.user_id
+                            WHERE {0}.id=%s""".format(type_), (id,), 'one')[0]
+    except TypeError:
+        return None
+
+
+print(check_user('username', 'password')[0])

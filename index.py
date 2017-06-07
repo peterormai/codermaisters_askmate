@@ -21,7 +21,7 @@ app.config.update(
 def login_required(function):
     @wraps(function)
     def wrap(*args, **kwargs):
-        if 'user' or 'admin' in session:
+        if session:
             return function(*args, **kwargs)
         else:
             flash('You need to login')
@@ -38,8 +38,8 @@ def login():
         if user_check is not None:
             session[username] = True
             session['username'] = username
-            session['role'] = user_check[0]
-            return redirect(url_for('list_questions'))
+            session['user'] = "user"
+            return redirect(url_for('show_latest_five_questions'))
         else:
             return abort(401)
     else:
@@ -119,8 +119,12 @@ def show_question(id):
     """
     Shows the question edit page with the chosen question's informations.
     """
-    selected_question = queries.show_one_question(id)[0]
-    return render_template('update.html', selected_question=selected_question, id=id, username='peter')
+    creator_username = queries.creator_username('question', id)
+    if creator_username in session:
+        selected_question = queries.show_one_question(id)[0]
+        return render_template('update.html', selected_question=selected_question, id=id, username='peter')
+    else:
+        return redirect('/')
 
 
 @app.route("/question/<int:id>/edit", methods=["POST"])
@@ -139,11 +143,17 @@ def delete_one_question(question_id):
     """
     The selected question will be removed with all the associated answers and comments from the database permanently.
     """
-    queries.delete_question(question_id)
-    return redirect(url_for('show_latest_five_questions'))
+    creator_username = queries.creator_username('question', question_id)
+    if creator_username in session:
+        queries.delete_question(question_id)
+        return redirect(url_for('show_latest_five_questions'))
+    else:
+        flash("You are not allowed to use this function!")
+        return redirect(redirect_url())
 
 
 @app.route("/new_question")
+@login_required
 def show_new_question():
     """
     Show the new_question page.
@@ -218,11 +228,14 @@ def delete_answer(answer_id):
     """
     The selected answer will be removed from the database permanently.
     """
-    queries.delete_one_answer(answer_id)
+    creator_username = queries.creator_username('answer', answer_id)
+    if creator_username in session:
+        queries.delete_one_answer(answer_id)
     return redirect(redirect_url())
 
 
 @app.route('/question/<int:question_id>/new_answer')
+@login_required
 def new_answer(question_id):
     """
     It diplays a page with the selected question details. With a field where the user can write a new answer to it.
@@ -251,6 +264,7 @@ def add_answer(question_id):
 
 # #######################COMMENTS########################
 @app.route('/question/<int:question_id>/new_comment')
+@login_required
 def new_comment(question_id):
     """
     It diplays a page with a field where the user can write a new comment to the selected question.
@@ -278,11 +292,14 @@ def delete_comment(comment_id):
     """
     Delete a comment from a question or an answer.
     """
-    queries.delete_comment(comment_id)
+    creator_username = queries.creator_username('comment', comment_id)
+    if creator_username in session:
+        queries.delete_comment(comment_id)
     return redirect(redirect_url())
 
 
 @app.route('/answer/<int:answer_id>/new_comment')
+@login_required
 def new_answer_comment(answer_id):
     """
     It diplays a page with a field where the user can write a new comment to the selected answer.
