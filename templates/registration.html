@@ -2,9 +2,24 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>AskMate - {{ webpage_title }}</title>
+        <title>AskMate - Registration</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='registration.css') }}">
     </head>
     <body>
+        <div class="registration">
+            <h1>Register Now for FREE</h1>
+            <form class="registration" action="/registration" method="POST">
+                <p>Username:</p>
+                <input id=username type="text" name="usrname" minlength=4 placeholder="Please enter your username..">
+                <br><br>
+                <p>Password:</p>
+                <textarea type="password" name="password" minlength=6 placeholder="Enter your password" ></textarea>
+                <br><br>
+                <p>E-mail:</p>
+                <input id=email type="text" name="email" placeholder="Please enter a valid e-mail address!">
+                <br><br>
+                <input id=submit_registration type="Submit" value="Register">       
+            </form>
+        </div>
     </body>
 </html>
