@@ -3,22 +3,42 @@
   <head>
     <meta charset="UTF-8">
     <title>{{ title }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='404.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
   </head>
   <body>
       <div class="topbar">
       <form action='/login' method='POST'>
+          <table>
 
-        <label for="username">Username: </label>
-        <input id="username" type="text" name="username">
+              <tr>
+                <td>Username</td>
+                <td><input id="username" type="text" name="username"></td>
+              </tr>
 
-        <label for="password">Password : </label>
-        <input id="password" type="password" name="password">
+              <tr>
+                  <td>Password</td>
+                  <td><input id="password" type="password" name="password"></td>
+              </tr>
+              
+              <tr>
+                  <td colspan="2"><input id="login_button"type='submit', value='Login'></td>
+              </tr>
 
-        <input id="login_button"type='submit', value='Login'>
+              <tr>
+                  <td colspan="2"><a href="/register">Register!</a></td>
+              </tr>
 
-        <a href="/register">Register!</a>
-        <a href="/password_recovery">Password recovery!</a>
+              <tr>
+                  <td colspan="2"><a href="/password_recovery">Password recovery!</a></td>
+              </tr>
+
+          </table>
+        
+
+        
+
+        
+        
       </form>
     </div>
   </body>
