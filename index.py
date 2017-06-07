@@ -6,7 +6,6 @@ from flask import url_for
 import queries
 from datetime import datetime
 
-from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user
 from flask import Response, abort, session, flash
 from functools import wraps
 
@@ -22,7 +21,7 @@ app.config.update(
 def login_required(function):
     @wraps(function)
     def wrap(*args, **kwargs):
-        if 'exworm' in session:
+        if 'user' or 'admin' in session:
             return function(*args, **kwargs)
         else:
             flash('You need to login')
@@ -35,9 +34,11 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        if queries.check_user(username, password) is True:
-            session[username, 'admin'] = True
+        user_check = queries.check_user(username, password)
+        if user_check is not None:
+            session[username] = True
             session['username'] = username
+            session['role'] = user_check[0]
             return redirect(url_for('list_questions'))
         else:
             return abort(401)
@@ -119,7 +120,7 @@ def show_question(id):
     Shows the question edit page with the chosen question's informations.
     """
     selected_question = queries.show_one_question(id)[0]
-    return render_template('update.html', selected_question=selected_question, id=id, username='exworm')
+    return render_template('update.html', selected_question=selected_question, id=id, username='peter')
 
 
 @app.route("/question/<int:id>/edit", methods=["POST"])

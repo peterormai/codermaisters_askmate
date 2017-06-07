@@ -11,9 +11,12 @@ def user_datas():
         return data
 
 
-def fetch_database(query, tuple_parameters=None):
+def fetch_database(query, tuple_parameters=None, fetch='all'):
     """Connects to the database to retrieve data, then
     returns it.
+    First parameter: query
+    Second parameter: parameters which you want to insert into your query, use tupple type
+    Third parameter: fetch type, one or all, use string type
     """
     try:
         data = user_datas()
@@ -22,7 +25,10 @@ def fetch_database(query, tuple_parameters=None):
         conn.autocommit = True
         cursor = conn.cursor()
         cursor.execute(query, tuple_parameters)
-        rows = cursor.fetchall()
+        if fetch == 'all':
+            rows = cursor.fetchall()
+        elif fetch == 'one':
+            rows = cursor.fetchone()
         return rows
 
     except psycopg2.DatabaseError as exception:
@@ -51,14 +57,6 @@ def modify_database(query, tuple_parameters=None):
     finally:
         if conn:
             conn.close()
-
-
-def check_user(username, password):
-    with open('user.txt') as file:
-        data = file.read()
-        data = data.split(',')
-        if username and password in data:
-            return True
 
 
 def get_all_questions():
@@ -166,3 +164,10 @@ def delete_comment(comment_id):
 def search_question_id(answer_id):
     """Searches the releted question id of the given answer id"""
     return fetch_database("""SELECT question_id FROM answer WHERE id=%s;""", (answer_id,))
+
+# #######################USER AUTHENTICATION########################
+
+
+def check_user(username, password):
+    return fetch_database(
+        """SELECT role FROM users WHERE username=%s AND password=%s""", (username, password), 'one')
