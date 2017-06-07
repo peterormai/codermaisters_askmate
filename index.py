@@ -8,7 +8,14 @@ from datetime import datetime
 
 
 app = Flask(__name__)
+# #######################USER AUTHENTICATION########################
 
+
+@app.route('/login')
+def login_page():
+    return render_template('login.html')
+
+# #######################USER AUTHENTICATION########################
 # #######################EXTRA FUNCTIONS########################
 
 

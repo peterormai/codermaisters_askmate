@@ -1,0 +1,25 @@
+    <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='404.css') }}">
+  </head>
+  <body>
+      <div class="topbar">
+      <form action='/login' method='POST'>
+
+        <label for="username">Username: </label>
+        <input id="username" type="text" name="username">
+
+        <label for="password">Password : </label>
+        <input id="password" type="password" name="password">
+
+        <input id="login_button"type='submit', value='Login'>
+
+        <a href="/register">Register!</a>
+        <a href="/password_recovery">Password recovery!</a>
+      </form>
+    </div>
+  </body>
+</html>
