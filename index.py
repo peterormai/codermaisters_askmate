@@ -21,7 +21,7 @@ app.config.update(
 def login_required(function):
     @wraps(function)
     def wrap(*args, **kwargs):
-        if session:
+        if session.get("role") == 'user':
             return function(*args, **kwargs)
         else:
             flash('You need to login')
@@ -36,9 +36,8 @@ def login():
         password = request.form['password']
         user_check = queries.check_user(username, password)
         if user_check is not None:
-            session[username] = True
             session['username'] = username
-            session['user'] = "user"
+            session['role'] = user_check[0]
             return redirect(url_for('show_latest_five_questions'))
         else:
             return abort(401)
