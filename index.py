@@ -14,11 +14,17 @@ app = Flask(__name__)
 
 @app.route('/registration')
 def new_registration():
+    """
+    Points to the registration page.
+    """
     return render_template('registration.html')
 
 
 @app.route('/registration', methods=["POST"])
 def registration():
+    """
+    When user data sent from the website, it creates a new database row in users table.
+    """
     registration_time = str(datetime.now())[:-7]
     user_name = request.form["usrname"]
     password = request.form["pass"]
