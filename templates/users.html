@@ -6,10 +6,10 @@
 </head>
 <body>
     <table>
-        {% for title in head_title %}
+        {% for title in table_header %}
         <th>{{ title }}</th>
         {% endfor %}
-        {% for user in Users %}
+        {% for user in users %}
         <tr>
             {% for userdata in user %}
             <td>{{ userdata }}</td>
