@@ -173,6 +173,11 @@ def search_question_id(answer_id):
     """Searches the releted question id of the given answer id"""
     return fetch_database("""SELECT question_id FROM answer WHERE id=%s;""", (answer_id,))
 
+
+def get_all_users():
+    """Shows all the registered users."""
+    return fetch_database("""SELECT username, email, registration_time, role FROM users;""")
+
 # #######################USER AUTHENTICATION########################
 
 
