@@ -8,6 +8,7 @@ from datetime import datetime
 import smtplib
 from flask import Response, abort, session, flash
 from functools import wraps
+import time
 
 app = Flask(__name__)
 
@@ -83,6 +84,7 @@ def recovery_check(recovery_key):
         send_mail('barnabastoth94@gmail.com', 'fanatic99', email, msg)
         queries.save_recovery_password(recovery_key, new_password)
         flash('An email has been sent to your inbox which contains your new password, dont forget to change it after logging in.')
+        delete_recovery_keys(15, recovery_key)
         return redirect(url_for('login'))
     else:
         return redirect(url_for('show_latest_five_questions'))
@@ -96,7 +98,7 @@ def do_password_recovery():
     email = request.form['email']
     recovery_key = queries.create_recovery_key(email)
     recovery_link = 'http://127.0.0.1:5000/recovery/{0}'.format(recovery_key)
-    msg = 'You requested a new password for your account at Codermeisters.com \n If you want a new password, open this link: {0}. \n If it was not you, just ignore this email'.format(
+    msg = 'You requested a new password for your account at Codermeisters.com \n If you want a new password, open this link: {0}. \n This link is valid for 15 minutes \n If it was not you, just ignore this email'.format(
         recovery_link).encode('utf-8').strip()
     send_mail('barnabastoth94@gmail.com', 'fanatic99', email, msg)
     flash('An email has been sent to your inbox with instructions, you shall receive it in a few seconds')
@@ -132,6 +134,16 @@ def send_mail(sender_email, sender_password, target_email, message):
     msg = message
     server.sendmail(sender_email, target_email, msg)
     server.quit()
+
+
+def delete_recovery_keys(mins, recovery_key):
+    minute_since_delete = 0
+    for _ in range(mins):
+        time.sleep(60)
+        minute_since_delete += 1
+    if minute_since_delete == mins:
+        queries.null_recovery_keys(recovery_key)
+
     # #######################USER AUTHENTICATION########################
     # #######################EXTRA FUNCTIONS########################
 

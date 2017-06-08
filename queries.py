@@ -246,3 +246,11 @@ def change_password(username, old_password, new_password):
     """Replaces old password with the new password for the user"""
     modify_database("""UPDATE users SET password=%s
                     WHERE username=%s AND password=%s;""", (new_password, username, old_password))
+
+
+def null_recovery_keys(recovery_key):
+    modify_database("""
+                    UPDATE users
+                    SET recovery_key = 0
+                    WHERE recovery_key=%s
+                    """, (recovery_key,))
