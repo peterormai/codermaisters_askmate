@@ -72,23 +72,26 @@ def show_one_question(question_id):
 
 def get_question_details(question_id):
     """Returns all the details about a specific question"""
-    return fetch_database("""SELECT * FROM question WHERE id=%s""", (question_id,))
+    return fetch_database("""SELECT question.*, users.username FROM question
+                          INNER JOIN users ON question.user_id=users.id WHERE question.id=%s""", (question_id,))
 
 
 def get_question_answers(question_id):
     """Returns all the answers to a specific question"""
-    return fetch_database("""SELECT * FROM answer WHERE question_id=%s ORDER BY id""", (question_id,))
+    return fetch_database("""SELECT answer.*, users.username FROM answer
+                        INNER JOIN users ON answer.user_id=users.id WHERE question_id=%s ORDER BY id""", (question_id,))
 
 
 def get_question_comments(question_id):
     """Returns all the comments to a specific question"""
-    return fetch_database("""SELECT message, id FROM comment WHERE question_id = %s""", (question_id,))
+    return fetch_database("""SELECT comment.message, comment.id, users.username FROM comment
+                          INNER JOIN users ON comment.user_id=users.id WHERE comment.question_id = %s""", (question_id,))
 
 
 def get_answer_comments(answer_id):
     """Returns all the comments to a specific question-answer"""
-    return fetch_database("""SELECT answer_id, message, submission_time, id
-                         FROM comment WHERE answer_id = %s""", (answer_id,))
+    return fetch_database("""SELECT comment.answer_id, comment.message, comment.submission_time, comment.id, users.username
+                         FROM comment INNER JOIN users ON comment.user_id=users.id WHERE answer_id = %s""", (answer_id,))
 
 
 def get_answer_comment_ids(question_id):
