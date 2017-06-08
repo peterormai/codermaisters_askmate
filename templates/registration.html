@@ -9,16 +9,22 @@
         <div class="registration">
             <h1>Register Now for FREE</h1>
             <form class="registration" action="/registration" method="POST">
-                <p>Username:</p>
-                <input id=username type="text" name="usrname" minlength=4 placeholder="Please enter your username..">
-                <br><br>
-                <p>Password:</p>
-                <input type="password" name="pass" minlength=6 placeholder="Enter your password">
-                <br><br>
-                <p>E-mail:</p>
-                <input id=email type="text" name="mail" placeholder="Please enter a valid e-mail address!">
-                <br><br>
-                <input id=submit_registration type="Submit" value="Register">
+                <table>
+                    <tr>
+                        <td>Username:</td>
+                        <td><input id=username type="text" name="usrname" minlength=4 placeholder="Enter your username.." required></td>
+                    </tr>
+                    <tr>
+                        <td>Password:</td>
+                        <td><input id=password type="password" name="pass" minlength=6 placeholder="Enter your password.." required></td>
+                    </tr>
+                    <tr>
+                        <td>E-mail:</td>
+                        <td><input id=email type="text" name="mail" minlength=4 placeholder="Enter a valid e-mail address.." required></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input id=submit_registration type="Submit" value="Register">
+                </table> 
             </form>
         </div>
     </body>
