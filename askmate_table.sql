@@ -73,11 +73,11 @@ DROP TABLE IF EXISTS public.users;
 DROP SEQUENCE IF EXISTS public.users_id_seq;
 CREATE TABLE users (
     id serial NOT NULL,
-    name character varying(255),
-    passwords character varying(255),
+    username character varying(255),
+    password character varying(255),
     email character varying(255),
     registration_time timestamp without time zone,
-    role integer
+    role character varying(255) DEFAULT 'user'
 );
 
 
@@ -127,9 +127,9 @@ ALTER TABLE ONLY question
     ON UPDATE CASCADE ON DELETE CASCADE;
 
 
-INSERT INTO users VALUES (1, 'username', 'password', 'test@testing.co.uk', '2017-06-07 14:01:00', 0);
-INSERT INTO users VALUES (2, 'aladar_istvan', 'shorthand', 'aladar@testing.co.uk', '2017-01-07 11:30:00', 0);
-INSERT INTO users VALUES (3, 'egyip_Tomi', 'jukas', 'nemlyukas@jukasing.co.uk', '2017-06-02 23:59:00', 1);
+INSERT INTO users VALUES (1, 'username', 'password', 'test@testing.co.uk', '2017-06-07 14:01:00');
+INSERT INTO users VALUES (2, 'aladar_istvan', 'shorthand', 'aladar@testing.co.uk', '2017-01-07 11:30:00');
+INSERT INTO users VALUES (3, 'egyip_Tomi', 'jukas', 'nemlyukas@jukasing.co.uk', '2017-06-02 23:59:00');
 
 INSERT INTO question VALUES (0, '2017-04-28 08:29:00', 29, 7, 'How to make lists in Python?', 'I am totally new to this, any hints?', NULL, 1);
 INSERT INTO question VALUES (1, '2017-04-29 09:19:00', 15, 9, 'Wordpress loading multiple jQuery Versions', 'I developed a plugin that uses the jquery booklet plugin (http://builtbywill.com/booklet/#/) this plugin binds a function to $ so I cann call $(".myBook").booklet();
@@ -149,8 +149,8 @@ INSERT INTO answer VALUES (1, '2017-04-28 16:49:00', 4, 1, 'You need to use brac
 INSERT INTO answer VALUES (2, '2017-04-25 14:42:00', 35, 1, 'Look it up in the Python docs', 'images/image2.jpg', 2);
 SELECT pg_catalog.setval('answer_id_seq', 2, true);
 
-INSERT INTO comment VALUES (1, 0, NULL, 'Please clarify the question as it is too vague!', '2017-05-01 05:49:00');
-INSERT INTO comment VALUES (2, NULL, 1, 'I think you could use my_list = list() as well.', '2017-05-02 16:55:00');
+INSERT INTO comment VALUES (1, 0, NULL, 'Please clarify the question as it is too vague!', '2017-05-01 05:49:00', 1, 1);
+INSERT INTO comment VALUES (2, NULL, 1, 'I think you could use my_list = list() as well.', '2017-05-02 16:55:00', 1, 1);
 SELECT pg_catalog.setval('comment_id_seq', 2, true);
 
 INSERT INTO tag VALUES (1, 'python');
