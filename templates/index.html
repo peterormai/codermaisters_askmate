@@ -6,7 +6,17 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
   </head>
   <body>
-    <button class="show_all"><a id="show_all" href="/list">Show all questions</a></button>
+    <div class="topbar">
+      {% if session.username: %}
+        <a href="/logout" id="logout">logout</a>
+        <a id="loggedin">Welcome <span style="color: #feda6a; font-size: 1vw;">{{ session.username }}</span>!</a>
+      {% else %}
+        <a id = "membersarea" href="/login">Members Area</a>
+      {% endif %}
+      <a href="/">Home</a>
+      <a href="/new_question">New question</a>
+      <a href="/users">User list</a>
+    </div>
   
     <table class="topmenu">
       <tr>
@@ -63,6 +73,7 @@
       <a id="home" href="/">
         <img src="http://icons.iconarchive.com/icons/robsonbillponte/iRob/512/Folder-Home-Folder-icon.png" height="50px" width="50px"/>
       </a>
+      <button class="show_all"><a id="show_all" href="/list">Show all questions</a></button>
     </div>
   </body>
 </html>

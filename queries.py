@@ -1,4 +1,5 @@
 import psycopg2
+import random
 
 
 def user_datas():
@@ -11,9 +12,12 @@ def user_datas():
         return data
 
 
-def fetch_database(query, tuple_parameters=None):
+def fetch_database(query, tuple_parameters=None, fetch='all'):
     """Connects to the database to retrieve data, then
     returns it.
+    First parameter: query
+    Second parameter: parameters which you want to insert into your query, use tupple type
+    Third parameter: fetch type, one or all, use string type
     """
     try:
         data = user_datas()
@@ -22,7 +26,10 @@ def fetch_database(query, tuple_parameters=None):
         conn.autocommit = True
         cursor = conn.cursor()
         cursor.execute(query, tuple_parameters)
-        rows = cursor.fetchall()
+        if fetch == 'all':
+            rows = cursor.fetchall()
+        elif fetch == 'one':
+            rows = cursor.fetchone()
         return rows
 
     except psycopg2.DatabaseError as exception:
@@ -96,14 +103,12 @@ def show_one_answer(answer_id):
 # Database modifiers!
 
 
+def submit_new_answer_comment(answer_id, message, submission_time, user_id):
+    modify_database("""INSERT INTO comment(answer_id, message, submission_time, user_id)
+                    VALUES(%s, %s, %s, %s);""", (answer_id, message, submission_time, user_id))
 def register_new_user(user_name, password, email, registration_time):
     modify_database("""INSERT INTO users(username, password, email, registration_time)
                     SELECT '{}', '{}', '{}', '{}';""".format(user_name, password, email, registration_time))
-
-
-def submit_new_answer_comment(answer_id, message, submission_time):
-    modify_database("""INSERT INTO comment(answer_id, message, submission_time)
-                    SELECT {}, '{}', '{}';""".format(answer_id, message, submission_time))
 
 
 def delete_question(question_id):
@@ -116,22 +121,23 @@ def delete_one_answer(answer_id):
     modify_database("""DELETE FROM answer WHERE id = %s; """, (answer_id,))
 
 
-def add_new_answer(submission_time, vote_number, question_id, message, image):
+def add_new_answer(submission_time, vote_number, question_id, message, image, user_id):
     """Adds a new answer to a question"""
-    modify_database("""INSERT INTO answer(submission_time, vote_number, question_id, message, image) VALUES
-                    (%s, %s, %s, %s, %s); """, (submission_time, vote_number, question_id, message, image))
+    modify_database("""INSERT INTO answer(submission_time, vote_number, question_id, message, image, user_id) VALUES
+                    (%s, %s, %s, %s, %s, %s); """, (submission_time, vote_number, question_id, message, image, user_id))
 
 
-def submit_new_question(submission_time, view_number, vote_number, title, message, image):
+def submit_new_question(submission_time, view_number, vote_number, title, message, image, user_id):
     """Gets all the nessecery inputs from the user"""
     modify_database(
-        """INSERT INTO question(submission_time, view_number, vote_number, title, message, image)
-        VALUES (%s, %s, %s, %s, %s, %s);""", (submission_time, view_number, vote_number, title, message, image))
+        """INSERT INTO question(submission_time, view_number, vote_number, title, message, image, user_id)
+        VALUES (%s, %s, %s, %s, %s, %s, %s);""",
+        (submission_time, view_number, vote_number, title, message, image, user_id))
 
 
-def submit_new_question_comment(question_id, message, submission_time):
-    modify_database("""INSERT INTO comment(question_id, message, submission_time)
-                    VALUES (%s, %s, %s);""", (question_id, message, submission_time))
+def submit_new_question_comment(question_id, message, submission_time, user_id):
+    modify_database("""INSERT INTO comment(question_id, message, submission_time, user_id)
+                    VALUES (%s, %s, %s, %s);""", (question_id, message, submission_time, user_id))
 
 
 def update_question_query(title, message, question_id):
@@ -163,3 +169,37 @@ def delete_comment(comment_id):
 def search_question_id(answer_id):
     """Searches the releted question id of the given answer id"""
     return fetch_database("""SELECT question_id FROM answer WHERE id=%s;""", (answer_id,))
+
+# #######################USER AUTHENTICATION########################
+
+
+def check_user(username, password):
+    return fetch_database(
+        """SELECT role FROM users WHERE username=%s AND password=%s;""", (username, password), 'one')
+
+
+def creator_username(type_, id):
+    try:
+        return fetch_database("""SELECT username FROM users
+                            LEFT JOIN {0} ON users.id={0}.user_id
+                            WHERE {0}.id=%s;""".format(type_), (id,), 'one')[0]
+    except TypeError:
+        return None
+
+
+def creator_id(creator_username):
+    return fetch_database("""SELECT id FROM users WHERE username=%s;""", (creator_username,), 'one')[0]
+
+
+def password_generator(length):
+    char_set = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@£$%^&*().,?0123456789'
+    password = ''
+    for char in range(length):
+        password += random.choice(char_set)
+    return password
+
+
+def password_recovery(email):
+    password = password_generator(10)
+    modify_database("""UPDATE users SET password=%s WHERE email=%s;""", (password, email))
+    return password

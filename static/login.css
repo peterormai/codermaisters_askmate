@@ -1,0 +1,41 @@
+body{
+    background-color: #414756;
+    margin: 0px;
+}
+div{
+    margin-top: 13%;
+    margin-left:auto; 
+    margin-right:auto;
+    text-align: center;
+}
+
+table{
+    margin: 0 auto;
+    border-style: solid;
+    border-color: black;
+    background-color: #2d2d2d;
+    padding: 10px 10px 5px 10px;   
+    color: white;
+    font-size: 0.9vw;
+}
+
+td{
+    padding: 5px;
+}
+
+a{
+    text-decoration: None;
+    color: white;
+    font-size: 0.85vw;
+}
+
+a:hover{
+    color: yellow;
+}
+
+div.buttons {
+    position: fixed;
+    bottom: 20px;
+    right: 50px;
+}
+div.buttons img:hover { opacity: 1; -webkit-filter: brightness(150%); }

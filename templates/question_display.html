@@ -8,6 +8,16 @@
     </head>
 
     <body>
+        <div class="topbar">
+            {% if session.username: %}
+                <a href="/logout" id="logout">logout</a>
+                <a id="loggedin">Welcome <span style="color: #feda6a; font-size: 1vw;">{{ session.username }}</span>!</a>
+            {% else %}
+                <a id = "membersarea" href="/login">Members Area</a>
+            {% endif %}
+            <a href="/">Home</a>
+            <a href="/question/{{ question[0] }}/new_answer">New answer</a>
+        </div>
         <!--############################ QUESTION #############################-->
         <!--###QUESTION DETAILS###-->
         <div class="question_details">
@@ -35,11 +45,13 @@
                 <li>
                 {{ comment[0] }}
                 </li>
-                <li id="comment_action">
-                    <form action="/comment/{{ comment[1] }}/delete" method="post">
-                        <input id="delete_comment" type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png"/> 
-                    </form>
-                </li>
+                {% if session.username %}
+                    <li id="comment_action">
+                        <form action="/comment/{{ comment[1] }}/delete" method="post">
+                            <input id="delete_comment" type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png"/> 
+                        </form>
+                    </li>
+                {% endif %}
                 {% endfor %}
             </ul>
         </div>
@@ -55,6 +67,11 @@
                     <td>
                         <p>ID: {{ question[0] }}</p>
                     </td>
+
+                    <td>
+                        <p>{{ session.get('username') }}</p>
+                    </td>
+
 
                     <td>
                         <p>Created at: {{ question[1] }}</p>

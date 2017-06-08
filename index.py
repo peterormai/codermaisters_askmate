@@ -5,11 +5,80 @@ from flask import redirect
 from flask import url_for
 import queries
 from datetime import datetime
-
+import smtplib
+from flask import Response, abort, session, flash
+from functools import wraps
 
 app = Flask(__name__)
 
-# #######################EXTRA FUNCTIONS########################
+
+# #######################USER AUTHENTICATION########################
+app.config.update(
+    SECRET_KEY='123124124512312'
+)
+
+
+def login_required(function):
+    @wraps(function)
+    def wrap(*args, **kwargs):
+        if session.get("role") == 'user':
+            return function(*args, **kwargs)
+        else:
+            flash('You need to login')
+            return redirect(url_for('login'))
+    return wrap
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        user_check = queries.check_user(username, password)
+        if user_check is not None:
+            session['username'] = username
+            session['role'] = user_check[0]
+            return redirect(url_for('show_latest_five_questions'))
+        else:
+            return abort(401)
+    else:
+        return render_template('login.html')
+
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    flash('You have been logged out')
+    return redirect(url_for('show_latest_five_questions'))
+
+
+@app.route('/password_recovery')
+def show_password_recovery():
+    return render_template('password_recovery.html')
+
+
+@app.route('/password_recovery', methods=['POST'])
+def do_password_recovery():
+    email = request.form['email']
+    new_password = queries.password_recovery(email)
+    msg = 'You requested a new password for your account at Codermeisters.com \n Your new password is: {0}'.format(
+        new_password).encode('utf-8').strip()
+    send_mail('barnabastoth94@gmail.com', 'fanatic99', email, msg)
+    return redirect(url_for('show_latest_five_questions'))
+
+
+def send_mail(sender_email, sender_password, target_email, message):
+    import smtplib
+
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.starttls()
+    server.login(sender_email, sender_password)
+
+    msg = message
+    server.sendmail(sender_email, target_email, msg)
+    server.quit()
+    # #######################USER AUTHENTICATION########################
+    # #######################EXTRA FUNCTIONS########################
 
 
 @app.route('/registration')
@@ -65,6 +134,7 @@ def show_latest_five_questions():
 
 
 @app.route('/list')
+@login_required
 def list_questions():
     """
     Lists all questions from the database.
@@ -95,8 +165,12 @@ def show_question(id):
     """
     Shows the question edit page with the chosen question's informations.
     """
-    selected_question = queries.show_one_question(id)[0]
-    return render_template('update.html', selected_question=selected_question, id=id)
+    creator_username = queries.creator_username('question', id)
+    if creator_username == session.get("username") or session.get("role") == 'admin':
+        selected_question = queries.show_one_question(id)[0]
+        return render_template('update.html', selected_question=selected_question, id=id, username='peter')
+    else:
+        return redirect('/')
 
 
 @app.route("/question/<int:id>/edit", methods=["POST"])
@@ -115,11 +189,17 @@ def delete_one_question(question_id):
     """
     The selected question will be removed with all the associated answers and comments from the database permanently.
     """
-    queries.delete_question(question_id)
-    return redirect(url_for('show_latest_five_questions'))
+    creator_username = queries.creator_username('question', question_id)
+    if creator_username == session.get("username") or session.get("role") == 'admin':
+        queries.delete_question(question_id)
+        return redirect(url_for('show_latest_five_questions'))
+    else:
+        flash("You are not allowed to use this function!")
+        return redirect(redirect_url())
 
 
 @app.route("/new_question")
+@login_required
 def show_new_question():
     """
     Show the new_question page.
@@ -136,12 +216,14 @@ def new_question():
     view_number = 0
     vote_number = 0
     title = request.form["new_question"]
+    creator_username = session.get('username')
+    user_id = queries.creator_id(creator_username)
     if len(title) < 10:
         return redirect(url_for('new_question'))
     else:
         message = request.form["new_question_long"]
         image = request.form['picture']
-        queries.submit_new_question(submission_time, view_number, vote_number, title, message, image)
+        queries.submit_new_question(submission_time, view_number, vote_number, title, message, image, user_id)
         return redirect(url_for('show_latest_five_questions'))
 # #######################QUESTIONS########################
 
@@ -194,11 +276,14 @@ def delete_answer(answer_id):
     """
     The selected answer will be removed from the database permanently.
     """
-    queries.delete_one_answer(answer_id)
+    creator_username = queries.creator_username('answer', answer_id)
+    if creator_username == session.get("username") or session.get("role") == 'admin':
+        queries.delete_one_answer(answer_id)
     return redirect(redirect_url())
 
 
 @app.route('/question/<int:question_id>/new_answer')
+@login_required
 def new_answer(question_id):
     """
     It diplays a page with the selected question details. With a field where the user can write a new answer to it.
@@ -220,13 +305,16 @@ def add_answer(question_id):
         vote_number = 0
         message = request.form['answer']
         image = request.form['picture']
-        queries.add_new_answer(submission_time, vote_number, question_id, message, image)
+        creator_username = session.get('username')
+        user_id = queries.creator_id(creator_username)
+        queries.add_new_answer(submission_time, vote_number, question_id, message, image, user_id)
         return redirect('/question/' + str(question_id))
 # #######################ANSWERS########################
 
 
 # #######################COMMENTS########################
 @app.route('/question/<int:question_id>/new_comment')
+@login_required
 def new_comment(question_id):
     """
     It diplays a page with a field where the user can write a new comment to the selected question.
@@ -245,7 +333,9 @@ def add_new_comment(question_id):
     """
     submission_time = str(datetime.now())[:-7]
     message = request.form['answer']
-    queries.submit_new_question_comment(question_id, message, submission_time)
+    creator_username = session.get('username')
+    user_id = queries.creator_id(creator_username)
+    queries.submit_new_question_comment(question_id, message, submission_time, user_id)
     return redirect('/question/' + str(question_id))
 
 
@@ -254,11 +344,14 @@ def delete_comment(comment_id):
     """
     Delete a comment from a question or an answer.
     """
-    queries.delete_comment(comment_id)
+    creator_username = queries.creator_username('comment', comment_id)
+    if creator_username == session.get("username") or session.get("role") == 'admin':
+        queries.delete_comment(comment_id)
     return redirect(redirect_url())
 
 
 @app.route('/answer/<int:answer_id>/new_comment')
+@login_required
 def new_answer_comment(answer_id):
     """
     It diplays a page with a field where the user can write a new comment to the selected answer.
@@ -279,7 +372,9 @@ def add_new_answer_comment(answer_id):
     """
     submission_time = str(datetime.now())[:-7]
     message = request.form['answer']
-    queries.submit_new_answer_comment(answer_id, message, submission_time)
+    creator_username = session.get('username')
+    user_id = queries.creator_id(creator_username)
+    queries.submit_new_answer_comment(answer_id, message, submission_time, user_id)
     question_id = queries.search_question_id(answer_id)[0][0]
     return redirect('/question/' + str(question_id))
 # #######################COMMENTS########################
