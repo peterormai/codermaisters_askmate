@@ -1,7 +1,7 @@
 body {
-    background: url("http://aurora-awards.com/wp-content/uploads/2017/04/python-wallpaper-27262470-wallpaperspng.jpg");
-    background-size: contain;
-    background-attachment: fixed;
+    background-image: url("pictures/background.png");
+    background-position: fixed;
+    background-size:cover
     background-color: #393f4d;
     margin: 0;
     font-size: 0.8vw;

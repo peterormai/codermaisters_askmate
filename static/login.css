@@ -1,6 +1,9 @@
 body{
     background-color: #414756;
     margin: 0px;
+    background-image: url("pictures/background.png");
+    background-position: fixed;
+    background-size:cover
 }
 div{
     margin-top: 13%;
