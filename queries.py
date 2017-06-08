@@ -213,7 +213,8 @@ def create_recovery_key(email):
                     WHERE email=%s;""", (recovery_key, email))
     return recovery_key
 
-# Mit keres egy password generátor a queries fájlban???? 
+
+# Mit keres egy password generátor a queries fájlban????
 def password_generator(length):
     """Generates a set of numbers and letters to create a unique new password"""
     char_set = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
