@@ -25,10 +25,12 @@
         <td width="5%">{{ top_menu[2] }}</td>
         <td width="5%">{{ top_menu[3] }}</td>
         <td width="45%">{{ top_menu[4] }}</td>
+        {% if session.role == 'admin': %}
         <td width="5%">{{ top_menu[5] }}</td>
         <td width="5%">{{ top_menu[6] }}</td>
         <td width="5%">{{ top_menu[7] }}</td>
         <td width="5%">{{ top_menu[8] }}</td>
+        {% endif %} 
       </tr>
     </table>
 
@@ -41,6 +43,7 @@
         <td width="5%"><a href="/question/{{ item[0] }}">{{ item[3] }}</td>
         <td width="45%"><a href="/question/{{ item[0] }}">{{ item[4] }}</td>
 
+      {% if session.role == 'admin': %}
         <td width="5%">
           <a href= /question/{{ item[0] }}/edit>
               <img src="http://www.argus-tv.com/wiki/images/e/eb/ICN_EDIT_GREEN.PNG" height="20px" width="20px"/>
@@ -60,10 +63,12 @@
         <td width="5%">
           <a href= /like/{{ item[0] }}/0> <img src="http://www.freeiconspng.com/uploads/dislike-button-png-1.png" height="20px" width="20px"/></a>
         </td>
-
-      </tr>  
+      {% endif %}
+       
+      </tr>
       {% endfor %}
     </table>
+    
 
     <div class="create">
       <a  href="/new_question">
