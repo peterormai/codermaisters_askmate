@@ -21,7 +21,7 @@ app.config.update(
 def login_required(function):
     @wraps(function)
     def wrap(*args, **kwargs):
-        if session.get("role") == 'user':
+        if session.get("role") == 'user' or session.get("role") == 'admin':
             return function(*args, **kwargs)
         else:
             flash('You need to login')
@@ -389,7 +389,7 @@ def show_all_users():
     return render_template('users.html',
                            users=queries.get_all_users(),
                            table_header=['Username', 'E-mail', 'Registration date', 'Role'])
-# #######################USERS########################### 
+# #######################USERS###########################
 
 
 def main():
