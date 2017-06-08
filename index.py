@@ -83,7 +83,8 @@ def recovery_check(recovery_key):
         send_mail('barnabastoth94@gmail.com', 'fanatic99', email, msg)
         queries.save_recovery_password(recovery_key, new_password)
         flash('An email has been sent to your inbox which contains your new password, dont forget to change it after logging in.')
-        delete_recovery_keys(15, recovery_key)
+        # delete_recovery_keys(15, recovery_key)
+        # print("K")
         return redirect(url_for('login'))
     else:
         return redirect(url_for('show_latest_five_questions'))
@@ -97,7 +98,7 @@ def do_password_recovery():
     email = request.form['email']
     recovery_key = queries.create_recovery_key(email)
     recovery_link = 'http://127.0.0.1:5000/recovery/{0}'.format(recovery_key)
-    msg = 'You requested a new password for your account at Codermeisters.com \n If you want a new password, open this link: {0}. \n This link is valid for 15 minutes \n If it was not you, just ignore this email'.format(
+    msg = 'You requested a new password for your account at Codermeisters.com \n If you want a new password, open this link: {0} \n This link is valid for 15 minutes \n If it was not you, just ignore this email'.format(
         recovery_link).encode('utf-8').strip()
     send_mail('barnabastoth94@gmail.com', 'fanatic99', email, msg)
     flash('An email has been sent to your inbox with instructions, you shall receive it in a few seconds')
@@ -143,6 +144,26 @@ def delete_recovery_keys(mins, recovery_key):
     if minute_since_delete == mins:
         queries.null_recovery_keys(recovery_key)
 
+
+@app.route('/<user_id>/edit_user', methods=['POST', 'GET'])
+def edit_user(user_id):
+    if request.method == 'POST':
+        new_username = request.form['new_username']
+        new_password = request.form['new_password']
+        new_email = request.form['new_email']
+        new_role = request.form['new_role']
+        if len(new_username) > 0:
+            queries.update_username(user_id, new_username)
+        if len(new_password) > 0:
+            queries.update_password(user_id, new_password)
+        if len(new_email) > 0:
+            queries.update_email(user_id, new_email)
+        if len(new_role) > 0:
+            queries.update_role(user_id, new_role)
+        return redirect(url_for('show_latest_five_questions'))
+    else:
+        user_data = queries.get_user_detail(user_id)
+        return render_template('edit_user.html', user_id=user_id, user_data=user_data)
     # #######################USER AUTHENTICATION########################
     # #######################EXTRA FUNCTIONS########################
 

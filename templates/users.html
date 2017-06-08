@@ -14,9 +14,17 @@
         <table class='users'>
             {% for user in users %}
                 <tr>
-                    {% for userdata in user %}
-                        <td width='10%'>{{ userdata }}</td>
-                    {% endfor %}
+                    <td width='10%'>{{ user[1] }}</td>
+                    <td width='10%'>{{ user[2] }}</td>
+                    <td width='10%'>{{ user[3] }}</td>
+                    <td width='10%'>{{ user[4] }}</td>
+                    {% if session.role == 'admin' %}
+                        <td>
+                            <a href="/{{ user[0] }}/edit_user">
+                                <img src="http://www.argus-tv.com/wiki/images/e/eb/ICN_EDIT_GREEN.PNG"/>
+                            </a>
+                        </td>
+                    {% endif %}
                 </tr>
             {% endfor %}
         </table>

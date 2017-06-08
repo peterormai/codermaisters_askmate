@@ -179,7 +179,7 @@ def search_question_id(answer_id):
 
 def get_all_users():
     """Shows all the registered users."""
-    return fetch_database("""SELECT username, email, registration_time, role FROM users;""")
+    return fetch_database("""SELECT id, username, email, registration_time, role FROM users;""")
 
 # #######################USER AUTHENTICATION########################
 
@@ -235,6 +235,8 @@ def get_user_email(recovery_key):
     return fetch_database("""SELECT email FROM users
                           WHERE recovery_key=%s""", (recovery_key,), 'one')[0]
 
+# print(get_user_email('MY1ht2kBa1brud3aHdmQZWttHHw3oev4LI2BoQE253HaRV4WMGgMIJ8l5cDSoCktv0KceAyW1b2HI'))
+
 
 def get_username(recovery_key):
     """Gets username for the recovery key"""
@@ -254,3 +256,42 @@ def null_recovery_keys(recovery_key):
                     SET recovery_key = 0
                     WHERE recovery_key=%s
                     """, (recovery_key,))
+
+
+def update_username(user_id, new_username):
+    return modify_database("""
+                            UPDATE users
+                            SET username=%s
+                            WHERE id=%s
+                            """, (new_username, user_id))
+
+
+def update_password(user_id, new_password):
+    return modify_database("""
+                            UPDATE users
+                            SET password=%s
+                            WHERE id=%s
+                            """, (new_password, user_id))
+
+
+def update_email(user_id, new_email):
+    return modify_database("""
+                            UPDATE users
+                            SET email=%s
+                            WHERE id=%s
+                            """, (new_email, user_id))
+
+
+def update_role(user_id, new_role):
+    return modify_database("""
+                            UPDATE users
+                            SET role=%s
+                            WHERE id=%s
+                            """, (new_role, user_id))
+
+
+def get_user_detail(user_id):
+    return fetch_database("""SELECT username, email, role
+                            FROM users
+                            WHERE id = %s
+                            """, (user_id))[0]

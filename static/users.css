@@ -57,3 +57,8 @@ td:hover {
     font-size: 0.9vw;
     background-color: #8f9dbf;
     }
+
+img {
+    max-width: 25px;
+    max-height: 25px;
+}
