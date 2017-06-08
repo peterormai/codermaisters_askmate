@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AskMate - Users</title>
+</head>
+<body>
+    <table>
+        {% for title in head_title %}
+        <th>{{ title }}</th>
+        {% endfor %}
+        {% for user in Users %}
+        <tr>
+            {% for userdata in user %}
+            <td>{{ userdata }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
