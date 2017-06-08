@@ -1,7 +1,7 @@
 body {
-    background: url("http://aurora-awards.com/wp-content/uploads/2017/04/python-wallpaper-27262470-wallpaperspng.jpg");
-    background-size: contain;
-    background-attachment: fixed;
+    background-image: url("pictures/background.png");
+    background-position: fixed;
+    background-size:cover;
     margin: 0;
     text-align: center;
     font-family: "Franklin Gothic Medium", "Franklin Gothic", "ITC Franklin Gothic", Arial, sans-serif;*/

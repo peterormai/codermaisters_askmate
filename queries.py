@@ -202,15 +202,46 @@ def creator_id(creator_username):
     return fetch_database("""SELECT id FROM users WHERE username=%s;""", (creator_username,), 'one')[0]
 
 
+def create_recovery_key(email):
+    recovery_key = password_generator(random.randint(50, 100))
+    modify_database("""
+                    UPDATE users
+                    SET recovery_key=%s
+                    WHERE email=%s;""", (recovery_key, email))
+    return recovery_key
+
+
 def password_generator(length):
-    char_set = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@£$%^&*().,?0123456789'
+    char_set = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
     password = ''
     for char in range(length):
         password += random.choice(char_set)
     return password
 
 
-def password_recovery(email):
-    password = password_generator(10)
-    modify_database("""UPDATE users SET password=%s WHERE email=%s;""", (password, email))
-    return password
+def save_recovery_password(recovery_key, password):
+    modify_database("""UPDATE users SET password=%s WHERE recovery_key=%s;""", (password, recovery_key))
+
+
+def get_user_email(recovery_key):
+    return fetch_database("""
+                            SELECT email
+                            FROM users
+                            WHERE recovery_key=%s
+                            """, (recovery_key,), 'one')[0]
+
+
+def get_username(recovery_key):
+    return fetch_database("""
+                            SELECT username
+                            FROM users
+                            WHERE recovery_key=%s
+                            """, (recovery_key,), 'one')[0]
+
+
+def change_password(username, old_password, new_password):
+    modify_database("""
+                    UPDATE users
+                    SET password=%s
+                    WHERE username=%s AND password=%s;
+                    """, (new_password, username, old_password))

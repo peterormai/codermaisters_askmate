@@ -3,6 +3,9 @@ body {
     margin: 0;
     font-size: 0.8vw;
     text-align: center;
+    background-image: url("pictures/background.png");
+    background-position: fixed;
+    background-size:cover;
 }
 div.topbar {
     position: sticky;
