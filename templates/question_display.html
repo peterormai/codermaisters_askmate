@@ -176,8 +176,8 @@
         <!--###ANSWERS###-->            
                     <tbody>
                         <tr>
-                            <td colspan="4">{{ items[4] }}</td>
-                            <td colspan="5"><img class="uploaded" src="{{ items[5] }}"></td>
+                            <td colspan="3">{{ items[4] }}</td>
+                            <td colspan="6"><img class="uploaded" src="{{ items[5] }}"></td>
                         </tr>
                     <tbody>
 
@@ -188,16 +188,16 @@
                                 {% if comment[0] == items[0] %}
                                     <tr class="answer_comments">
                                             <td colspan="1">{{ comment[4] }}</td>
-                                            <td colspan="3">{{ comment[1] }}</td>
-                                            <td colspan="4">{{ comment[2] }}</td>
+                                            <td colspan="2">{{ comment[1] }}</td>
+                                            <td colspan="1">{{ comment[2] }}</td>
                                             {% if session.role == 'admin' or session.username ==  comment[4] : %}
-                                                <td>
-                                                    <form action="/comment/{{ comment[3] }}/delete" method="post">
+                                                <td colspan="5">
+                                                    <form id='delete_com' action="/comment/{{ comment[3] }}/delete" method="post">
                                                         <input id="delete_comment" type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png"/> 
                                                     </form>
                                                 </td>
                                             {% else %}
-                                                <td></td>
+                                                <td colspan="5"></td>
                                             {% endif %}
                                     </tr>
                                 {% endif %}

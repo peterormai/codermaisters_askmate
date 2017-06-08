@@ -167,6 +167,10 @@ div.answers tfoot td:hover {
     transition: background-color 0.7s ease-in; 
     background-color: #414756;
 }
+
+#delete_com {
+    text-align: right;
+}
 /*####MAINLIST COMMENTS####*/
 
 /*############################ ANSWERS #############################*/
