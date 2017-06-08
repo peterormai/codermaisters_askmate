@@ -169,12 +169,14 @@ def new_question():
     view_number = 0
     vote_number = 0
     title = request.form["new_question"]
+    creator_username = session.get('username')
+    user_id = queries.creator_id(creator_username)
     if len(title) < 10:
         return redirect(url_for('new_question'))
     else:
         message = request.form["new_question_long"]
         image = request.form['picture']
-        queries.submit_new_question(submission_time, view_number, vote_number, title, message, image)
+        queries.submit_new_question(submission_time, view_number, vote_number, title, message, image, user_id)
         return redirect(url_for('show_latest_five_questions'))
 # #######################QUESTIONS########################
 
@@ -256,7 +258,9 @@ def add_answer(question_id):
         vote_number = 0
         message = request.form['answer']
         image = request.form['picture']
-        queries.add_new_answer(submission_time, vote_number, question_id, message, image)
+        creator_username = session.get('username')
+        user_id = queries.creator_id(creator_username)
+        queries.add_new_answer(submission_time, vote_number, question_id, message, image, user_id)
         return redirect('/question/' + str(question_id))
 # #######################ANSWERS########################
 
@@ -282,7 +286,9 @@ def add_new_comment(question_id):
     """
     submission_time = str(datetime.now())[:-7]
     message = request.form['answer']
-    queries.submit_new_question_comment(question_id, message, submission_time)
+    creator_username = session.get('username')
+    user_id = queries.creator_id(creator_username)
+    queries.submit_new_question_comment(question_id, message, submission_time, user_id)
     return redirect('/question/' + str(question_id))
 
 
@@ -319,7 +325,9 @@ def add_new_answer_comment(answer_id):
     """
     submission_time = str(datetime.now())[:-7]
     message = request.form['answer']
-    queries.submit_new_answer_comment(answer_id, message, submission_time)
+    creator_username = session.get('username')
+    user_id = queries.creator_id(creator_username)
+    queries.submit_new_answer_comment(answer_id, message, submission_time, user_id)
     question_id = queries.search_question_id(answer_id)[0][0]
     return redirect('/question/' + str(question_id))
 # #######################COMMENTS########################
