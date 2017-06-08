@@ -48,7 +48,7 @@
                 <li>
                 {{ comment[2] }}
                 </li>
-                {% if session.username %}
+                {% if session.role == 'admin' or session.username ==  comment[2] : %}
                     <li id="comment_action">
                         <form action="/comment/{{ comment[1] }}/delete" method="post">
                             <input id="delete_comment" type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png"/> 
@@ -88,35 +88,35 @@
                         <p>Votes: {{ question[3] }}</p>
                     </td>
 
-                    {% if session.role == 'admin' or session.username == 'user': %}
-                    <td>
-                        <a href="/like/{{ question[0] }}/1"> <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/Facebook_like_thumb.png"/></a>
-                    </td>
+                    {% if session.role == 'admin' or session.username ==  question[8]: %}
+                        <td>
+                            <a href="/like/{{ question[0] }}/1"> <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/Facebook_like_thumb.png"/></a>
+                        </td>
 
-                    <td>
-                        <a href="/like/{{ question[0] }}/0"> <img src="http://www.freeiconspng.com/uploads/dislike-button-png-1.png"/></a>
-                    </td>
-                    
-                    <td>
-                        <a href= /question/{{ question[0] }}/edit>
-                            <img src="http://www.argus-tv.com/wiki/images/e/eb/ICN_EDIT_GREEN.PNG"/>
-                        </a>
-                    </td>
+                        <td>
+                            <a href="/like/{{ question[0] }}/0"> <img src="http://www.freeiconspng.com/uploads/dislike-button-png-1.png"/></a>
+                        </td>
+                        
+                        <td>
+                            <a href= /question/{{ question[0] }}/edit>
+                                <img src="http://www.argus-tv.com/wiki/images/e/eb/ICN_EDIT_GREEN.PNG"/>
+                            </a>
+                        </td>
 
-                    <td>
-                        <form action="/question/{{ question[0] }}/delete" method="post">
-                            <input type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png"/> 
-                        </form>
-                    </td>
+                        <td>
+                            <form action="/question/{{ question[0] }}/delete" method="post">
+                                <input type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png"/> 
+                            </form>
+                        </td>
 
                     {% elif session.role == 'user': %}
-                     <td>
-                        <a href="/like/{{ question[0] }}/1"> <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/Facebook_like_thumb.png"/></a>
-                    </td>
+                        <td>
+                            <a href="/like/{{ question[0] }}/1"> <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/Facebook_like_thumb.png"/></a>
+                        </td>
 
-                    <td>
-                        <a href="/like/{{ question[0] }}/0"> <img src="http://www.freeiconspng.com/uploads/dislike-button-png-1.png"/></a>
-                    </td>
+                        <td>
+                            <a href="/like/{{ question[0] }}/0"> <img src="http://www.freeiconspng.com/uploads/dislike-button-png-1.png"/></a>
+                        </td>
                     {% endif %}
                 </tr>  
             </table>
@@ -132,11 +132,31 @@
         <!--###ANSWER TOP BAR###-->
                     <thead>
                         <tr>
-                            <td width="3%">ID: {{ items[0] }}</td>
-                            <td width="6%">{{ items[7] }}</td>
-                            <td width="6%">Question ID: {{ items[3] }}</td>
-                            <td width="20%">Submission Time: {{ items[1] }}</td>
-                            <td width="5%">Votes: {{ items[2] }}</td>
+                            <td width="15%">ID: {{ items[0] }}</td>
+                            <td width="15%">{{ items[7] }}</td>
+                            <td width="15%">Question ID: {{ items[3] }}</td>
+                            <td width="30%">Submission Time: {{ items[1] }}</td>
+                            <td width="20%">Votes: {{ items[2] }}</td>
+                            {% if session.role == 'admin' or session.username ==  items[7] : %}
+                            <td width="3%">
+                                <a href= '/answer/{{ items[0] }}/new_comment'>
+                                    <img src="https://maxcdn.icons8.com/office/PNG/512/Cinema/breast-512.png"/>
+                                </a>
+                            </td>
+
+                            <td width="3%">
+                                <form action="/answer/{{ items[0] }}/delete" method="post">
+                                    <input type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png" width="20px" height="20px"/> 
+                                </form>
+                            </td>
+                            <td width="3%">
+                                <a href= /like/{{ items[0] }}/ans/1> <img src="http://i.picresize.com/images/2017/05/11/qy3u.png"/></a>
+                            </td>
+                            <td width="3%">
+                                <a href= /like/{{ items[0] }}/ans/0> <img src="http://www.freeiconspng.com/uploads/dislike-button-png-1.png"/></a>
+                            </td>
+
+                            {% elif session.role == 'user': %}
                             <td width="3%">
                                 <a href= '/answer/{{ items[0] }}/new_comment'>
                                     <img src="https://maxcdn.icons8.com/office/PNG/512/Cinema/breast-512.png"/>
@@ -148,19 +168,16 @@
                             <td width="3%">
                                 <a href= /like/{{ items[0] }}/ans/0> <img src="http://www.freeiconspng.com/uploads/dislike-button-png-1.png"/></a>
                             </td>
-                            <td width="3%">
-                                <form action="/answer/{{ items[0] }}/delete" method="post">
-                                    <input type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png" width="20px" height="20px"/> 
-                                </form>
-                            </td>
+                            {% endif %}
+
                         </tr>
                     </thead>
 
         <!--###ANSWERS###-->            
                     <tbody>
                         <tr>
-                            <td colspan="6">{{ items[4] }}</td>
-                            <td colspan="3"><img class="uploaded" src="{{ items[5] }}"></td>
+                            <td colspan="4">{{ items[4] }}</td>
+                            <td colspan="5"><img class="uploaded" src="{{ items[5] }}"></td>
                         </tr>
                     <tbody>
 
@@ -170,14 +187,18 @@
                             {% for comment in comments  %}
                                 {% if comment[0] == items[0] %}
                                     <tr class="answer_comments">
-                                            <td colspan="2">{{ comment[4] }}</td>
-                                            <td colspan="4">{{ comment[1] }}</td>
-                                            <td colspan="2">{{ comment[2] }}</td>
-                                            <td>
-                                                <form action="/comment/{{ comment[3] }}/delete" method="post">
-                                                    <input id="delete_comment" type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png"/> 
-                                                </form>
-                                            </td>
+                                            <td colspan="1">{{ comment[4] }}</td>
+                                            <td colspan="3">{{ comment[1] }}</td>
+                                            <td colspan="4">{{ comment[2] }}</td>
+                                            {% if session.role == 'admin' or session.username ==  comment[4] : %}
+                                                <td>
+                                                    <form action="/comment/{{ comment[3] }}/delete" method="post">
+                                                        <input id="delete_comment" type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png"/> 
+                                                    </form>
+                                                </td>
+                                            {% else %}
+                                                <td></td>
+                                            {% endif %}
                                     </tr>
                                 {% endif %}
                             {% endfor %}
