@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>AskMate - Users</title>
-</head>
-<body>
-    <table>
-        {% for title in table_header %}
-        <th>{{ title }}</th>
-        {% endfor %}
-        {% for user in users %}
-        <tr>
-            {% for userdata in user %}
-            <td>{{ userdata }}</td>
+    <head>
+        <meta charset="UTF-8">
+        <title>AskMate - Users</title>
+    </head>
+    <body>
+        <table>
+            {% for title in table_header %}
+                <th>{{ title }}</th>
             {% endfor %}
-        </tr>
-        {% endfor %}
-    </table>
-</body>
+            {% for user in users %}
+                <tr>
+                    {% for userdata in user %}
+                        <td>{{ userdata }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+        <p><button><a href='/'>Back</a></button></p>
+    </body>
 </html>
