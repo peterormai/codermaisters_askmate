@@ -25,9 +25,6 @@
                 <label for="title">Question:</label>
                 <li id="title">{{ question[4] }}</li>
 
-                <label for="creater">Created by:</label>
-                <li id="creater">{{ session.get('username') }}</li>
-
                 <label for="question">Description:</label>  
                 <li id="question">{{ question[5] }}</li>
 
@@ -70,6 +67,11 @@
                     <td>
                         <p>ID: {{ question[0] }}</p>
                     </td>
+
+                    <td>
+                        <p>{{ session.get('username') }}</p>
+                    </td>
+
 
                     <td>
                         <p>Created at: {{ question[1] }}</p>

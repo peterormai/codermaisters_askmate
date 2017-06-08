@@ -5,7 +5,7 @@ from flask import redirect
 from flask import url_for
 import queries
 from datetime import datetime
-
+import smtplib
 from flask import Response, abort, session, flash
 from functools import wraps
 
@@ -51,8 +51,34 @@ def logout():
     flash('You have been logged out')
     return redirect(url_for('show_latest_five_questions'))
 
-# #######################USER AUTHENTICATION########################
-# #######################EXTRA FUNCTIONS########################
+
+@app.route('/password_recovery')
+def show_password_recovery():
+    return render_template('password_recovery.html')
+
+
+@app.route('/password_recovery', methods=['POST'])
+def do_password_recovery():
+    email = request.form['email']
+    new_password = queries.password_recovery(email)
+    msg = 'You requested a new password for your account at Codermeisters.com \n Your new password is: {0}'.format(
+        new_password).encode('utf-8').strip()
+    send_mail('barnabastoth94@gmail.com', 'fanatic99', email, msg)
+    return redirect(url_for('show_latest_five_questions'))
+
+
+def send_mail(sender_email, sender_password, target_email, message):
+    import smtplib
+
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.starttls()
+    server.login(sender_email, sender_password)
+
+    msg = message
+    server.sendmail(sender_email, target_email, msg)
+    server.quit()
+    # #######################USER AUTHENTICATION########################
+    # #######################EXTRA FUNCTIONS########################
 
 
 def redirect_url(default='index'):

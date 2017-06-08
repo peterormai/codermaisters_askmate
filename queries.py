@@ -1,4 +1,5 @@
 import psycopg2
+import random
 
 
 def user_datas():
@@ -185,3 +186,17 @@ def creator_username(type_, id):
 
 def creator_id(creator_username):
     return fetch_database("""SELECT id FROM users WHERE username=%s;""", (creator_username,), 'one')[0]
+
+
+def password_generator(length):
+    char_set = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@£$%^&*().,?0123456789'
+    password = ''
+    for char in range(length):
+        password += random.choice(char_set)
+    return password
+
+
+def password_recovery(email):
+    password = password_generator(10)
+    modify_database("""UPDATE users SET password=%s WHERE email=%s;""", (password, email))
+    return password
