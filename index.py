@@ -264,6 +264,18 @@ def add_new_answer_comment(answer_id):
 # #######################COMMENTS########################
 
 
+# #######################USERS###########################
+@app.route('/users')
+def show_all_users():
+    """
+    Show all the registeres users.
+    """
+    return render_template('users.html',
+                           users=queries.get_all_users(),
+                           table_header=['Username', 'E-mail', 'Registration date', 'Role'])
+# #######################USERS########################### 
+
+
 def main():
     app.run(debug=True)
 
