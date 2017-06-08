@@ -18,10 +18,20 @@ app.config.update(
 )
 
 
+def not_with_login(function):
+    @wraps(function)
+    def wrap(*args, **kwargs):
+        if session.get("role"):
+            return redirect(url_for('show_latest_five_questions'))
+        else:
+            return function(*args, **kwargs)
+    return wrap
+
+
 def login_required(function):
     @wraps(function)
     def wrap(*args, **kwargs):
-        if session.get("role") == 'user':
+        if session.get("role") == 'user' or session.get("role") == 'admin':
             return function(*args, **kwargs)
         else:
             flash('You need to login')
@@ -53,18 +63,63 @@ def logout():
 
 
 @app.route('/password_recovery')
+@not_with_login
 def show_password_recovery():
     return render_template('password_recovery.html')
 
 
+@app.route('/recovery/<recovery_key>')
+def recovery_check(recovery_key):
+    """
+    Reads the recovery key from the url, then checks the database, and if it exists
+    then generates a new password to that user, then sends the new password to the user.
+    """
+    if recovery_key != 0:
+        new_password = queries.password_generator(10)
+        email = queries.get_user_email(recovery_key)
+        username = queries.get_username(recovery_key)
+        msg = 'You requested a new password for your account at Codermeisters.com \n Your new password: {0}'.format(
+            new_password).encode('utf-8').strip()
+        send_mail('barnabastoth94@gmail.com', 'fanatic99', email, msg)
+        queries.save_recovery_password(recovery_key, new_password)
+        flash('An email has been sent to your inbox which contains your new password, dont forget to change it after logging in.')
+        return redirect(url_for('login'))
+    else:
+        return redirect(url_for('show_latest_five_questions'))
+
+
 @app.route('/password_recovery', methods=['POST'])
 def do_password_recovery():
+    """
+    Gets an email from the user, then sends a password recovery link to it
+    """
     email = request.form['email']
-    new_password = queries.password_recovery(email)
-    msg = 'You requested a new password for your account at Codermeisters.com \n Your new password is: {0}'.format(
-        new_password).encode('utf-8').strip()
+    recovery_key = queries.create_recovery_key(email)
+    recovery_link = 'http://127.0.0.1:5000/recovery/{0}'.format(recovery_key)
+    msg = 'You requested a new password for your account at Codermeisters.com \n If you want a new password, open this link: {0}. \n If it was not you, just ignore this email'.format(
+        recovery_link).encode('utf-8').strip()
     send_mail('barnabastoth94@gmail.com', 'fanatic99', email, msg)
-    return redirect(url_for('show_latest_five_questions'))
+    flash('An email has been sent to your inbox with instructions, you shall receive it in a few seconds')
+    return redirect(url_for('login'))
+
+
+@app.route('/change_password', methods=['POST', 'GET'])
+@login_required
+def change_password():
+    if request.method == 'POST':
+        username = session.get('username')
+        old_password = request.form['old_password']
+        new_password = request.form['new_password']
+        new_password_again = request.form['new_password_again']
+        if new_password == new_password_again:
+            queries.change_password(username, old_password, new_password)
+            flash('Your password has been changed')
+            return redirect(url_for('show_latest_five_questions'))
+        else:
+            flash('The data you enterred is not correct')
+            return redirect(url_for('change_password'))
+    else:
+        return render_template('change_password.html')
 
 
 def send_mail(sender_email, sender_password, target_email, message):
@@ -82,6 +137,7 @@ def send_mail(sender_email, sender_password, target_email, message):
 
 
 @app.route('/registration')
+@not_with_login
 def new_registration():
     """
     Points to the registration page.

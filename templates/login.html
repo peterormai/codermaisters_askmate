@@ -7,6 +7,9 @@
   </head>
   <body>
         <div>
+            {% with messages = get_flashed_messages() %}
+                <p id="keyframes">{{ messages[0] }}</p>
+            {% endwith %}
             <form action='/login' method='POST'>
                 <table>
 
@@ -31,6 +34,11 @@
                     <tr>
                         <td colspan="2"><a href="/password_recovery">Password recovery!</a></td>
                     </tr>
+
+                    <tr>
+                        <td colspan="2"><a href="/change_password">Change your password</a></td>
+                    </tr>
+
 
                 </table>
             </form>
