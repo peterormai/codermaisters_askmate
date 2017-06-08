@@ -104,8 +104,11 @@ def show_one_answer(answer_id):
 
 
 def submit_new_answer_comment(answer_id, message, submission_time, user_id):
+    """Creates a new row in users table based on the registration form"""
     modify_database("""INSERT INTO comment(answer_id, message, submission_time, user_id)
                     VALUES(%s, %s, %s, %s);""", (answer_id, message, submission_time, user_id))
+
+
 def register_new_user(user_name, password, email, registration_time):
     modify_database("""INSERT INTO users(username, password, email, registration_time)
                     SELECT '{}', '{}', '{}', '{}';""".format(user_name, password, email, registration_time))
