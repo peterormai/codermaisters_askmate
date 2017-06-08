@@ -268,7 +268,7 @@ def add_new_answer_comment(answer_id):
 @app.route('/users')
 def show_all_users():
     """
-    Show all the registeres users.
+    Shows all the registeres users.
     """
     return render_template('users.html',
                            users=queries.get_all_users(),
