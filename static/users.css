@@ -1,0 +1,59 @@
+body {
+    background: url("http://aurora-awards.com/wp-content/uploads/2017/04/python-wallpaper-27262470-wallpaperspng.jpg");
+    background-size: contain;
+    background-attachment: fixed;
+    background-color: #393f4d;
+    margin: 0;
+    font-size: 0.8vw;
+    text-align: center;
+}
+
+table.header {
+    font-size: 0.9vw;
+    top: 0px;
+    width: 60%;
+    padding: 3px 5px 3px 5px;
+    border-radius: 0px;
+    border-spacing: 2px;
+    background-color: #434b5b;
+    text-align: center;
+    color: #feda6a;
+    margin-right: 20%;
+    margin-left: 20%;
+    height: 30px;
+    border: 1px solid black;
+    table-layout:fixed;
+}
+
+table.users {
+    border: 1px solid black;
+    border-radius: 0px;
+    border-spacing: 2px;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-style: italic;
+    color: white;
+    box-shadow: 10px -4px 25px 2px rgba(0,0,0,0.75);
+    padding: 5px;
+    margin-top: 3px;
+    width: 60%;
+    word-wrap:break-word;
+    table-layout:fixed;
+    background-color: #434b5b;
+    margin-right: 20%;
+    margin-left: 20%;
+}
+
+td {
+    padding: 6px;
+    border: 1px solid black;
+}
+
+tr:hover {
+    background-color: #535c70;
+    }
+
+td:hover { 
+    transition: background-color 1s ease-in; 
+    font-size: 0.9vw;
+    background-color: #8f9dbf;
+    }
