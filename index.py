@@ -119,7 +119,7 @@ def show_question(id):
     Shows the question edit page with the chosen question's informations.
     """
     creator_username = queries.creator_username('question', id)
-    if creator_username in session:
+    if creator_username == session.get("username") or session.get("role") == 'admin':
         selected_question = queries.show_one_question(id)[0]
         return render_template('update.html', selected_question=selected_question, id=id, username='peter')
     else:
@@ -143,7 +143,7 @@ def delete_one_question(question_id):
     The selected question will be removed with all the associated answers and comments from the database permanently.
     """
     creator_username = queries.creator_username('question', question_id)
-    if creator_username in session:
+    if creator_username == session.get("username") or session.get("role") == 'admin':
         queries.delete_question(question_id)
         return redirect(url_for('show_latest_five_questions'))
     else:
@@ -228,7 +228,7 @@ def delete_answer(answer_id):
     The selected answer will be removed from the database permanently.
     """
     creator_username = queries.creator_username('answer', answer_id)
-    if creator_username in session:
+    if creator_username == session.get("username") or session.get("role") == 'admin':
         queries.delete_one_answer(answer_id)
     return redirect(redirect_url())
 
@@ -292,7 +292,7 @@ def delete_comment(comment_id):
     Delete a comment from a question or an answer.
     """
     creator_username = queries.creator_username('comment', comment_id)
-    if creator_username in session:
+    if creator_username == session.get("username") or session.get("role") == 'admin':
         queries.delete_comment(comment_id)
     return redirect(redirect_url())
 

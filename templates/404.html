@@ -6,6 +6,16 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='404.css') }}">
   </head>
   <body>
+      <div class="topbar">
+        {% if session.username: %}
+            <a href="/logout" id="logout">logout</a>
+            <a id="loggedin">Welcome <span style="color: #feda6a; font-size: 1vw;">{{ session.username }}</span>!</a>
+        {% else %}
+            <a id = "membersarea" href="/login">Members Area</a>
+        {% endif %}
+        <a href="/">Home</a>
+        <a href="/new_answer">New answer</a>
+      </div>
       <div>
           <h1>404 ERRRORR!!!! Sorry, but it seems like you fucked something up.
                One thing is for sure, we didn't</h1>

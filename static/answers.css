@@ -6,6 +6,57 @@ body {
     text-align: center;
     font-family: "Franklin Gothic Medium", "Franklin Gothic", "ITC Franklin Gothic", Arial, sans-serif;*/
 }
+div.topbar {
+    position: sticky;
+    color: white;
+    text-decoration: none;
+    width: 100%;
+    height: 25px;
+    /*background-color: #222222;*/
+    background-color: #2d2d2d;
+    border-bottom: 2px solid  black;
+}
+div.topbar a{
+    display: block;
+    border-right: 2px solid #3d3d3d;
+    font-size: 0.9vw;
+    text-decoration: none;
+    color: white;
+    float: left;
+    width: 150px;
+    line-height: 25px;
+    /*background-color: #595858;*/
+}
+#membersarea {
+    color: #feda6a;
+    float: right;
+    width: 300px;
+    border-left: 2px solid #3d3d3d;
+    font-size: 1vw;
+    /*background-color: #3d3d3d;*/
+    background-color: #222222;
+    border-right: 0px;
+    border-left: 0px;
+}
+#loggedin {
+    float: right;
+}
+#logout {
+    float: right;
+    width: 70px;
+    background-color: #222222;
+}
+div.topbar a:hover{
+    background-color: #595858;
+}
+#membersarea:hover{
+    background-color: #595858;
+}
+#logout:hover{
+    background-color: #595858;
+}
+
+
 
 /*############################ TOP BAR #############################*/
 div.top_menu img {
@@ -19,7 +70,7 @@ div.top_menu input {
 
 div.top_menu {
     position: fixed;
-    top: 0px;
+    top: 27px;
     right: 0px;
     background-color: #222222;
     width: calc(80% - 10px);
@@ -129,7 +180,7 @@ div.answers tfoot td:hover {
 /*####QUESTION DETAILS####*/
 div.question_details {
     position: fixed;
-    top: 0px;
+    top: 27px;
     left: 0px;
     height: 70%;
     width: 20%;

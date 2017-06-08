@@ -180,6 +180,3 @@ def creator_username(type_, id):
                             WHERE {0}.id=%s""".format(type_), (id,), 'one')[0]
     except TypeError:
         return None
-
-
-print(check_user('username', 'password')[0])

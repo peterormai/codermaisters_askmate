@@ -8,12 +8,25 @@
     </head>
 
     <body>
+        <div class="topbar">
+            {% if session.username: %}
+                <a href="/logout" id="logout">logout</a>
+                <a id="loggedin">Welcome <span style="color: #feda6a; font-size: 1vw;">{{ session.username }}</span>!</a>
+            {% else %}
+                <a id = "membersarea" href="/login">Members Area</a>
+            {% endif %}
+            <a href="/">Home</a>
+            <a href="/question/{{ question[0] }}/new_answer">New answer</a>
+        </div>
         <!--############################ QUESTION #############################-->
         <!--###QUESTION DETAILS###-->
         <div class="question_details">
             <ul>
                 <label for="title">Question:</label>
                 <li id="title">{{ question[4] }}</li>
+
+                <label for="creater">Created by:</label>
+                <li id="creater">{{ session.get('username') }}</li>
 
                 <label for="question">Description:</label>  
                 <li id="question">{{ question[5] }}</li>
