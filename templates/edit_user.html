@@ -1,0 +1,62 @@
+    <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='edit_user.css') }}">
+  </head>
+  <body>
+        <div>
+            {% with messages = get_flashed_messages() %}
+                <p id="keyframes">{{ messages[0] }}</p>
+            {% endwith %}
+            <form action='/{{ user_id }}/edit_user' method='POST'>
+                <table>
+                    <tr>
+                        {% for data in user_data %}
+                        <td>{{ data }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                    <td>Only fill those inputs you wish to change!!</td>
+                    </tr>
+                    <tr>
+                        <td>new_username</td>
+                        <td><input id="username" type="text" name="new_username"></td>
+                    </tr>
+
+                    <tr>
+                        <td>new_password</td>
+                        <td><input id="password" type="password" name="new_password"></td>
+                    </tr>
+
+                    <tr>
+                        <td>new_email</td>
+                        <td><input id="password" type="email" name="new_email"></td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <select name="new_role">
+                            <option value="user">user</option>
+                            <option value="admin">admin</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><input type='submit' value='Send'></td>
+                    </tr>
+
+                </table>
+            </form>
+        </div>
+        <div class="buttons">
+
+            <a class="home" href="/">
+                <img src="http://icons.iconarchive.com/icons/robsonbillponte/iRob/512/Folder-Home-Folder-icon.png" height="50px" width="50px"/>
+            </a>
+
+        </div>
+  </body>
+</html>
