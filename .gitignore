@@ -13,8 +13,7 @@ __pycache__/
 *.csv
 
 *.txt
-*.md 
-*.sql
+*.md
 /AskMate-part2-sample-data
 
 # Distribution / packaging

@@ -96,6 +96,11 @@ def show_one_answer(answer_id):
 # Database modifiers!
 
 
+def register_new_user(user_name, password, email, registration_time):
+    modify_database("""INSERT INTO users(username, password, email, registration_time)
+                    SELECT '{}', '{}', '{}', '{}';""".format(user_name, password, email, registration_time))
+
+
 def submit_new_answer_comment(answer_id, message, submission_time):
     modify_database("""INSERT INTO comment(answer_id, message, submission_time)
                     SELECT {}, '{}', '{}';""".format(answer_id, message, submission_time))
