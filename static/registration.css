@@ -15,7 +15,7 @@ table{
     border-style: solid;
     border-color: black;
     background-color: #2d2d2d;
-    padding: 10px 10px 5px 10px;   
+    padding: 12px 12px 23px 15px;   
     color: white;
     font-size: 0.9vw;
 }
@@ -46,6 +46,6 @@ div.buttons img:hover {
 
 #submit_registration {
     position: absolute;
-    top: 52%;
+    top: 54%;
     right: 48%;
 }
