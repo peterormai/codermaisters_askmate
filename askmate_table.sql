@@ -78,7 +78,7 @@ CREATE TABLE users (
     email character varying(255) UNIQUE,
     registration_time timestamp without time zone,
     role character varying(255) DEFAULT 'user',
-    recovery_key character varying(255) UNIQUE
+    recovery_key character varying(255) DEFAULT '0'
 );
 
 
