@@ -51,7 +51,7 @@ def login():
             session['role'] = user_check[0]
             return redirect(url_for('show_latest_five_questions'))
         else:
-            return abort(401)
+            return redirect(redirect_url())
     else:
         return render_template('login.html')
 
@@ -59,7 +59,6 @@ def login():
 @app.route('/logout')
 def logout():
     session.clear()
-    flash('You have been logged out')
     return redirect(url_for('show_latest_five_questions'))
 
 

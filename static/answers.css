@@ -161,11 +161,15 @@ div.answers tfoot {
     background-color: #565656;
 }
 div.answers tfoot td {
-    font-size: 0.6vw;
+    font-size: 0.8vw;
 }
 div.answers tfoot td:hover { 
     transition: background-color 0.7s ease-in; 
     background-color: #414756;
+}
+
+#delete_com {
+    text-align: right;
 }
 /*####MAINLIST COMMENTS####*/
 
