@@ -1,7 +1,7 @@
 body {
     background-image: url("pictures/background.png");
     background-position: fixed;
-    background-size:cover
+    background-size:cover;
     background-color: #393f4d;
     margin: 0;
     font-size: 0.8vw;
