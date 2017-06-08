@@ -45,6 +45,9 @@
                 <li>
                 {{ comment[0] }}
                 </li>
+                <li>
+                {{ comment[2] }}
+                </li>
                 {% if session.username %}
                     <li id="comment_action">
                         <form action="/comment/{{ comment[1] }}/delete" method="post">
@@ -69,7 +72,7 @@
                     </td>
 
                     <td>
-                        <p>{{ session.get('username') }}</p>
+                        <p>{{ question[8] }}</p>
                     </td>
 
 
@@ -119,21 +122,22 @@
                     <thead>
                         <tr>
                             <td width="3%">ID: {{ items[0] }}</td>
+                            <td width="6%">{{ items[7] }}</td>
                             <td width="6%">Question ID: {{ items[3] }}</td>
-                            <td width="13%">Submission Time: {{ items[1] }}</td>
+                            <td width="20%">Submission Time: {{ items[1] }}</td>
                             <td width="5%">Votes: {{ items[2] }}</td>
-                            <td width="5%">
+                            <td width="3%">
                                 <a href= '/answer/{{ items[0] }}/new_comment'>
                                     <img src="https://maxcdn.icons8.com/office/PNG/512/Cinema/breast-512.png"/>
                                 </a>
                             </td>
-                            <td width="5%">
+                            <td width="3%">
                                 <a href= /like/{{ items[0] }}/ans/1> <img src="http://i.picresize.com/images/2017/05/11/qy3u.png"/></a>
                             </td>
-                            <td width="5%">
+                            <td width="3%">
                                 <a href= /like/{{ items[0] }}/ans/0> <img src="http://www.freeiconspng.com/uploads/dislike-button-png-1.png"/></a>
                             </td>
-                            <td width="5%">
+                            <td width="3%">
                                 <form action="/answer/{{ items[0] }}/delete" method="post">
                                     <input type="image" src="http://www.freeiconspng.com/uploads/garbage-bin-png-12.png" width="20px" height="20px"/> 
                                 </form>
@@ -144,7 +148,7 @@
         <!--###ANSWERS###-->            
                     <tbody>
                         <tr>
-                            <td colspan="5">{{ items[4] }}</td>
+                            <td colspan="6">{{ items[4] }}</td>
                             <td colspan="3"><img class="uploaded" src="{{ items[5] }}"></td>
                         </tr>
                     <tbody>
@@ -155,7 +159,8 @@
                             {% for comment in comments  %}
                                 {% if comment[0] == items[0] %}
                                     <tr class="answer_comments">
-                                            <td colspan="5">{{ comment[1] }}</td>
+                                            <td colspan="2">{{ comment[4] }}</td>
+                                            <td colspan="4">{{ comment[1] }}</td>
                                             <td colspan="2">{{ comment[2] }}</td>
                                             <td>
                                                 <form action="/comment/{{ comment[3] }}/delete" method="post">
