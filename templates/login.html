@@ -13,6 +13,25 @@
             <form action='/login' method='POST'>
                 <table>
 
+                    {% if session.role == 'user' or session.role == 'admin' %}
+                    <tr>
+                        <td colspan="2">MEMBERS AREA</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">-------------------</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><a href="/password_recovery">Password recovery!</a></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2"><a href="/change_password">Change your password</a></td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="2">MEMBERS AREA</td>
+                    </tr>
+
                     <tr>
                         <td>Username</td>
                         <td><input id="username" type="text" name="username"></td>
@@ -30,7 +49,6 @@
                     <tr>
                         <td colspan="2"><a href="/registration">Register!</a></td>
                     </tr>
-
                     <tr>
                         <td colspan="2"><a href="/password_recovery">Password recovery!</a></td>
                     </tr>
@@ -38,6 +56,7 @@
                     <tr>
                         <td colspan="2"><a href="/change_password">Change your password</a></td>
                     </tr>
+                    {% endif %}
 
 
                 </table>
