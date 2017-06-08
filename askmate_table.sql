@@ -73,11 +73,12 @@ DROP TABLE IF EXISTS public.users;
 DROP SEQUENCE IF EXISTS public.users_id_seq;
 CREATE TABLE users (
     id serial NOT NULL,
-    username character varying(255),
+    username character varying(255) UNIQUE,
     password character varying(255),
-    email character varying(255),
+    email character varying(255) UNIQUE,
     registration_time timestamp without time zone,
-    role character varying(255) DEFAULT 'user'
+    role character varying(255) DEFAULT 'user',
+    recovery_key character varying(255) UNIQUE
 );
 
 
@@ -130,6 +131,8 @@ ALTER TABLE ONLY question
 INSERT INTO users VALUES (1, 'username', 'password', 'test@testing.co.uk', '2017-06-07 14:01:00');
 INSERT INTO users VALUES (2, 'aladar_istvan', 'shorthand', 'aladar@testing.co.uk', '2017-01-07 11:30:00');
 INSERT INTO users VALUES (3, 'egyip_Tomi', 'jukas', 'nemlyukas@jukasing.co.uk', '2017-06-02 23:59:00');
+SELECT pg_catalog.setval('users_id_seq', 3, true);
+
 
 INSERT INTO question VALUES (0, '2017-04-28 08:29:00', 29, 7, 'How to make lists in Python?', 'I am totally new to this, any hints?', NULL, 1);
 INSERT INTO question VALUES (1, '2017-04-29 09:19:00', 15, 9, 'Wordpress loading multiple jQuery Versions', 'I developed a plugin that uses the jquery booklet plugin (http://builtbywill.com/booklet/#/) this plugin binds a function to $ so I cann call $(".myBook").booklet();
