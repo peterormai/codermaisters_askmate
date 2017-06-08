@@ -185,33 +185,38 @@ def get_all_users():
 
 
 def check_user(username, password):
-    return fetch_database(
-        """SELECT role FROM users WHERE username=%s AND password=%s;""", (username, password), 'one')
+    """Selects user and password from the database"""
+    return fetch_database("""SELECT role FROM users
+                          WHERE username=%s AND password=%s;""", (username, password), 'one')
 
 
 def creator_username(type_, id):
+    """Checks the user with the user ID"""
     try:
         return fetch_database("""SELECT username FROM users
-                            LEFT JOIN {0} ON users.id={0}.user_id
-                            WHERE {0}.id=%s;""".format(type_), (id,), 'one')[0]
+                              LEFT JOIN {0} ON users.id={0}.user_id
+                              WHERE {0}.id=%s;""".format(type_), (id,), 'one')[0]
     except TypeError:
         return None
 
 
 def creator_id(creator_username):
-    return fetch_database("""SELECT id FROM users WHERE username=%s;""", (creator_username,), 'one')[0]
+    """Selects the username of user which shall appear later"""
+    return fetch_database("""SELECT id FROM users
+                          WHERE username=%s;""", (creator_username,), 'one')[0]
 
 
 def create_recovery_key(email):
+    """Creates for the database a recovery key for specific user based on the email address"""
     recovery_key = password_generator(random.randint(50, 100))
-    modify_database("""
-                    UPDATE users
-                    SET recovery_key=%s
+    modify_database("""UPDATE users SET recovery_key=%s
                     WHERE email=%s;""", (recovery_key, email))
     return recovery_key
 
 
+# Mit keres egy password generátor a queries fájlban????
 def password_generator(length):
+    """Generates a set of numbers and letters to create a unique new password"""
     char_set = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
     password = ''
     for char in range(length):
@@ -220,28 +225,24 @@ def password_generator(length):
 
 
 def save_recovery_password(recovery_key, password):
-    modify_database("""UPDATE users SET password=%s WHERE recovery_key=%s;""", (password, recovery_key))
+    """Replaces the old recovery key with the password as well"""
+    modify_database("""UPDATE users SET password=%s
+                    WHERE recovery_key=%s;""", (password, recovery_key))
 
 
 def get_user_email(recovery_key):
-    return fetch_database("""
-                            SELECT email
-                            FROM users
-                            WHERE recovery_key=%s
-                            """, (recovery_key,), 'one')[0]
+    """Selects the user email"""
+    return fetch_database("""SELECT email FROM users
+                          WHERE recovery_key=%s""", (recovery_key,), 'one')[0]
 
 
 def get_username(recovery_key):
-    return fetch_database("""
-                            SELECT username
-                            FROM users
-                            WHERE recovery_key=%s
-                            """, (recovery_key,), 'one')[0]
+    """Gets username for the recovery key"""
+    return fetch_database("""SELECT username FROM users
+                          WHERE recovery_key=%s""", (recovery_key,), 'one')[0]
 
 
 def change_password(username, old_password, new_password):
-    modify_database("""
-                    UPDATE users
-                    SET password=%s
-                    WHERE username=%s AND password=%s;
-                    """, (new_password, username, old_password))
+    """Replaces old password with the new password for the user"""
+    modify_database("""UPDATE users SET password=%s
+                    WHERE username=%s AND password=%s;""", (new_password, username, old_password))
