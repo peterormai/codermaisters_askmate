@@ -40,4 +40,12 @@ div.buttons {
     right: 50px;
 }
 
-div.buttons img:hover { opacity: 1; -webkit-filter: brightness(150%); }
+div.buttons img:hover { 
+    opacity: 1; -webkit-filter: brightness(150%); 
+}
+
+#submit_registration {
+    position: absolute;
+    top: 52%;
+    right: 48%;
+}
