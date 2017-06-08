@@ -88,7 +88,7 @@
                         <p>Votes: {{ question[3] }}</p>
                     </td>
 
-                    {% if session.role == 'admin' or session.username == : %}
+                    {% if session.role == 'admin' or session.username == 'user': %}
                     <td>
                         <a href="/like/{{ question[0] }}/1"> <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/Facebook_like_thumb.png"/></a>
                     </td>
