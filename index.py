@@ -334,26 +334,29 @@ def question_display(question_id):
     """
     The related question will be displayed with answers and comments.
     """
-    webpage_title = 'Question & answers'
-    selected_question = queries.get_question_details(question_id)[0]
-    related_answers = queries.get_question_answers(question_id)
-    question_comment = queries.get_question_comments(question_id)
+    try:
+        webpage_title = 'Question & answers'
+        selected_question = queries.get_question_details(question_id)[0]
+        related_answers = queries.get_question_answers(question_id)
+        question_comment = queries.get_question_comments(question_id)
 
-    answer_ids = queries.get_answer_comment_ids(question_id)
-    answer_id_numbers = []
-    for item in answer_ids:
-        answer_id_numbers.append("".join(map(str, item)))
+        answer_ids = queries.get_answer_comment_ids(question_id)
+        answer_id_numbers = []
+        for item in answer_ids:
+            answer_id_numbers.append("".join(map(str, item)))
 
-    answer_comment = []
-    for answer_id in answer_id_numbers:
-        answer_comment.append(queries.get_answer_comments(int(answer_id)))
-    return render_template('question_display.html',
-                           question=selected_question,
-                           answers=related_answers,
-                           webpage_title=webpage_title,
-                           question_comment=question_comment,
-                           answer_comment=answer_comment,
-                           answer_ids=answer_id_numbers)
+        answer_comment = []
+        for answer_id in answer_id_numbers:
+            answer_comment.append(queries.get_answer_comments(int(answer_id)))
+        return render_template('question_display.html',
+                               question=selected_question,
+                               answers=related_answers,
+                               webpage_title=webpage_title,
+                               question_comment=question_comment,
+                               answer_comment=answer_comment,
+                               answer_ids=answer_id_numbers)
+    except IndexError:
+        return redirect(url_for('show_latest_five_questions'))
 
 
 @app.route("/like/<int:answer_id>/<from_page>/<int:like_value>")

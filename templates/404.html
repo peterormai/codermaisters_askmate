@@ -6,20 +6,15 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='404.css') }}">
   </head>
   <body>
-      <div class="topbar">
-        {% if session.username: %}
-            <a href="/logout" id="logout">logout</a>
-            <a id="loggedin">Welcome <span style="color: #feda6a; font-size: 1vw;">{{ session.username }}</span>!</a>
-        {% else %}
-            <a id = "membersarea" href="/login">Members Area</a>
-        {% endif %}
-        <a href="/">Home</a>
-        <a href="/new_answer">New answer</a>
-      </div>
       <div>
           <h1>404 ERRRORR!!!! Sorry, but it seems like you fucked something up.
                One thing is for sure, we didn't</h1>
-          <img src="https://scontent-vie1-1.xx.fbcdn.net/v/t34.0-12/18685693_1350135741732878_310299245_n.png?oh=94df859ab6325c01e3c4c3037c196215&oe=5929F079" alt="Cödermeisters">
+          <img src="https://swiftthemes.com/blog/wp-content/uploads/2010/06/404-error.png" alt="Cödermeisters">
+      </div>
+      <div>
+        <a id="home" href="/">
+            BACK TO THE MAIN PAGE
+        </a>
       </div>
   </body>
 </html>
