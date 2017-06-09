@@ -7,6 +7,7 @@ body {
     background-position: fixed;
     background-size:cover;
 }
+
 div.topbar {
     position: sticky;
     color: white;

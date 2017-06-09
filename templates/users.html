@@ -6,6 +6,20 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='users.css') }}">
     </head>
     <body>
+        <div class="topbar">
+            {% if session.username: %}
+                <a href="/logout" id="logout">logout</a>
+                <a id = "loggedin" href="/login">Members Area</a>
+                <a id="loggedin">Your role: <span style="color: #feda6a; font-size: 1vw;">{{ session.role }}</span>!</a>
+                <a id="loggedin">Welcome <span style="color: #feda6a; font-size: 1vw;">{{ session.username }}</span>!</a>
+            {% else %}
+                <a id = "membersarea" href="/login">Members Area</a>
+            {% endif %}
+            <a href="/">Home</a>
+            <a href="/new_question">New question</a>
+            <a href="/users">User list</a>
+        </div>
+        
         <table class='header'>
             {% for title in table_header %}
                 <td width='10%'>{{ title }}</td>
@@ -14,12 +28,12 @@
         <table class='users'>
             {% for user in users %}
                 <tr>
-                    <td width='10%'>{{ user[1] }}</td>
-                    <td width='10%'>{{ user[2] }}</td>
-                    <td width='10%'>{{ user[3] }}</td>
-                    <td width='10%'>{{ user[4] }}</td>
+                    <td width='20%'>{{ user[1] }}</td>
+                    <td width='20%'>{{ user[2] }}</td>
+                    <td width='20%'>{{ user[3] }}</td>
+                    <td width='20%'>{{ user[4] }}</td>
                     {% if session.role == 'admin' %}
-                        <td>
+                        <td width='20%'>
                             <a href="/{{ user[0] }}/edit_user">
                                 <img src="http://www.argus-tv.com/wiki/images/e/eb/ICN_EDIT_GREEN.PNG"/>
                             </a>
@@ -28,6 +42,13 @@
                 </tr>
             {% endfor %}
         </table>
-        <p><a href='/'><img src="http://icons.iconarchive.com/icons/robsonbillponte/iRob/512/Folder-Home-Folder-icon.png" height="50px" width="50px"/></a></p>
+
+        <div class="create">
+            <a id="home" href="/">
+                <img src="http://icons.iconarchive.com/icons/robsonbillponte/iRob/512/Folder-Home-Folder-icon.png" height="50px" width="50px"/>
+            </a>
+            <button class="show_all"><a id="show_all" href="/list">Show all questions</button>
+            </a>
+        </div>
     </body>
 </html>

@@ -295,3 +295,11 @@ def get_user_detail(user_id):
                             FROM users
                             WHERE id = %s
                             """, (user_id))[0]
+
+
+def delete_user(user_id):
+    modify_database("""
+                        DELETE
+                        FROM users
+                        WHERE id=%s
+                        """, (user_id))

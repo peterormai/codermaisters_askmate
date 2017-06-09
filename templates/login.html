@@ -6,6 +6,20 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
   </head>
   <body>
+        <div class="topbar">
+            {% if session.username: %}
+                <a href="/logout" id="logout">logout</a>
+                <a id = "loggedin" href="/login">Members Area</a>
+                <a id="loggedin">Your role: <span style="color: #feda6a; font-size: 1vw;">{{ session.role }}</span>!</a>
+                <a id="loggedin">Welcome <span style="color: #feda6a; font-size: 1vw;">{{ session.username }}</span>!</a>
+            {% else %}
+                <a id = "membersarea" href="/login">Members Area</a>
+            {% endif %}
+            <a href="/">Home</a>
+            <a href="/new_question">New question</a>
+            <a href="/users">User list</a>
+        </div>
+        
         <div>
             {% with messages = get_flashed_messages() %}
                 <p id="keyframes">{{ messages[0] }}</p>
