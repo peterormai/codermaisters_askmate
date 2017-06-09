@@ -19,6 +19,16 @@ app.config.update(
 )
 
 
+def admin_required(function):
+    @wraps(function)
+    def wrap(*args, **kwargs):
+        if session.get('role') == 'admin':
+            return function(*args, **kwargs)
+        else:
+            return redirect(url_for('show_latest_five_questions'))
+    return wrap
+
+
 def not_with_login(function):
     @wraps(function)
     def wrap(*args, **kwargs):
@@ -83,8 +93,6 @@ def recovery_check(recovery_key):
         send_mail('barnabastoth94@gmail.com', 'fanatic99', email, msg)
         queries.save_recovery_password(recovery_key, new_password)
         flash('An email has been sent to your inbox which contains your new password, dont forget to change it after logging in.')
-        # delete_recovery_keys(15, recovery_key)
-        # print("K")
         return redirect(url_for('login'))
     else:
         return redirect(url_for('show_latest_five_questions'))
@@ -146,12 +154,14 @@ def delete_recovery_keys(mins, recovery_key):
 
 
 @app.route('/<user_id>/edit_user', methods=['POST', 'GET'])
+@admin_required
 def edit_user(user_id):
     if request.method == 'POST':
         new_username = request.form['new_username']
         new_password = request.form['new_password']
         new_email = request.form['new_email']
         new_role = request.form['new_role']
+        delete_user = request.form['delete_user']
         if len(new_username) > 0:
             queries.update_username(user_id, new_username)
         if len(new_password) > 0:
@@ -160,6 +170,8 @@ def edit_user(user_id):
             queries.update_email(user_id, new_email)
         if len(new_role) > 0:
             queries.update_role(user_id, new_role)
+        if delete_user == 'Yes':
+            queries.delete_user(user_id)
         return redirect(url_for('show_latest_five_questions'))
     else:
         user_data = queries.get_user_detail(user_id)
